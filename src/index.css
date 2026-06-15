@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "Fira Code", monospace;
+  
+  --color-brand-red: #E11D48;
+  --color-brand-red-hover: #BE123C;
+  --color-brand-dark: #0A0A0A;
+  --color-brand-charcoal: #141414;
+  --color-brand-gray: #1A1A1A;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0C;
+}
+::-webkit-scrollbar-thumb {
+  background: #2E2E38;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF2E44;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Abstract ambient glows */
+.red-ambient-glow {
+  background: radial-gradient(circle, rgba(255, 46, 68, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.charcoal-ambient-glow {
+  background: radial-gradient(circle, rgba(30, 30, 36, 0.4) 0%, rgba(0, 0, 0, 0) 80%);
+}
+

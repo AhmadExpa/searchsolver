@@ -1,0 +1,6 @@
+{
+  "name": "SearchSolver",
+  "description": "Premium Search-First Growth & Marketing Agency based in the UK",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
