@@ -153,38 +153,102 @@ export default function AuditForm() {
         setAiProgressMsg(stage.msg);
 
         if (stage.prg === 100) {
-          try {
-            const res = await fetch("/api/audit", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                companyName: aiRestaurantName,
-                websiteUrl: aiWebsiteUrl,
-                role: aiRole,
-                challenge: aiChallenge,
-                postingFrequency: aiFrequency,
-                location: aiLocation
-              })
-            });
+          let reportText = "";
+          let success = false;
 
-            const data = await res.json();
-            if (data.success) {
-              setAiOutput(data.report);
-              setAiStep('report');
-            } else {
-              throw new Error(data.error || "Service unavailable");
+          // 1. Try to call the Gemini API directly on the client if VITE_GEMINI_API_KEY is configured in Vercel/environment
+          const clientApiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
+          if (clientApiKey && clientApiKey !== "YOUR_KEY_HERE" && clientApiKey.trim() !== "" && !clientApiKey.includes("VITE_GEMINI_API_KEY")) {
+            try {
+              const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at SearchSolver UK.
+A restaurant has requested an urgent 5-minute sales & engagement recovery audit.
+
+Here are the target restaurant details:
+- Restaurant Name: "${aiRestaurantName}"
+- Website / Brand Link: "${aiWebsiteUrl}"
+- Core Submitter Role: "${aiRole}"
+- Main Revenue Obstacle/Pain Point: "${aiChallenge}"
+- Current Social Posting Frequency: "${aiFrequency}"
+- Primary Target Location: "${aiLocation}"
+
+Create a highly-focused, direct, punchy, and professional Audit Report.
+Avoid generic marketing fluff or AI-style introductory greetings. Get straight to the analysis.
+
+Your response must be structured into exactly these four headers using clear, high-contrast Markdown formatting:
+
+### 1. THE REVENUE LEAKS ANALYSIS
+Provide a 2-3 sentence analysis of exactly why their current setup (considering their role "${aiRole}", hurdle "${aiChallenge}", and social frequency "${aiFrequency}") is causing them to lose prospective mid-week covers and direct sales on their high-street location. Identify commission leaks to aggregators.
+
+### 2. DIVERGING FROM HIGH-COMMISSION CHANNELS
+Explain 2 actionable, non-obvious ways they can deflect customers from delivery apps (with 30% commissions) directly to booking tables or ordering direct using daily high-retention content and local SEO.
+
+### 3. THE 30-DAY DAILY SOCIAL COMMAND ROUTEMAP
+Outline a direct 3-step blueprint for daily posting (e.g., foodie reels, micro-engagements, local search keywords) custom-styled for "${aiRestaurantName}". State exactly what they should publish and how to drive comment-to-booking automated sequences.
+
+### 4. SUMMARY RECOMMENDATIONS
+Add a brief 1-2 sentence final summary detailing their potential growth rate.
+At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you."`;
+
+              const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${clientApiKey}`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  contents: [{ parts: [{ text: prompt }] }]
+                })
+              });
+
+              if (response.ok) {
+                const data = await response.json();
+                if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                  reportText = data.candidates[0].content.parts[0].text;
+                  success = true;
+                }
+              }
+            } catch (err) {
+              console.warn("Direct client Gemini API fetch failed, falling back to local simulation:", err);
             }
-          } catch (err) {
-            console.error("AI Audit fetch error:", err);
-            // Dynamic fallback report matching selections
-            const fallbackReport = `### 1. THE REVENUE LEAKS ANALYSIS
+          }
+
+          // 2. Try the server-side API `/api/audit` if it is running (sandbox / express backend)
+          if (!success) {
+            try {
+              const res = await fetch("/api/audit", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  companyName: aiRestaurantName,
+                  websiteUrl: aiWebsiteUrl,
+                  role: aiRole,
+                  challenge: aiChallenge,
+                  postingFrequency: aiFrequency,
+                  location: aiLocation
+                })
+              });
+
+              if (res.ok) {
+                const data = await res.json();
+                if (data.success) {
+                  reportText = data.report;
+                  success = true;
+                }
+              }
+            } catch (err) {
+              console.warn("Backend API not reachable/configured, falling back to client-side generator:", err);
+            }
+          }
+
+          // 3. Fallback to highly optimized dynamic client-side generator (creates perfect reports immediately without server dependencies)
+          if (!success) {
+            reportText = `### 1. THE REVENUE LEAKS ANALYSIS
 Based on your role as **${aiRole}** at **${aiRestaurantName}**, your primary obstacle (**${aiChallenge}**) combined with a **${aiFrequency}** social presence is costing you substantial high-street footfall. Without constant daily video reels, your restaurant is virtually invisible to local diners whose visual memory decays within 48 hours. You are currently leaking upwards of 30% in margin fees to third-party delivery aggregators.
 
 ### 2. DIVERGING FROM HIGH-COMMISSION CHANNELS
 *   **Direct-to-Table Reservation Hooks:** Deploy instant-booking incentives (like a complimentary chef's treat or signature mid-week drink) on your high-speed dynamic mobile menu to convert viewers into confirmed seats.
-*   **Local Postcode Geo-Mapping:** Secure your postcodes in the Google Maps Local 3-Pack so residents looking for regional eats map directly to your brand.
+*   **Local Postcode Geo-Mapping:** Secure your postcodes in the Google Maps Local 3-Pack so residents in **${aiLocation}** looking for regional eats map directly to your brand.
 
 ### 3. THE 30-DAY DAILY SOCIAL COMMAND ROUTEMAP
 1.  **Daily Slow-Motion Foodie Reels:** Record and publish 15-second high-appetite reels every single day showing sizzles, pours, and chef techniques.
@@ -195,9 +259,10 @@ Based on your role as **${aiRole}** at **${aiRestaurantName}**, your primary obs
 With consistent daily publishing and local listing optimization, **${aiRestaurantName}** can expect a substantial up to **+185% increase in weekly table covers** and reclaim 30%+ of commission-heavy aggregator sales.
 
 To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you.`;
-            setAiOutput(fallbackReport);
-            setAiStep('report');
           }
+
+          setAiOutput(reportText);
+          setAiStep('report');
         }
       }, (index + 1) * 600);
     });
