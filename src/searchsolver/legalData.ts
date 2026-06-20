@@ -19,7 +19,7 @@ export const legalDocuments: LegalDocument[] = [
       {
         heading: "1. Core Principles & Lawful Basis of Processing",
         paragraphs: [
-          "SearchSolver Digital Ltd collects, maintains, and processes data under the lawful basis of legitimate commercial interest (Article 6(1)(f) UK GDPR) and/or explicitly defined consent for communication. Our systems are engineered from the ground up prioritizing data minimalisation.",
+          "Markadeo Digital Ltd collects, maintains, and processes data under the lawful basis of legitimate commercial interest (Article 6(1)(f) UK GDPR) and/or explicitly defined consent for communication. Our systems are engineered from the ground up prioritizing data minimalisation.",
           "We process corporate domains and parameters exclusively to deliver search marketing metrics, crawl audits, and search campaign forecast estimates. All audit telemetry is strictly isolated."
         ]
       },
@@ -40,7 +40,7 @@ export const legalDocuments: LegalDocument[] = [
       {
         heading: "4. Your Statutory Information Rights",
         paragraphs: [
-          "Under UK GDPR regulations, you hold explicit statutory rights to inspect, update, or permanently delete any stored logs referencing your corporate brand or electronic mailbox. Contact the desk coordinator directly at partnerships@searchsolver.net to execute an official Subject Access Request (SAR)."
+          "Under UK GDPR regulations, you hold explicit statutory rights to inspect, update, or permanently delete any stored logs referencing your corporate brand or electronic mailbox. Contact the desk coordinator directly at partnerships@markadeo.com to execute an official Subject Access Request (SAR)."
         ]
       }
     ]
@@ -54,7 +54,7 @@ export const legalDocuments: LegalDocument[] = [
       {
         heading: "1. Consent Management Benchmarks",
         paragraphs: [
-          "SearchSolver Digital Ltd implements privacy principles set by the Privacy and Electronic Communications Regulations (PECR). We avoid pre-checked boxes or silent tracking scripts.",
+          "Markadeo Digital Ltd implements privacy principles set by the Privacy and Electronic Communications Regulations (PECR). We avoid pre-checked boxes or silent tracking scripts.",
           "Users retain sovereign rights to configure web parameters to discard functional or analytical identifiers without degrading the dynamic performance of the search forecasts."
         ]
       },
@@ -68,7 +68,7 @@ export const legalDocuments: LegalDocument[] = [
       {
         heading: "3. No Advertising Ad-Network Trackers",
         paragraphs: [
-          "True to our professional enterprise ethos, SearchSolver operates with absolute zero retargeting networks, pixel tracking overlays, or cross-origin profile syndication. Your search performance strategy remains completely confidential."
+          "True to our professional enterprise ethos, Markadeo operates with absolute zero retargeting networks, pixel tracking overlays, or cross-origin profile syndication. Your search performance strategy remains completely confidential."
         ]
       }
     ]

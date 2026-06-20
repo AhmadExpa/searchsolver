@@ -11,7 +11,7 @@ import AuditForm from './AuditForm';
 import Footer from './Footer';
 import LegalModal from './LegalModal';
 
-export default function SearchSolverApp() {
+export default function MarkadeoApp() {
   const [activeLegalId, setActiveLegalId] = useState<string | null>(null);
   const [isConsoleActive, setIsConsoleActive] = useState(false);
   const [consoleTab, setConsoleTab] = useState<'calculator' | 'auditor'>('auditor');
@@ -24,7 +24,7 @@ export default function SearchSolverApp() {
   };
 
   return (
-    <div className="bg-brand-dark min-h-screen text-white font-sans selection:bg-brand-red selection:text-white">
+    <div className="bg-brand-dark min-h-screen text-white font-sans selection:bg-brand-gold selection:text-black">
       {/* Configure navigation links and actions */}
       <Navbar onOpenConsole={handleOpenConsole} />
       
@@ -52,9 +52,9 @@ export default function SearchSolverApp() {
 
               {/* Elegant Bottom Call-to-Action to enter interactive sandbox console */}
               <section className="py-20 bg-gradient-to-b from-[#0C0C0C] to-[#050505] border-t border-white/5 relative overflow-hidden" id="growth-console-cta-band">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-red/5 rounded-full filter blur-[100px] pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-gold/5 rounded-full filter blur-[100px] pointer-events-none" />
                 <div className="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-6">
-                  <span className="text-[10px] font-mono tracking-widest text-[#E11D48] font-black uppercase py-1.5 px-3.5 bg-brand-red/10 border border-[#E11D48]/30">
+                  <span className="text-[10px] font-mono tracking-widest text-[#F5B82E] font-black uppercase py-1.5 px-3.5 bg-brand-gold/10 border border-[#F5B82E]/30">
                     EXPERIENCE THE TECHNOLOGY DIRECTLY
                   </span>
                   <h3 className="text-2xl sm:text-4xl font-display font-black uppercase text-white tracking-tight">
@@ -66,7 +66,7 @@ export default function SearchSolverApp() {
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <button
                       onClick={() => handleOpenConsole('auditor')}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-red hover:bg-[#C0153D] text-white font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none shadow-lg shadow-brand-red/10 transition-all duration-200 cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-gold hover:bg-[#E0A516] text-black font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none shadow-lg shadow-brand-gold/10 transition-all duration-200 cursor-pointer"
                     >
                       <span>Launch AI Audit Crawl</span>
                     </button>
@@ -97,7 +97,7 @@ export default function SearchSolverApp() {
                     onClick={() => setIsConsoleActive(false)}
                     className="inline-flex items-center gap-2 border border-white/10 bg-[#141414] hover:bg-white/5 py-2 px-4 rounded-none text-xs font-mono font-bold tracking-wider text-zinc-400 hover:text-white transition-all cursor-pointer uppercase"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5 text-[#E11D48]" />
+                    <ArrowLeft className="w-3.5 h-3.5 text-[#F5B82E]" />
                     Exit Strategic Console
                   </button>
                   
@@ -122,15 +122,15 @@ export default function SearchSolverApp() {
               <div className="bg-[#0A0A0A] border border-white/[0.08] p-4 sm:p-8 relative">
                 
                 {/* Vintage red architectural styling anchors */}
-                <div className="absolute top-0 left-0 w-8 h-px bg-brand-red" />
-                <div className="absolute top-0 left-0 w-px h-8 bg-brand-red" />
-                <div className="absolute bottom-0 right-0 w-8 h-px bg-brand-red" />
-                <div className="absolute bottom-0 right-0 w-px h-8 bg-brand-red" />
+                <div className="absolute top-0 left-0 w-8 h-px bg-brand-gold" />
+                <div className="absolute top-0 left-0 w-px h-8 bg-brand-gold" />
+                <div className="absolute bottom-0 right-0 w-8 h-px bg-brand-gold" />
+                <div className="absolute bottom-0 right-0 w-px h-8 bg-brand-gold" />
 
                 {/* Console header content specifically structured for simplicity */}
                 <div className="text-left mb-8 max-w-3xl">
-                  <span className="text-[10px] font-mono tracking-widest text-[#E11D48] uppercase px-2.5 py-1 bg-brand-red/10 border border-[#E11D48]/30 rounded-none inline-block font-bold">
-                    SEARCHSOLVER CORE SYSTEM CONSOLE
+                  <span className="text-[10px] font-mono tracking-widest text-[#F5B82E] uppercase px-2.5 py-1 bg-brand-gold/10 border border-[#F5B82E]/30 rounded-none inline-block font-bold">
+                    MARKADEO CORE SYSTEM CONSOLE
                   </span>
                   <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight mt-2.5 mb-1.5">
                     CALIBRATE YOUR RESTAURANT REVENUE PLATFORM
@@ -146,7 +146,7 @@ export default function SearchSolverApp() {
                     onClick={() => setConsoleTab('auditor')}
                     className={`flex items-center justify-center gap-3 py-4 text-xs font-display font-black uppercase tracking-widest transition-all rounded-none cursor-pointer ${
                       consoleTab === 'auditor'
-                        ? 'bg-brand-red text-white shadow-lg'
+                        ? 'bg-brand-gold text-black shadow-lg'
                         : 'bg-transparent text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02]'
                     }`}
                   >
@@ -157,7 +157,7 @@ export default function SearchSolverApp() {
                     onClick={() => setConsoleTab('calculator')}
                     className={`flex items-center justify-center gap-3 py-4 text-xs font-display font-black uppercase tracking-widest transition-all rounded-none cursor-pointer ${
                       consoleTab === 'calculator'
-                        ? 'bg-brand-red text-white shadow-lg'
+                        ? 'bg-brand-gold text-black shadow-lg'
                         : 'bg-transparent text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02]'
                     }`}
                   >

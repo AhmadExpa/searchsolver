@@ -38,7 +38,7 @@ app.post("/api/audit", async (req, res) => {
     return res.status(400).json({ error: "Restaurant Name and Website/Link are required." });
   }
 
-  const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at SearchSolver UK.
+  const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at Markadeo UK.
 A restaurant has requested an urgent 5-minute sales & engagement recovery audit.
 
 Here are the target restaurant details:
@@ -65,7 +65,7 @@ Outline a direct 3-step blueprint for daily posting (e.g., foodie reels, micro-e
 
 ### 4. SUMMARY RECOMMENDATIONS
 Add a brief 1-2 sentence final summary detailing their potential growth rate.
-At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you."`;
+At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you."`;
 
   try {
     const ai = getAI();
@@ -97,7 +97,7 @@ Based on your role as **${role}** at **${companyName}**, your primary obstacle (
 ### 4. SUMMARY RECOMMENDATIONS
 With consistent daily publishing and local listing optimization, **${companyName}** can expect a substantial up to **+185% increase in weekly table covers** and reclaim 30%+ of commission-heavy aggregator sales.
 
-To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you.`;
+To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you.`;
 
     return res.json({ 
       report: fallbackReport, 
@@ -125,7 +125,7 @@ async function bootstrapServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[SearchSolver] Server running on http://localhost:${PORT}`);
+    console.log(`[Markadeo] Server running on http://localhost:${PORT}`);
   });
 }
 

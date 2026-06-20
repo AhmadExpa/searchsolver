@@ -16,15 +16,15 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
   const getIcon = (id: string) => {
     switch (id) {
       case 'gdpr':
-        return <Shield className="w-5 h-5 text-brand-red" />;
+        return <Shield className="w-5 h-5 text-brand-gold" />;
       case 'pecr':
-        return <Cookie className="w-5 h-5 text-brand-red" />;
+        return <Cookie className="w-5 h-5 text-brand-gold" />;
       case 'privacy':
-        return <FileText className="w-5 h-5 text-brand-red" />;
+        return <FileText className="w-5 h-5 text-brand-gold" />;
       case 'terms':
-        return <Scale className="w-5 h-5 text-brand-red" />;
+        return <Scale className="w-5 h-5 text-brand-gold" />;
       default:
-        return <FileText className="w-5 h-5 text-brand-red" />;
+        return <FileText className="w-5 h-5 text-brand-gold" />;
     }
   };
 
@@ -49,12 +49,12 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
         id={`legal-modal-${doc.id}`}
       >
         {/* Top red header brand bar */}
-        <div className="h-1 bg-brand-red w-full" />
+        <div className="h-1 bg-brand-gold w-full" />
 
         {/* Modal Header */}
         <div className="p-6 md:p-8 bg-[#141414] border-b border-white/5 flex items-start justify-between gap-6">
           <div className="space-y-1 text-left">
-            <span className="text-[10px] font-mono tracking-widest text-brand-red uppercase font-black flex items-center gap-1.5">
+            <span className="text-[10px] font-mono tracking-widest text-brand-gold uppercase font-black flex items-center gap-1.5">
               {getIcon(doc.id)}
               UK REGULATORY LEDGER // {doc.id.toUpperCase()}
             </span>
@@ -68,7 +68,7 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
 
           <button
             onClick={onClose}
-            className="p-2 border border-white/5 bg-transparent hover:bg-brand-red hover:text-white text-zinc-400 font-mono text-xs uppercase transition-all flex items-center gap-1.5 rounded-none"
+            className="p-2 border border-white/5 bg-transparent hover:bg-brand-gold hover:text-black text-zinc-400 font-mono text-xs uppercase transition-all flex items-center gap-1.5 rounded-none"
             title="Close panel"
           >
             <X className="w-4 h-4" />
@@ -81,7 +81,7 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
           {doc.sections.map((section, idx) => (
             <div key={idx} className="space-y-3">
               <h4 className="text-xs font-mono font-black uppercase text-white tracking-widest flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-brand-red" />
+                <span className="w-1.5 h-1.5 bg-brand-gold" />
                 {section.heading}
               </h4>
               <div className="space-y-3 pl-3.5">
@@ -119,7 +119,7 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
             <span>|</span>
             <button
               onClick={onClose}
-              className="text-brand-red hover:underline font-bold"
+              className="text-brand-gold hover:underline font-bold"
             >
               FINALIZE COMPLIANCE
             </button>

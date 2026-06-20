@@ -29,7 +29,7 @@ export default function RoiCalculator() {
   const currentOrders = Math.round(sessions * (conversion / 100));
   const currentRevenue = currentOrders * aov;
 
-  // SearchSolver Impact: Social Posting + Daily Engagement Lift
+  // Markadeo Impact: Social Posting + Daily Engagement Lift
   // Boost digital views by 200% (daily publishing) and conversion rates by 50%
   const expectedSessions = Math.round(sessions * 2.2); // 220% of original
   const expectedConversion = parseFloat((conversion * 1.50).toFixed(3)); // 150% of original
@@ -42,17 +42,17 @@ export default function RoiCalculator() {
 
   return (
     <section id="calculator" className="py-24 bg-brand-charcoal relative border-t border-b border-zinc-900">
-      <div className="absolute inset-0 pointer-events-none red-ambient-glow filter blur-[120px] opacity-20 top-1/4 right-0" />
+      <div className="absolute inset-0 pointer-events-none gold-ambient-glow filter blur-[120px] opacity-20 top-1/4 right-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" id="roi-calculator-container">
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[11px] font-mono tracking-widest text-[#E11D48] uppercase px-3.5 py-1.5 bg-brand-red/10 border border-[#E11D48]/30 rounded-none inline-block mb-3 font-bold">
+          <span className="text-[11px] font-mono tracking-widest text-[#F5B82E] uppercase px-3.5 py-1.5 bg-brand-gold/10 border border-[#F5B82E]/30 rounded-none inline-block mb-3 font-bold">
             UK DINER DEMAND MATRIX
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-black text-white mb-4 uppercase tracking-tighter">
-            CALCULATE UNTAPPED <span className="text-[#E11D48]">RESTAURANT REVENUE</span>
+            CALCULATE UNTAPPED <span className="bg-gradient-to-r from-brand-gold to-brand-gold-soft bg-clip-text text-transparent">RESTAURANT REVENUE</span>
           </h2>
           <p className="font-sans text-sm sm:text-base text-zinc-400 font-light">
             Slide the markers below to replicate your restaurant's current parameters. See the direct financial turnaround when transitioning to consistent daily postings, maps superiority, and targeted community social media outreach.
@@ -69,7 +69,7 @@ export default function RoiCalculator() {
               onClick={() => setSectorPresets('casual')}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
                 sector === 'casual'
-                  ? 'bg-brand-red text-white'
+                  ? 'bg-brand-gold text-black'
                   : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
@@ -80,7 +80,7 @@ export default function RoiCalculator() {
               onClick={() => setSectorPresets('premium')}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
                 sector === 'premium'
-                  ? 'bg-brand-red text-white'
+                  ? 'bg-brand-gold text-black'
                   : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
@@ -91,7 +91,7 @@ export default function RoiCalculator() {
               onClick={() => setSectorPresets('delivery')}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
                 sector === 'delivery'
-                  ? 'bg-brand-red text-white'
+                  ? 'bg-brand-gold text-black'
                   : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
               }`}
             >
@@ -109,7 +109,7 @@ export default function RoiCalculator() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-sm flex-wrap gap-2">
                   <label className="font-display font-bold uppercase tracking-wide text-xs text-zinc-200">Estimated Monthly Digital Menu Views (Traffic)</label>
-                  <span className="font-mono text-brand-red font-bold bg-brand-red/10 border border-brand-red/20 px-3 py-1 rounded-none text-xs">
+                  <span className="font-mono text-brand-gold font-bold bg-brand-gold/10 border border-brand-gold/20 px-3 py-1 rounded-none text-xs">
                     {sessions.toLocaleString()} viewers
                   </span>
                 </div>
@@ -123,7 +123,7 @@ export default function RoiCalculator() {
                     setSessions(Number(e.target.value));
                     setSector('casual'); // clear presets focus highlight
                   }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-red"
+                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
                   aria-label="Estimated Monthly Digital Menu Views"
                 />
                 <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
@@ -137,7 +137,7 @@ export default function RoiCalculator() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-sm flex-wrap gap-2">
                   <label className="font-display font-bold uppercase tracking-wide text-xs text-zinc-200">Table Booking / Direct Order Rate (%)</label>
-                  <span className="font-mono text-rose-400 font-bold bg-brand-red/10 border border-brand-red/20 px-3 py-1 rounded-none text-xs">
+                  <span className="font-mono text-brand-gold font-bold bg-brand-gold/10 border border-brand-gold/20 px-3 py-1 rounded-none text-xs">
                     {conversion}%
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function RoiCalculator() {
                     setConversion(Number(e.target.value));
                     setSector('casual');
                   }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-red"
+                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
                   aria-label="Table Booking Rate"
                 />
                 <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
@@ -179,7 +179,7 @@ export default function RoiCalculator() {
                     setAov(Number(e.target.value));
                     setSector('casual');
                   }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-red"
+                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
                   aria-label="Average Guest Spend"
                 />
                 <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
@@ -205,7 +205,7 @@ export default function RoiCalculator() {
                 </div>
 
                 <div className="pt-4 border-t border-white/5">
-                  <div className="inline-flex items-center gap-1.5 bg-brand-red/10 border border-[#E11D48]/25 px-2.5 py-0.5 rounded-none text-[9px] text-[#E11D48] font-mono tracking-wider uppercase mb-2">
+                  <div className="inline-flex items-center gap-1.5 bg-brand-gold/10 border border-[#F5B82E]/25 px-2.5 py-0.5 rounded-none text-[9px] text-[#F5B82E] font-mono tracking-wider uppercase mb-2">
                     <Sparkles className="w-3 h-3 animate-pulse" /> DAILY ENGAGEMENT COMMAND LIFT
                   </div>
                   <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block font-black">PROJECTED PARTNERSHIP REVENUE</span>
@@ -219,11 +219,11 @@ export default function RoiCalculator() {
 
                 <div className="pt-4 border-t border-white/5">
                   <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-0.5 font-black">ESTIMATED REV RECOVERY</span>
-                  <p className="text-3xl font-display font-black text-brand-red uppercase">
+                  <p className="text-3xl font-display font-black text-brand-gold uppercase">
                     +£{revenueGain.toLocaleString()}<span className="text-xs text-zinc-500 font-mono font-normal"> / mo</span>
                   </p>
-                  <div className="flex items-center gap-2 mt-2 bg-brand-red/5 border border-[#E11D48]/10 p-2.5 rounded-none text-[11px] text-zinc-400 font-mono">
-                    <TrendingUp className="w-4 h-4 text-brand-red" />
+                  <div className="flex items-center gap-2 mt-2 bg-brand-gold/5 border border-[#F5B82E]/10 p-2.5 rounded-none text-[11px] text-zinc-400 font-mono">
+                    <TrendingUp className="w-4 h-4 text-brand-gold" />
                     <span>Generate <strong className="text-white">{roiMultiplier}x profit multiplier</strong> on managed social investment budgets.</span>
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export default function RoiCalculator() {
               <div className="mt-8">
                 <a
                   href="#contact-form-section"
-                  className="block text-center border border-brand-red text-brand-red bg-transparent hover:bg-brand-red hover:text-white py-3.5 px-4 rounded-none font-display font-bold text-xs uppercase tracking-widest transition-all"
+                  className="block text-center border border-brand-gold text-brand-gold bg-transparent hover:bg-brand-gold hover:text-black py-3.5 px-4 rounded-none font-display font-bold text-xs uppercase tracking-widest transition-all"
                   id="btn-calculator-submit"
                 >
                   Schedule Turnaround consultation (£0)

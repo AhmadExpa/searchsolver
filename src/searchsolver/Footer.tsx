@@ -21,7 +21,7 @@ export default function Footer({ onOpenLegal }: FooterProps) {
               Surgical enterprise search engine optimization and performance marketing custom engineered for outstanding UK businesses seeking high-conversion growth.
             </p>
             <div className="space-y-1 bg-[#141414] p-3.5 rounded-none border border-white/5 inline-block font-mono text-[10.5px]">
-              <p className="text-zinc-300">SearchSolver Digital Ltd</p>
+              <p className="text-zinc-300">Markadeo Digital Ltd</p>
               <p className="text-zinc-500">Registered in England & Wales: #13849502</p>
               <p className="text-zinc-500">UK VAT Registration: GB924738593</p>
             </div>
@@ -54,22 +54,22 @@ export default function Footer({ onOpenLegal }: FooterProps) {
             <h4 className="font-display font-black text-xs text-white uppercase tracking-widest">Offices & Contacts</h4>
             <ul className="space-y-3 font-sans text-zinc-400">
               <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-350 text-[11px] font-mono uppercase block mb-0.5">London HQ:</strong>
                   <p className="text-zinc-500">Pancras Square, King's Cross, London, N1C 4AG</p>
                 </div>
               </li>
               <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-355 text-[11px] font-mono uppercase block mb-0.5">Manchester Dev Desk:</strong>
                   <p className="text-zinc-500">Hardman Square, Spinningfields, Manchester, M3 3EB</p>
                 </div>
               </li>
               <li className="flex items-center gap-2.5 border-t border-white/5 pt-2.5 mt-2">
-                <Mail className="w-4 h-4 text-brand-red flex-shrink-0" />
-                <a href="mailto:partnerships@searchsolver.net" className="hover:text-brand-red transition-colors text-zinc-300 font-mono">partnerships@searchsolver.net</a>
+                <Mail className="w-4 h-4 text-brand-gold flex-shrink-0" />
+                <a href="mailto:partnerships@markadeo.com" className="hover:text-brand-gold transition-colors text-zinc-300 font-mono">partnerships@markadeo.com</a>
               </li>
             </ul>
           </div>
@@ -81,7 +81,7 @@ export default function Footer({ onOpenLegal }: FooterProps) {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-600">
           <div className="flex flex-wrap items-center gap-4">
-            <span>&copy; {currentYear} SearchSolver. All rights reserved.</span>
+            <span>&copy; {currentYear} Markadeo. All rights reserved.</span>
             <span className="hidden sm:inline">|</span>
             <button
               onClick={() => onOpenLegal('gdpr')}

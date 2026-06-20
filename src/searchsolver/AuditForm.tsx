@@ -36,7 +36,7 @@ export default function AuditForm() {
 
   // Load history from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('searchsolver_audits');
+    const saved = localStorage.getItem('markadeo_audits');
     if (saved) {
       try {
         setSubmissions(JSON.parse(saved));
@@ -48,7 +48,7 @@ export default function AuditForm() {
 
   const saveToLocal = (newSubmissions: AuditSubmission[]) => {
     setSubmissions(newSubmissions);
-    localStorage.setItem('searchsolver_audits', JSON.stringify(newSubmissions));
+    localStorage.setItem('markadeo_audits', JSON.stringify(newSubmissions));
   };
 
   const handleAuditSubmit = (e: FormEvent) => {
@@ -160,7 +160,7 @@ export default function AuditForm() {
           const clientApiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
           if (clientApiKey && clientApiKey !== "YOUR_KEY_HERE" && clientApiKey.trim() !== "" && !clientApiKey.includes("VITE_GEMINI_API_KEY")) {
             try {
-              const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at SearchSolver UK.
+              const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at Markadeo UK.
 A restaurant has requested an urgent 5-minute sales & engagement recovery audit.
 
 Here are the target restaurant details:
@@ -187,7 +187,7 @@ Outline a direct 3-step blueprint for daily posting (e.g., foodie reels, micro-e
 
 ### 4. SUMMARY RECOMMENDATIONS
 Add a brief 1-2 sentence final summary detailing their potential growth rate.
-At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you."`;
+At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you."`;
 
               const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${clientApiKey}`, {
                 method: 'POST',
@@ -258,7 +258,7 @@ Based on your role as **${aiRole}** at **${aiRestaurantName}**, your primary obs
 ### 4. SUMMARY RECOMMENDATIONS
 With consistent daily publishing and local listing optimization, **${aiRestaurantName}** can expect a substantial up to **+185% increase in weekly table covers** and reclaim 30%+ of commission-heavy aggregator sales.
 
-To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact SearchSolver to handle everything for you.`;
+To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you.`;
           }
 
           setAiOutput(reportText);
@@ -276,17 +276,17 @@ To immediately execute this elite daily engagement & local search turnaround fra
 
   return (
     <section id="contact-form-section" className="py-24 bg-brand-charcoal relative border-t border-b border-zinc-900">
-      <div className="absolute inset-0 pointer-events-none red-ambient-glow filter blur-[150px] opacity-15 top-0 right-0 animate-pulse" />
+      <div className="absolute inset-0 pointer-events-none gold-ambient-glow filter blur-[150px] opacity-15 top-0 right-0 animate-pulse" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" id="audit-form-container">
         
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[11px] font-mono tracking-widest text-[#E11D48] uppercase px-3.5 py-1.5 bg-brand-red/10 border border-[#E11D48]/30 rounded-none inline-block mb-3 font-bold">
+          <span className="text-[11px] font-mono tracking-widest text-[#F5B82E] uppercase px-3.5 py-1.5 bg-brand-gold/10 border border-[#F5B82E]/30 rounded-none inline-block mb-3 font-bold">
             UK HOSPITALITY PERFORMANCE CENTRE
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tighter">
-            RESTORE YOUR REVENUE & <span className="text-[#E11D48]">RESTORE YOUR SEATS</span>
+            RESTORE YOUR REVENUE & <span className="bg-gradient-to-r from-brand-gold to-brand-gold-soft bg-clip-text text-transparent">RESTORE YOUR SEATS</span>
           </h2>
           <p className="font-sans text-sm sm:text-base text-zinc-400 font-light">
             If your restaurant is suffering from high aggregator commission rates, silent mid-week nights, dynamic local competition, or lack of daily social posting, we have you covered. Configure the parameters below for analysis or connect instantly via our official channels.
@@ -299,7 +299,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
             onClick={() => { setActiveTab('aiaudit'); }}
             className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
               activeTab === 'aiaudit'
-                ? 'bg-[#E11D48] text-white'
+                ? 'bg-[#F5B82E] text-black'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -309,7 +309,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
             onClick={() => { setActiveTab('validator'); if (step === 'report') setStep('idle'); }}
             className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
               activeTab === 'validator'
-                ? 'bg-[#E11D48] text-white'
+                ? 'bg-[#F5B82E] text-black'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -319,7 +319,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
             onClick={() => setActiveTab('googleform')}
             className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
               activeTab === 'googleform'
-                ? 'bg-[#E11D48] text-white'
+                ? 'bg-[#F5B82E] text-black'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -333,7 +333,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
           <div className="lg:col-span-8 bg-[#141414] border border-white/5 rounded-none p-6 sm:p-10 shadow-2xl min-h-[520px] flex flex-col justify-between relative overflow-hidden" id="audit-interactive-board">
             
             {/* Top red glow strip */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-red via-red-500 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-gold via-[#FFD466] to-transparent" />
 
             {activeTab === 'aiaudit' && (
               <>
@@ -341,8 +341,8 @@ To immediately execute this elite daily engagement & local search turnaround fra
                 {aiStep === 'idle' && (
                   <form onSubmit={handleAiAuditSubmit} className="space-y-6" id="ai-input-form text-left">
                     <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                      <div className="w-8 h-8 rounded-none bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
-                        <Sparkles className="w-4 h-4 text-[#E11D48]" />
+                      <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
+                        <Sparkles className="w-4 h-4 text-[#F5B82E]" />
                       </div>
                       <div>
                         <h3 className="font-display font-black uppercase text-white text-base tracking-tight">Most Reliable AI Turnaround Audit</h3>
@@ -360,7 +360,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                           placeholder="e.g. Manchester Smokey Grill"
                           value={aiRestaurantName}
                           onChange={(e) => setAiRestaurantName(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                         />
                       </div>
 
@@ -375,7 +375,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                             placeholder="e.g. https://instagram.com/smokeygrill"
                             value={aiWebsiteUrl}
                             onChange={(e) => setAiWebsiteUrl(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                           />
                         </div>
                       </div>
@@ -388,7 +388,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={aiRole}
                           onChange={(e) => setAiRole(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#E11D48] transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
                         >
                           <option value="Owner / Founder">Owner / Founder</option>
                           <option value="General Manager">General Manager</option>
@@ -403,7 +403,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={aiChallenge}
                           onChange={(e) => setAiChallenge(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#E11D48] transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
                         >
                           <option value="Losing 30%+ profit margins to heavy delivery app aggregators">Aggregators (UberEats, Deliveroo, Just Eat) eating margins</option>
                           <option value="Losing mid-week table covers (Tuesday/Wednesday nights are silent)">Dead mid-week covers and dynamic high-street traffic</option>
@@ -420,7 +420,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={aiFrequency}
                           onChange={(e) => setAiFrequency(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#E11D48] transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
                         >
                           <option value="Sporadic (no structure, silent for weeks)">Sporadic (no structure, silent for weeks)</option>
                           <option value="Occasionally (1-2 posts a week, mostly static text)">Occasionally (1-2 posts a week, mostly static text)</option>
@@ -434,7 +434,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={aiLocation}
                           onChange={(e) => setAiLocation(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#E11D48] transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
                         >
                           <option value="London & South East">London & South East</option>
                           <option value="Manchester & North West">Manchester & North West</option>
@@ -446,18 +446,18 @@ To immediately execute this elite daily engagement & local search turnaround fra
                     </div>
 
                     <p className="text-[11px] text-zinc-500 italic bg-[#1E1E1E] p-3 text-left border border-white/5 font-mono">
-                      *SearchSolver's reliable Gemini models dynamically calculate nearby high-street lookup triggers. Learn how to deflect up to 34% of aggregate orders directly to your tables.
+                      *Markadeo's reliable Gemini models dynamically calculate nearby high-street lookup triggers. Learn how to deflect up to 34% of aggregate orders directly to your tables.
                     </p>
 
                     <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                       <span className="text-[11px] text-zinc-500 flex items-center gap-1.5 font-mono">
-                        <Bot className="w-3.5 h-3.5 text-brand-red" />
+                        <Bot className="w-3.5 h-3.5 text-brand-gold" />
                         GDPR compliant. No hard pitch or cold calls guaranteed.
                       </span>
                       
                       <button
                         type="submit"
-                        className="inline-flex items-center justify-center gap-2 border border-brand-red bg-brand-red text-white hover:bg-[#C0153D] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 border border-brand-gold bg-brand-gold text-black hover:bg-[#E0A516] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
                         id="btn-ai-audit-run"
                       >
                         Run Live AI Audit
@@ -470,7 +470,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                 {/* AI AUDIT LOADING / ANALYZING VIEW */}
                 {aiStep === 'analyzing' && (
                   <div className="py-16 flex flex-col items-center justify-center text-center space-y-6" id="ai-analyzing-panel">
-                    <RefreshCw className="w-12 h-12 text-[#E11D48] animate-spin" />
+                    <RefreshCw className="w-12 h-12 text-[#F5B82E] animate-spin" />
                     <div className="space-y-2 max-w-md">
                       <h4 className="font-display font-black uppercase text-lg text-white">Activating Real-Time AI Review...</h4>
                       <p className="font-mono text-xs text-zinc-400 leading-relaxed min-h-12 px-4">
@@ -481,7 +481,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                     <div className="w-full max-w-md bg-zinc-900 h-2 rounded-none border border-white/5 overflow-hidden">
                       <div
                         style={{ width: `${aiProgress}%` }}
-                        className="bg-brand-red h-full rounded-none transition-all duration-300"
+                        className="bg-brand-gold h-full rounded-none transition-all duration-300"
                       />
                     </div>
                     <span className="font-mono text-xs text-zinc-500 font-bold tracking-wider">{aiProgress}% ANALYZED</span>
@@ -512,13 +512,13 @@ To immediately execute this elite daily engagement & local search turnaround fra
 
                     {/* Styled Markdown View */}
                     <div className="p-6 bg-zinc-950 border border-white/5 text-white/90 text-sm font-sans space-y-6 leading-relaxed rounded-none shadow-inner max-h-[480px] overflow-y-auto">
-                      <div className="markdown-body prose prose-invert prose-rose max-w-none text-left space-y-4">
+                      <div className="markdown-body prose prose-invert prose-amber max-w-none text-left space-y-4">
                         <Markdown>{aiOutput}</Markdown>
                       </div>
                     </div>
 
                     {/* Trust CTA & Redirect paths */}
-                    <div className="bg-[#1C1C1C] border border-[#E11D48]/20 p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="bg-[#1C1C1C] border border-[#F5B82E]/20 p-5 flex flex-col md:flex-row items-center justify-between gap-4">
                       <div>
                         <h4 className="text-xs font-display font-black text-white uppercase tracking-wider">Execute this bespoke turnaround blueprint</h4>
                         <p className="text-[11px] text-zinc-500 mt-1">Our expert team handles continuous daily social postings, localized maps conquest, and comment automation turnkey.</p>
@@ -526,10 +526,10 @@ To immediately execute this elite daily engagement & local search turnaround fra
                       <a
                         href="#contact-form-section"
                         onClick={() => setActiveTab('googleform')}
-                        className="inline-flex items-center gap-1.5 bg-[#E11D48] hover:bg-[#C0153D] text-white hover:scale-105 duration-200 transition-all font-display uppercase tracking-widest font-bold text-[10px] px-5 py-3 rounded-none whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 bg-[#F5B82E] hover:bg-[#E0A516] text-black hover:scale-105 duration-200 transition-all font-display uppercase tracking-widest font-bold text-[10px] px-5 py-3 rounded-none whitespace-nowrap"
                         id="btn-ai-conquest-claim"
                       >
-                        Contact Search Solver
+                        Contact Markadeo
                         <Bot className="w-3.5 h-3.5" />
                       </a>
                     </div>
@@ -544,7 +544,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                 {step === 'idle' && (
                   <form onSubmit={handleAuditSubmit} className="space-y-6" id="audit-input-form text-left">
                     <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                      <div className="w-8 h-8 rounded-none bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                      <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
                         <Globe className="w-4 h-4" />
                       </div>
                       <div>
@@ -563,7 +563,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                           placeholder="e.g. Covent Garden Bistro"
                           value={companyName}
                           onChange={(e) => setCompanyName(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                         />
                       </div>
 
@@ -578,7 +578,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                             placeholder="e.g. www.coventgardenbistro.net"
                             value={websiteUrl}
                             onChange={(e) => setWebsiteUrl(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                           />
                         </div>
                       </div>
@@ -591,7 +591,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={ukLocation}
                           onChange={(e) => setUkLocation(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
                         >
                           <option value="London & South East">London & South East</option>
                           <option value="Manchester & North West">Manchester & North West</option>
@@ -607,7 +607,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={targetMetric}
                           onChange={(e) => setTargetMetric(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
                         >
                           <option value="Boost Mid-Week Dinner Bookings">Boost Mid-Week Dinner Bookings</option>
                           <option value="Bypass Aggregators for Direct Deliveries">Bypass Aggregators for Direct Deliveries</option>
@@ -628,7 +628,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                             placeholder="e.g. @coventgardenbistro"
                             value={currentSocialHandle}
                             onChange={(e) => setCurrentSocialHandle(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                           />
                         </div>
                       </div>
@@ -639,7 +639,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         <select
                           value={postingFrequency}
                           onChange={(e) => setPostingFrequency(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all cursor-pointer"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
                         >
                           <option value="Sporadic / No Active Posting">Sporadic / No Active Posting</option>
                           <option value="Once or twice a week">Once or twice a week</option>
@@ -660,20 +660,20 @@ To immediately execute this elite daily engagement & local search turnaround fra
                           placeholder="e.g. manager@coventgardenbistro.net"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-red transition-all"
+                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
                         />
                       </div>
                     </div>
 
                     <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                       <span className="text-[11px] text-zinc-500 flex items-center gap-1.5 font-mono">
-                        <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
+                        <ShieldCheck className="w-3.5 h-3.5 text-brand-gold" />
                         Strictly NDA protected. Food concepts protected.
                       </span>
                       
                       <button
                         type="submit"
-                        className="inline-flex items-center justify-center gap-2 border border-brand-red bg-brand-red text-white hover:bg-[#C0153D] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 border border-brand-gold bg-brand-gold text-black hover:bg-[#E0A516] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
                         id="btn-agency-audit-submit"
                       >
                         Generate Restaurant Diagnostic
@@ -686,7 +686,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                 {/* Stage 2: ANALYZING LOADING BARS */}
                 {step === 'analyzing' && (
                   <div className="py-12 flex flex-col items-center justify-center text-center space-y-6" id="audit-analyzing-panel">
-                    <RefreshCw className="w-12 h-12 text-brand-red animate-spin" />
+                    <RefreshCw className="w-12 h-12 text-brand-gold animate-spin" />
                     <div className="space-y-2 max-w-sm">
                       <h4 className="font-display font-black uppercase text-lg text-white">Analyzing Dining Signals...</h4>
                       <p className="font-mono text-xs text-zinc-400 leading-relaxed min-h-8">
@@ -698,7 +698,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                     <div className="w-full max-w-md bg-zinc-900 h-2 rounded-none border border-white/5 overflow-hidden">
                       <div
                         style={{ width: `${loadingProgress}%` }}
-                        className="bg-brand-red h-full rounded-none transition-all duration-300"
+                        className="bg-brand-gold h-full rounded-none transition-all duration-300"
                       />
                     </div>
                     <span className="font-mono text-xs text-zinc-500 font-bold tracking-wider">{loadingProgress}% COMPLETE</span>
@@ -746,7 +746,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                       {/* Item 3 */}
                       <div className="bg-[#181818] border border-white/5 p-4 rounded-none flex flex-col justify-between">
                         <span className="text-[9px] font-mono text-zinc-500 uppercase font-semibold">Social Post Rating</span>
-                        <span className="text-2xl font-display font-black text-brand-red mt-2">{activeReport.scores!.content}/100</span>
+                        <span className="text-2xl font-display font-black text-brand-gold mt-2">{activeReport.scores!.content}/100</span>
                         <span className="text-[8px] text-zinc-500 mt-1 font-mono uppercase">Daily Posting Score</span>
                       </div>
 
@@ -761,13 +761,13 @@ To immediately execute this elite daily engagement & local search turnaround fra
                     {/* Practical Action Recommendations Checklist */}
                     <div className="bg-[#181818] p-4 sm:p-6 rounded-none border border-white/5 space-y-4 text-left">
                       <h5 className="font-display font-black text-xs text-white uppercase tracking-widest flex items-center gap-1.5">
-                        <AlertTriangle className="w-4 h-4 text-brand-red" />
+                        <AlertTriangle className="w-4 h-4 text-brand-gold" />
                         Automated Action Checklist for {activeReport.companyName}
                       </h5>
 
                       <div className="space-y-3">
                         <div className="flex gap-3 text-xs">
-                          <div className="w-5 h-5 rounded-none bg-brand-red/10 border border-[#E11D48]/30 text-brand-red font-mono font-bold flex items-center justify-center flex-shrink-0 mt-0.5" id="alert-1">!</div>
+                          <div className="w-5 h-5 rounded-none bg-brand-gold/10 border border-[#F5B82E]/30 text-brand-gold font-mono font-bold flex items-center justify-center flex-shrink-0 mt-0.5" id="alert-1">!</div>
                           <div>
                             <p className="font-semibold text-zinc-200">Critical: Weak Social Cover Consistency</p>
                             <p className="text-zinc-500 mt-0.5">Your profiles lack daily postings or high-quality video stories. In the restaurant trade, diner visual memory expires in 48 hours. Daily posting must scale to sustain awareness.</p>
@@ -775,7 +775,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         </div>
 
                         <div className="flex gap-3 text-xs border-t border-white/5 pt-3">
-                          <div className="w-5 h-5 rounded-none bg-brand-red/10 border border-[#E11D48]/30 flex items-center justify-center text-brand-red font-mono font-bold flex-shrink-0 mt-0.5" id="alert-2">!</div>
+                          <div className="w-5 h-5 rounded-none bg-brand-gold/10 border border-[#F5B82E]/30 flex items-center justify-center text-brand-gold font-mono font-bold flex-shrink-0 mt-0.5" id="alert-2">!</div>
                           <div>
                             <p className="font-semibold text-zinc-200">Over-Reliance on Commissions</p>
                             <p className="text-zinc-500 mt-0.5">Your system does not run direct customer retention models. Our hyper-local framework can move up to 34% of orders away from high-commission aggregator apps into your direct pocket.</p>
@@ -800,8 +800,8 @@ To immediately execute this elite daily engagement & local search turnaround fra
                       </div>
                       
                       <a
-                        href="mailto:partnerships@searchsolver.net?subject=UK Restaurant Cover Scale Blueprint"
-                        className="inline-flex items-center gap-1.5 border border-brand-red text-white bg-brand-red hover:bg-[#C0153D] text-[11px] font-display font-bold uppercase tracking-widest px-4 py-2.5 rounded-none transition-colors"
+                        href="mailto:partnerships@markadeo.com?subject=UK Restaurant Cover Scale Blueprint"
+                        className="inline-flex items-center gap-1.5 border border-brand-gold text-black bg-brand-gold hover:bg-[#E0A516] text-[11px] font-display font-bold uppercase tracking-widest px-4 py-2.5 rounded-none transition-colors"
                       >
                         Book Retainer Chat
                         <Mail className="w-3.5 h-3.5" />
@@ -816,7 +816,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
               /* TAB: GOOGLE CONTACT FORM DISPLAY */
               <div className="flex flex-col justify-between h-full space-y-6" id="google-form-panel">
                 <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                  <div className="w-8 h-8 rounded-none bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                  <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
                     <Clipboard className="w-4 h-4" />
                   </div>
                   <div>
@@ -828,7 +828,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-left items-stretch">
                   <div className="md:col-span-4 bg-[#1A1A1A] border border-white/5 p-5 space-y-4 flex flex-col justify-between">
                     <div className="space-y-2">
-                      <span className="text-[9px] font-mono font-bold text-[#E11D48] bg-brand-red/10 border border-[#E11D48]/30 px-2 py-0.5 rounded-none uppercase block w-max">COVENANT DATA</span>
+                      <span className="text-[9px] font-mono font-bold text-[#F5B82E] bg-brand-gold/10 border border-[#F5B82E]/30 px-2 py-0.5 rounded-none uppercase block w-max">COVENANT DATA</span>
                       <h4 className="text-xs font-display font-black text-white uppercase tracking-wide">Direct Registration System</h4>
                       <p className="text-[11px] text-zinc-400 font-light leading-relaxed">
                         Skip automated scraping entirely. Submit your details through the corporate Google Contact Form pipeline. Our strategic desk prioritizes files with valid physical high-street properties.
@@ -837,7 +837,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
 
                     <div className="space-y-2 pt-4 border-t border-white/5">
                       <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500">
-                        <Users className="w-3.5 h-3.5 text-brand-red" />
+                        <Users className="w-3.5 h-3.5 text-brand-gold" />
                         <span>RESERVED FOR MANAGERS</span>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500">
@@ -853,7 +853,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                       {/* Simulating/Structuring a beautiful Google Doc contact fields overlay */}
                       <div className="border-l-2 border-purple-500 bg-purple-500/5 p-3.5 text-[11px] font-mono text-zinc-400 flex items-start gap-2.5">
                         <span className="font-bold text-purple-400">[G-DOCS]</span>
-                        <span>SearchSolver Client Intake (Secure SSL). Your email addresses are automatically registered when submitting corporate documents.</span>
+                        <span>Markadeo Client Intake (Secure SSL). Your email addresses are automatically registered when submitting corporate documents.</span>
                       </div>
 
                       {/* We embed high-fidelity Google Form styling blocks or a custom configurable Google Form frame fallback */}
@@ -868,7 +868,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                           />
                           <button 
                             onClick={() => window.open('https://docs.google.com/forms', '_blank')}
-                            className="bg-brand-red hover:bg-[#C0153D] text-[10px] text-white font-mono uppercase px-4 rounded-none font-bold cursor-pointer"
+                            className="bg-brand-gold hover:bg-[#E0A516] text-[10px] text-black font-mono uppercase px-4 rounded-none font-bold cursor-pointer"
                           >
                             Browse
                           </button>
@@ -914,7 +914,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
           <div className="lg:col-span-4 space-y-6" id="audit-history-panel">
             <div className="bg-[#141414] border border-white/5 rounded-none p-6">
               <h4 className="font-display font-black text-xs text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-brand-red" />
+                <FileText className="w-4 h-4 text-brand-gold" />
                 Diner Audit Ledger
               </h4>
               <p className="font-sans text-xs text-zinc-500 mb-4 font-light">
@@ -935,7 +935,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                         onClick={() => selectReport(sub)}
                         className={`p-3 rounded-none border text-left cursor-pointer transition-all flex items-center justify-between group ${
                           isActive && activeTab === 'validator'
-                            ? 'bg-brand-red/10 border-brand-red/50 text-white'
+                            ? 'bg-brand-gold/10 border-brand-gold/50 text-white'
                             : 'bg-[#1E1E1E] border-white/5 hover:bg-[#222] hover:border-zinc-700 text-zinc-400'
                         }`}
                       >
@@ -947,7 +947,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
 
                         <div className="flex items-center gap-2 flex-shrink-0">
                           {sub.scores && (
-                            <span className="text-xs font-mono font-bold text-brand-red">
+                            <span className="text-xs font-mono font-bold text-brand-gold">
                               {sub.scores.seo} Maps
                             </span>
                           )}
@@ -979,7 +979,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
         </div>
 
         {/* Dynamic, transparent Google Forms Direct Link overlay callout */}
-        <div className="mt-12 bg-gradient-to-r from-brand-red/10 via-brand-dark to-brand-dark p-6 border border-[#E11D48]/20 text-left flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-12 bg-gradient-to-r from-brand-gold/10 via-brand-dark to-brand-dark p-6 border border-[#F5B82E]/20 text-left flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-1">
             <h4 className="text-sm font-display font-black text-white uppercase tracking-wider">Are you a UK Restaurant losing sales?</h4>
             <p className="text-xs text-zinc-400 font-sans font-light">
@@ -988,7 +988,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
           </div>
           <button
             onClick={() => setActiveTab('googleform')}
-            className="flex-shrink-0 bg-transparent hover:bg-brand-red hover:text-white text-zinc-300 border border-white/10 hover:border-brand-red px-6 py-3 uppercase text-xs font-mono font-bold tracking-widest transition-all rounded-none cursor-pointer"
+            className="flex-shrink-0 bg-transparent hover:bg-brand-gold hover:text-black text-zinc-300 border border-white/10 hover:border-brand-gold px-6 py-3 uppercase text-xs font-mono font-bold tracking-widest transition-all rounded-none cursor-pointer"
           >
             Launch Google form &rarr;
           </button>

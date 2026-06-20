@@ -67,7 +67,7 @@ export default function RestaurantTrustLogos() {
       id: "moka-co",
       name: "Moka & Co. Artisan Bakery",
       logoText: "MOKA & CO.",
-      serifClass: "font-mono tracking-widest uppercase text-xs text-rose-500/80",
+      serifClass: "font-mono tracking-widest uppercase text-xs text-amber-500/80",
       location: "Bristol & Bath Markets",
       auditScope: "Daily IG Storyboard Sequences & Google Map Pins",
       liftMetric: "+180% Direct Visits"
@@ -155,19 +155,19 @@ export default function RestaurantTrustLogos() {
       <div className="absolute inset-0 opacity-[0.015] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:32px_32px]" />
       
       {/* Subtle background red beacon */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-brand-red/5 filter blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-brand-gold/5 filter blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 animate-fade-in">
         
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl text-left" id="trust-section-header">
-            <span className="text-[10px] font-mono tracking-widest text-[#E11D48] px-2.5 py-1 bg-brand-red/10 border border-[#E11D48]/20 rounded-none inline-flex items-center gap-1.5 mb-3 font-bold">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-red" />
+            <span className="text-[10px] font-mono tracking-widest text-[#F5B82E] px-2.5 py-1 bg-brand-gold/10 border border-[#F5B82E]/20 rounded-none inline-flex items-center gap-1.5 mb-3 font-bold">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-gold" />
               UK HIGH-STREET REGIONAL PARTNER MAP
             </span>
             <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
-              ESTABLISHED TRUST WITH <span className="text-brand-red">12 HIGH-STREET BRANDS</span>
+              ESTABLISHED TRUST WITH <span className="text-brand-gold">12 HIGH-STREET BRANDS</span>
             </h2>
             <p className="font-sans text-xs sm:text-sm text-zinc-400 font-light mt-1.5">
               Helping elite local eateries, gourmet dining hotspots, artisan bakeries, and multi-site casual restaurant brands across the United Kingdom secure direct orders and bypass third-party aggregator margins.
@@ -175,7 +175,7 @@ export default function RestaurantTrustLogos() {
           </div>
           
           <div className="flex items-center gap-2 border border-white/5 bg-zinc-900/50 p-3 rounded-none flex-shrink-0 animate-pulse" id="trust-badge-info">
-            <Award className="w-5 h-5 text-brand-red" />
+            <Award className="w-5 h-5 text-brand-gold" />
             <div className="text-left font-mono">
               <span className="text-[9px] text-zinc-500 block uppercase tracking-wider leading-none">PREVIOUS CLIENT AUDITS</span>
               <span className="text-[11px] text-white font-bold uppercase leading-none">12 CERTIFIED PARTNERS</span>
@@ -197,7 +197,7 @@ export default function RestaurantTrustLogos() {
                 onMouseEnter={() => setActiveBrandId(brand.id)}
                 onMouseLeave={() => setActiveBrandId(null)}
                 className={`relative group p-6 flex flex-col items-center justify-center border-b border-r border-white/5 hover:bg-zinc-950 cursor-pointer transition-all duration-300 ${
-                  isActive ? 'border-[#E11D48]/30' : ''
+                  isActive ? 'border-[#F5B82E]/30' : ''
                 }`}
                 id={`trust-brand-item-${brand.id}`}
               >
@@ -206,13 +206,13 @@ export default function RestaurantTrustLogos() {
                   <div className="transition-all duration-300">
                     {renderIcon(brand.id, `w-5 h-5 transition-all duration-300 ${
                       isActive 
-                        ? 'text-brand-red scale-110' 
+                        ? 'text-brand-gold scale-110' 
                         : 'text-zinc-650 opacity-40 group-hover:text-white group-hover:opacity-100'
                     }`)}
                   </div>
                   <span className={`${brand.serifClass} tracking-wider text-center select-none block uppercase transition-all duration-300 ${
                     isActive 
-                      ? 'text-white opacity-100 scale-102 filter drop-shadow-[0_0_8px_rgba(225,29,72,0.3)] font-semibold' 
+                      ? 'text-white opacity-100 scale-102 filter drop-shadow-[0_0_8px_rgba(245,184,46,0.3)] font-semibold' 
                       : 'text-zinc-550 opacity-55 group-hover:text-zinc-350 group-hover:opacity-95'
                   }`}>
                     {brand.logoText}
@@ -225,7 +225,7 @@ export default function RestaurantTrustLogos() {
                 </span>
 
                 {/* Glow border indicator */}
-                <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-brand-red transition-all duration-300 ${
+                <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold transition-all duration-300 ${
                   isActive ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
                 }`} />
               </div>
@@ -246,7 +246,7 @@ export default function RestaurantTrustLogos() {
               return (
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center animate-fade-in" id="active-trust-info">
                   <div className="md:col-span-8 text-left">
-                    <span className="text-[9px] font-mono tracking-widest text-[#E11D48] uppercase font-bold block mb-1">
+                    <span className="text-[9px] font-mono tracking-widest text-[#F5B82E] uppercase font-bold block mb-1">
                       ACTIVE CAMPAIGN DISCOVERY // {selected.name.toUpperCase()}
                     </span>
                     <h4 className="text-sm font-display font-black text-white uppercase tracking-wider mb-1">
@@ -268,7 +268,7 @@ export default function RestaurantTrustLogos() {
           ) : (
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-2" id="inactive-trust-prompt">
               <div className="flex items-center gap-3 text-left">
-                <Star className="w-5 h-5 text-brand-red/70 flex-shrink-0 animate-pulse" />
+                <Star className="w-5 h-5 text-brand-gold/70 flex-shrink-0 animate-pulse" />
                 <div>
                   <h4 className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">
                     EXPLORE REGISTERED HOSPITALS & BARS
