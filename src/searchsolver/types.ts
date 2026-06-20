@@ -1,40 +1,14 @@
-export interface ClientProject {
-  id: string;
-  name: string;
-  category: string;
-  industry: string;
-  projectScope: string[];
-  metrics: {
-    label: string;
-    value: string;
-  };
-  narrative: string;
-  tagline: string;
-}
-
 export interface ServiceItem {
   id: string;
   title: string;
   description: string;
   features: string[];
   ukMarketContext: string;
-  roiEstimate: string;
-}
-
-export interface CaseStudy {
-  id: string;
-  clientName: string;
-  title: string;
-  duration: string;
-  summary: string;
-  growthMetric: string;
-  organicTrafficGain: string;
-  revenueGenerated: string;
-  challenge: string;
-  solution: string;
-  timeline: { month: string; value: number }[];
-  imageUrl?: string;
-  imageAlt?: string;
+  /** Honest "what you get" deliverable line — never a fabricated result. */
+  whatYouGet: string;
+  /** Brandable section image. */
+  image: string;
+  imageAlt: string;
 }
 
 export interface AuditSubmission {

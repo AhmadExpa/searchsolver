@@ -95,7 +95,7 @@ Based on your role as **${role}** at **${companyName}**, your primary obstacle (
 3.  **Local Office Conquesting:** Distribute location-precise 3-mile geo-fenced visual posts targeting major local corporate headquarters during lunch-decision hours.
 
 ### 4. SUMMARY RECOMMENDATIONS
-With consistent daily publishing and local listing optimization, **${companyName}** can expect a substantial up to **+185% increase in weekly table covers** and reclaim 30%+ of commission-heavy aggregator sales.
+With consistent daily publishing and local listing optimization, **${companyName}** can meaningfully grow weekly table covers and reclaim sales currently lost to commission-heavy aggregators (which typically charge around 30%).
 
 To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you.`;
 

@@ -16,10 +16,26 @@
   --color-brand-gray: #1A1A1A;
 }
 
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #070707;
+  /* Premium layered depth: warm gold haze at top, cool charcoal void below */
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(245, 184, 46, 0.07), transparent 60%),
+    radial-gradient(900px 500px at 0% 10%, rgba(245, 184, 46, 0.04), transparent 55%);
+  background-attachment: fixed;
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
 ::-webkit-scrollbar-track {
   background: #0A0A0C;
@@ -32,25 +48,175 @@
   background: #F5B82E;
 }
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
+/* ============================================================
+   FILM GRAIN — fixed overlay for tactile, premium texture
+   ============================================================ */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
 
-/* Abstract ambient glows */
+/* ============================================================
+   AMBIENT GLOWS
+   ============================================================ */
 .gold-ambient-glow {
-  background: radial-gradient(circle, rgba(245, 184, 46, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(245, 184, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
 }
-
 .charcoal-ambient-glow {
   background: radial-gradient(circle, rgba(30, 30, 36, 0.4) 0%, rgba(0, 0, 0, 0) 80%);
 }
 
-/* Fade-in entrance (referenced across components) */
+/* Slow drifting animated mesh blob */
+.mesh-drift {
+  animation: mesh-drift 18s ease-in-out infinite alternate;
+}
+@keyframes mesh-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(4%, -3%, 0) scale(1.08); }
+  100% { transform: translate3d(-3%, 4%, 0) scale(0.96); }
+}
+
+/* ============================================================
+   TYPOGRAPHY ACCENTS
+   ============================================================ */
+/* Animated gold-shimmer gradient text */
+.gold-shimmer {
+  background: linear-gradient(100deg, #F5B82E 20%, #FFD466 40%, #FFF4D6 50%, #FFD466 60%, #F5B82E 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer-sweep 6s linear infinite;
+}
+@keyframes shimmer-sweep {
+  to { background-position: 200% center; }
+}
+
+/* Static gold gradient text (no animation) */
+.gold-gradient-text {
+  background: linear-gradient(to right, #F5B82E, #FFD466);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================================================
+   MARQUEE — auto-scrolling proof ribbon
+   ============================================================ */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Edge fade mask for marquee containers */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ============================================================
+   ENTRANCE / FADE
+   ============================================================ */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
 .animate-fade-in {
   animation: fade-in 0.6s ease-out both;
+}
+
+/* Soft bobbing scroll cue */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50%      { transform: translateY(7px); opacity: 1; }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 2s ease-in-out infinite;
+}
+
+/* Gentle floating for accent elements */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.animate-float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+/* Hairline sweep used on dividers */
+@keyframes hairline-sweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-hairline {
+  animation: hairline-sweep 3.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+/* Premium gold glow ring on hover for cards/buttons */
+.glow-on-hover {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+}
+.glow-on-hover:hover {
+  box-shadow: 0 0 0 1px rgba(245, 184, 46, 0.25), 0 18px 50px -12px rgba(245, 184, 46, 0.22);
+}
+
+/* Subtle inner top hairline used on premium panels */
+.top-hairline {
+  position: relative;
+}
+.top-hairline::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(245, 184, 46, 0.6), transparent);
+}
+
+/* ============================================================
+   CUSTOM CURSOR — hide native cursor while bespoke one is active,
+   but keep the text caret inside form fields.
+   ============================================================ */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role="button"] {
+  cursor: none;
+}
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select {
+  cursor: auto;
+}
+
+/* ============================================================
+   ACCESSIBILITY — respect reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .marquee-track { animation: none; }
 }

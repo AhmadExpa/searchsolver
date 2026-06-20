@@ -17,9 +17,9 @@ export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calcul
 
   const menuItems = [
     { name: 'Services', href: '#services' },
-    { name: 'Trust Archive', href: '#restaurant-authority-trust-section' },
+    { name: 'Process', href: '#growth-engine' },
+    { name: 'Playbook', href: '#case-studies' },
     { name: 'RoI Predictor', action: () => onOpenConsole('calculator') },
-    { name: 'Case Studies', href: '#case-studies' },
   ];
 
   return (
@@ -159,7 +159,7 @@ export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calcul
                 >
                   <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono tracking-wide uppercase">
                     <ShieldCheck className="w-4 h-4 text-brand-gold" />
-                    <span>Google Certified UK Expert</span>
+                    <span>UK restaurant specialists</span>
                   </div>
                   <button
                     onClick={() => {

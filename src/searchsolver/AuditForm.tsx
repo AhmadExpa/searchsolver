@@ -256,7 +256,7 @@ Based on your role as **${aiRole}** at **${aiRestaurantName}**, your primary obs
 3.  **Local Office Conquesting:** Distribute location-precise 3-mile geo-fenced visual posts targeting major local corporate headquarters during lunch-decision hours.
 
 ### 4. SUMMARY RECOMMENDATIONS
-With consistent daily publishing and local listing optimization, **${aiRestaurantName}** can expect a substantial up to **+185% increase in weekly table covers** and reclaim 30%+ of commission-heavy aggregator sales.
+With consistent daily publishing and local listing optimization, **${aiRestaurantName}** can meaningfully grow weekly table covers and reclaim sales currently lost to commission-heavy aggregators (which typically charge around 30%).
 
 To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you.`;
           }
@@ -446,7 +446,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                     </div>
 
                     <p className="text-[11px] text-zinc-500 italic bg-[#1E1E1E] p-3 text-left border border-white/5 font-mono">
-                      *Markadeo's reliable Gemini models dynamically calculate nearby high-street lookup triggers. Learn how to deflect up to 34% of aggregate orders directly to your tables.
+                      *Markadeo's AI models analyse your nearby high-street search signals. Learn how to move aggregator orders back to direct bookings at your tables.
                     </p>
 
                     <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -778,7 +778,7 @@ To immediately execute this elite daily engagement & local search turnaround fra
                           <div className="w-5 h-5 rounded-none bg-brand-gold/10 border border-[#F5B82E]/30 flex items-center justify-center text-brand-gold font-mono font-bold flex-shrink-0 mt-0.5" id="alert-2">!</div>
                           <div>
                             <p className="font-semibold text-zinc-200">Over-Reliance on Commissions</p>
-                            <p className="text-zinc-500 mt-0.5">Your system does not run direct customer retention models. Our hyper-local framework can move up to 34% of orders away from high-commission aggregator apps into your direct pocket.</p>
+                            <p className="text-zinc-500 mt-0.5">Your setup leans on commission-heavy aggregators. Our hyper-local framework is built to move those orders toward direct bookings — so more of the margin stays with you.</p>
                           </div>
                         </div>
 
@@ -968,10 +968,10 @@ To immediately execute this elite daily engagement & local search turnaround fra
 
             {/* Absolute Trust Banner */}
             <div className="bg-[#1E1E1E] p-4 rounded-none border border-white/5 text-left">
-              <span className="text-[9px] font-mono text-zinc-500 uppercase block tracking-wider font-bold">REVENUE ASSIGNMENT PROTOCOLS</span>
-              <p className="text-xs font-bold text-white mt-1 uppercase tracking-wide">Google Certified Partner Desk</p>
+              <span className="text-[9px] font-mono text-zinc-500 uppercase block tracking-wider font-bold">HOW THIS AUDIT WORKS</span>
+              <p className="text-xs font-bold text-white mt-1 uppercase tracking-wide">AI-Assisted Local Search Review</p>
               <p className="text-[11px] text-zinc-500 mt-0.5 leading-relaxed font-light">
-                All restaurant analytics utilize official regional APIs measuring real-time dining search queries.
+                Your inputs are analysed against UK local-search and social best practice to surface practical, honest recommendations — no obligation.
               </p>
             </div>
           </div>

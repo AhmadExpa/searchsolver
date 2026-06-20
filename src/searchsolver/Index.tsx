@@ -10,11 +10,16 @@ import CaseStudies from './CaseStudies';
 import AuditForm from './AuditForm';
 import Footer from './Footer';
 import LegalModal from './LegalModal';
+import ProcessShowcase from './ProcessShowcase';
+import Preloader from './Preloader';
+import CustomCursor from './CustomCursor';
+import { ScrollProgress, BackToTop, Reveal } from './ScrollFX';
 
 export default function MarkadeoApp() {
   const [activeLegalId, setActiveLegalId] = useState<string | null>(null);
   const [isConsoleActive, setIsConsoleActive] = useState(false);
   const [consoleTab, setConsoleTab] = useState<'calculator' | 'auditor'>('auditor');
+  const [loading, setLoading] = useState(true);
 
   const handleOpenConsole = (tab: 'calculator' | 'auditor') => {
     setConsoleTab(tab);
@@ -25,10 +30,25 @@ export default function MarkadeoApp() {
 
   return (
     <div className="bg-brand-dark min-h-screen text-white font-sans selection:bg-brand-gold selection:text-black">
+      {/* Cinematic intro */}
+      <AnimatePresence>
+        {loading && <Preloader key="preloader" onDone={() => setLoading(false)} />}
+      </AnimatePresence>
+
+      {/* Bespoke gold reticle cursor (self-disables on touch / reduced motion) */}
+      <CustomCursor />
+
+      {/* Film-grain texture overlay for premium tactile finish */}
+      <div className="grain-overlay" aria-hidden />
+
+      {/* Scroll progress + back-to-top scroll hooks */}
+      <ScrollProgress />
+      <BackToTop />
+
       {/* Configure navigation links and actions */}
       <Navbar onOpenConsole={handleOpenConsole} />
       
-      <main className="relative overflow-x-hidden pt-16">
+      <main className="relative overflow-x-clip pt-16">
         <AnimatePresence mode="wait">
           {!isConsoleActive ? (
             <motion.div
@@ -47,37 +67,44 @@ export default function MarkadeoApp() {
               {/* Agency strategic offers */}
               <Services onOpenConsole={handleOpenConsole} />
 
+              {/* Signature pinned horizontal storytelling — the growth engine */}
+              <ProcessShowcase />
+
               {/* Selected custom user-case transformation briefings */}
               <CaseStudies onOpenConsole={handleOpenConsole} />
 
               {/* Elegant Bottom Call-to-Action to enter interactive sandbox console */}
               <section className="py-20 bg-gradient-to-b from-[#0C0C0C] to-[#050505] border-t border-white/5 relative overflow-hidden" id="growth-console-cta-band">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-gold/5 rounded-full filter blur-[100px] pointer-events-none" />
-                <div className="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-6">
-                  <span className="text-[10px] font-mono tracking-widest text-[#F5B82E] font-black uppercase py-1.5 px-3.5 bg-brand-gold/10 border border-[#F5B82E]/30">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-gold/5 rounded-full filter blur-[100px] pointer-events-none mesh-drift" />
+                <Reveal className="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-6">
+                  <span className="text-[10px] font-mono tracking-widest text-[#F5B82E] font-black uppercase py-1.5 px-3.5 bg-brand-gold/10 border border-[#F5B82E]/30 inline-block">
                     EXPERIENCE THE TECHNOLOGY DIRECTLY
                   </span>
                   <h3 className="text-2xl sm:text-4xl font-display font-black uppercase text-white tracking-tight">
-                    READY TO ESTIMATE YOUR RESTAURANT'S LIFT?
+                    READY TO ESTIMATE YOUR RESTAURANT'S <span className="gold-shimmer">LIFT?</span>
                   </h3>
                   <p className="text-zinc-400 font-sans text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed">
-                    Access our secure high-street digital sandbox. Simulate realistic covers growth based on historical UK metrics, or trigger automated diagnostic crawls to inspect local postcode visibility in real-time.
+                    Access our digital sandbox. Model potential covers growth using transparent UK industry benchmarks, or run an automated AI audit of your real local search visibility — free, before you commit to anything.
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <button
+                    <motion.button
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.97 }}
                       onClick={() => handleOpenConsole('auditor')}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-gold hover:bg-[#E0A516] text-black font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none shadow-lg shadow-brand-gold/10 transition-all duration-200 cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-gold hover:bg-[#E0A516] text-black font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none shadow-lg shadow-brand-gold/10 transition-colors duration-200 cursor-pointer"
                     >
                       <span>Launch AI Audit Crawl</span>
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.97 }}
                       onClick={() => handleOpenConsole('calculator')}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-charcoal hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-all cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-charcoal hover:bg-zinc-800 border border-zinc-800 text-zinc-300 font-display font-black text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-colors cursor-pointer"
                     >
                       <span>Simulate Revenue Model</span>
-                    </button>
+                    </motion.button>
                   </div>
-                </div>
+                </Reveal>
               </section>
             </motion.div>
           ) : (
