@@ -30,6 +30,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     const duration = 1700;
     const start = performance.now();
     let raf = 0;
+    let exitTimer: ReturnType<typeof setTimeout>;
     const tick = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - p, 2.2);
@@ -37,12 +38,24 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       if (p < 1) {
         raf = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => setExiting(true), 280);
+        exitTimer = setTimeout(() => setExiting(true), 280);
       }
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(exitTimer);
+    };
   }, [reduced, onDone]);
+
+  // Once the curtain starts lifting, reliably finish + unlock scroll.
+  // (Don't rely on the parent's onAnimationComplete — the parent itself
+  //  has no animation, so it would never fire on exit.)
+  useEffect(() => {
+    if (!exiting) return;
+    const t = setTimeout(onDone, 1050); // curtain: 0.9s + 0.1s delay
+    return () => clearTimeout(t);
+  }, [exiting, onDone]);
 
   if (reduced) return null;
 
@@ -50,9 +63,6 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     <motion.div
       className="fixed inset-0 z-[200] pointer-events-none"
       initial={false}
-      onAnimationComplete={() => {
-        if (exiting) onDone();
-      }}
     >
       {/* Two-panel curtain that splits vertically on exit */}
       <motion.div
