@@ -1,7 +1,15 @@
 import { useState, useEffect, FormEvent, MouseEvent } from 'react';
 import { AuditSubmission } from './types';
-import { Mail, Globe, Search, ArrowRight, ShieldCheck, RefreshCw, CheckCircle2, AlertTriangle, FileText, Trash2, Instagram, MessageSquare, Clipboard, Users, Sparkles, Bot, PhoneCall, HelpCircle, UtensilsCrossed } from 'lucide-react';
+import {
+  Mail, Globe, ArrowRight, ShieldCheck, RefreshCw, CheckCircle2, AlertTriangle,
+  FileText, Trash2, Instagram, Sparkles, Bot, MessageSquare, Phone,
+} from 'lucide-react';
 import Markdown from 'react-markdown';
+
+const inputCls =
+  'w-full bg-canvas border border-line rounded-xl px-4 py-3 text-sm text-ink placeholder:text-zinc-400 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition';
+const selectCls = inputCls + ' cursor-pointer';
+const labelCls = 'text-sm font-medium text-ink block mb-1.5';
 
 export default function AuditForm() {
   const [step, setStep] = useState<'idle' | 'analyzing' | 'report'>('idle');
@@ -9,7 +17,7 @@ export default function AuditForm() {
   const [progressMsg, setProgressMsg] = useState('');
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  // AI Audit States (The Highly Reliable Persona-driven turn-around planner)
+  // AI Audit States
   const [aiRestaurantName, setAiRestaurantName] = useState('');
   const [aiWebsiteUrl, setAiWebsiteUrl] = useState('');
   const [aiRole, setAiRole] = useState('Owner / Founder');
@@ -21,7 +29,7 @@ export default function AuditForm() {
   const [aiProgressMsg, setAiProgressMsg] = useState('');
   const [aiProgress, setAiProgress] = useState(0);
 
-  // Form states (Validator)
+  // Validator states
   const [companyName, setCompanyName] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [ukLocation, setUkLocation] = useState('London & South East');
@@ -30,11 +38,10 @@ export default function AuditForm() {
   const [postingFrequency, setPostingFrequency] = useState('Sporadic / No Active Posting');
   const [email, setEmail] = useState('');
 
-  // Persisted state
+  // Persisted ledger
   const [submissions, setSubmissions] = useState<AuditSubmission[]>([]);
   const [activeReport, setActiveReport] = useState<AuditSubmission | null>(null);
 
-  // Load history from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('markadeo_audits');
     if (saved) {
@@ -64,20 +71,19 @@ export default function AuditForm() {
       { prg: 50, msg: `Evaluating local Google Maps 3-Pack presence in ${ukLocation}...` },
       { prg: 75, msg: `Checking social handles [${currentSocialHandle || '@restaurant'}] posting consistency...` },
       { prg: 90, msg: 'Calibrating daily diner engagement index & high-street lookup algorithms...' },
-      { prg: 100, msg: 'Restaurant revenue growth report assembled!' }
+      { prg: 100, msg: 'Restaurant revenue growth report assembled!' },
     ];
 
     stages.forEach((stage, index) => {
       setTimeout(() => {
         setLoadingProgress(stage.prg);
         setProgressMsg(stage.msg);
-        
+
         if (stage.prg === 100) {
-          // Generate realistic mock scores
-          const seoScore = Math.floor(Math.random() * 20) + 40; // 40 - 60 (restaurants losing sales)
-          const speedScore = Math.floor(Math.random() * 25) + 35; // 35 - 60
-          const contentScore = Math.floor(Math.random() * 30) + 30; // 30 - 60 (feeble daily posting)
-          const securityScore = Math.floor(Math.random() * 20) + 70; // 70 - 90
+          const seoScore = Math.floor(Math.random() * 20) + 40;
+          const speedScore = Math.floor(Math.random() * 25) + 35;
+          const contentScore = Math.floor(Math.random() * 30) + 30;
+          const securityScore = Math.floor(Math.random() * 20) + 70;
 
           const newSubmission: AuditSubmission = {
             id: 'audit-' + Date.now(),
@@ -86,17 +92,9 @@ export default function AuditForm() {
             ukLocation,
             targetMetric,
             competitors: currentSocialHandle || '@instagram_handle',
-            timestamp: new Date().toLocaleDateString('en-GB', {
-              hour: '2-digit',
-              minute: '2-digit'
-            }),
+            timestamp: new Date().toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit' }),
             status: 'Analysis Completed',
-            scores: {
-              seo: seoScore, // Map / Search Score
-              speed: speedScore, // Mobile Menu Speed
-              content: contentScore, // Daily Posting Score
-              security: securityScore // Conversion Checkout
-            }
+            scores: { seo: seoScore, speed: speedScore, content: contentScore, security: securityScore },
           };
 
           const updated = [newSubmission, ...submissions];
@@ -144,7 +142,7 @@ export default function AuditForm() {
       { prg: 55, msg: `Crawl bots scans completed for website ${aiWebsiteUrl}...` },
       { prg: 75, msg: 'Comparing daily social output density to regional competitors...' },
       { prg: 90, msg: 'Formulating a customized 30-Day social posting schedule using Gemini AI...' },
-      { prg: 100, msg: 'UK Hospitality analysis output finalized!' }
+      { prg: 100, msg: 'UK Hospitality analysis output finalized!' },
     ];
 
     stages.forEach((stage, index) => {
@@ -153,14 +151,10 @@ export default function AuditForm() {
         setAiProgressMsg(stage.msg);
 
         if (stage.prg === 100) {
-          let reportText = "";
+          let reportText = '';
           let success = false;
 
-          // 1. Try to call the Gemini API directly on the client if VITE_GEMINI_API_KEY is configured in Vercel/environment
-          const clientApiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
-          if (clientApiKey && clientApiKey !== "YOUR_KEY_HERE" && clientApiKey.trim() !== "" && !clientApiKey.includes("VITE_GEMINI_API_KEY")) {
-            try {
-              const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at Markadeo UK.
+          const prompt = `You are the Lead Restaurant Conversion & Social Media Growth Coach at Markadeo UK.
 A restaurant has requested an urgent 5-minute sales & engagement recovery audit.
 
 Here are the target restaurant details:
@@ -189,16 +183,18 @@ Outline a direct 3-step blueprint for daily posting (e.g., foodie reels, micro-e
 Add a brief 1-2 sentence final summary detailing their potential growth rate.
 At the very end, add this exact phrasing: "To immediately execute this elite daily engagement & local search turnaround framework with zero stress, contact Markadeo to handle everything for you."`;
 
-              const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${clientApiKey}`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
+          // 1. Direct client-side Gemini call if a client key is configured
+          const clientApiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
+          if (clientApiKey && clientApiKey !== 'YOUR_KEY_HERE' && clientApiKey.trim() !== '' && !clientApiKey.includes('VITE_GEMINI_API_KEY')) {
+            try {
+              const response = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${clientApiKey}`,
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
                 },
-                body: JSON.stringify({
-                  contents: [{ parts: [{ text: prompt }] }]
-                })
-              });
-
+              );
               if (response.ok) {
                 const data = await response.json();
                 if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
@@ -207,28 +203,25 @@ At the very end, add this exact phrasing: "To immediately execute this elite dai
                 }
               }
             } catch (err) {
-              console.warn("Direct client Gemini API fetch failed, falling back to local simulation:", err);
+              console.warn('Direct client Gemini API fetch failed, falling back:', err);
             }
           }
 
-          // 2. Try the server-side API `/api/audit` if it is running (sandbox / express backend)
+          // 2. Server-side API
           if (!success) {
             try {
-              const res = await fetch("/api/audit", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
+              const res = await fetch('/api/audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   companyName: aiRestaurantName,
                   websiteUrl: aiWebsiteUrl,
                   role: aiRole,
                   challenge: aiChallenge,
                   postingFrequency: aiFrequency,
-                  location: aiLocation
-                })
+                  location: aiLocation,
+                }),
               });
-
               if (res.ok) {
                 const data = await res.json();
                 if (data.success) {
@@ -237,11 +230,11 @@ At the very end, add this exact phrasing: "To immediately execute this elite dai
                 }
               }
             } catch (err) {
-              console.warn("Backend API not reachable/configured, falling back to client-side generator:", err);
+              console.warn('Backend API not reachable, falling back to client generator:', err);
             }
           }
 
-          // 3. Fallback to highly optimized dynamic client-side generator (creates perfect reports immediately without server dependencies)
+          // 3. Local fallback generator
           if (!success) {
             reportText = `### 1. THE REVENUE LEAKS ANALYSIS
 Based on your role as **${aiRole}** at **${aiRestaurantName}**, your primary obstacle (**${aiChallenge}**) combined with a **${aiFrequency}** social presence is costing you substantial high-street footfall. Without constant daily video reels, your restaurant is virtually invisible to local diners whose visual memory decays within 48 hours. You are currently leaking upwards of 30% in margin fees to third-party delivery aggregators.
@@ -274,537 +267,258 @@ To immediately execute this elite daily engagement & local search turnaround fra
     setAiWebsiteUrl('');
   };
 
-  return (
-    <section id="contact-form-section" className="py-24 bg-brand-charcoal relative border-t border-b border-zinc-900">
-      <div className="absolute inset-0 pointer-events-none gold-ambient-glow filter blur-[150px] opacity-15 top-0 right-0 animate-pulse" />
+  const tabs = [
+    { id: 'aiaudit' as const, label: '5-min AI audit' },
+    { id: 'validator' as const, label: 'Instant diagnostic' },
+    { id: 'googleform' as const, label: 'Talk to us' },
+  ];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" id="audit-form-container">
-        
-        {/* Title */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[11px] font-mono tracking-widest text-[#F5B82E] uppercase px-3.5 py-1.5 bg-brand-gold/10 border border-[#F5B82E]/30 rounded-none inline-block mb-3 font-bold">
-            UK HOSPITALITY PERFORMANCE CENTRE
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tighter">
-            RESTORE YOUR REVENUE & <span className="bg-gradient-to-r from-brand-gold to-brand-gold-soft bg-clip-text text-transparent">RESTORE YOUR SEATS</span>
+  return (
+    <section id="contact-form-section">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-sm font-semibold text-brand-gold-hover uppercase tracking-wider">Free growth audit</p>
+          <h2 className="mt-2 font-display font-bold text-2xl sm:text-3xl tracking-tight text-ink">
+            Restore your revenue &amp; refill your seats
           </h2>
-          <p className="font-sans text-sm sm:text-base text-zinc-400 font-light">
-            If your restaurant is suffering from high aggregator commission rates, silent mid-week nights, dynamic local competition, or lack of daily social posting, we have you covered. Configure the parameters below for analysis or connect instantly via our official channels.
+          <p className="mt-3 text-zinc-600">
+            Run a 5-minute AI audit, a quick diagnostic, or just talk to us. No hard pitch, no obligation.
           </p>
         </div>
 
-        {/* Dynamic Mode Switcher (Tab Selection) */}
-        <div className="flex flex-wrap md:flex-nowrap justify-center mb-10 max-w-2xl mx-auto border border-white/5 bg-[#141414] p-1.5 rounded-none gap-1">
-          <button
-            onClick={() => { setActiveTab('aiaudit'); }}
-            className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
-              activeTab === 'aiaudit'
-                ? 'bg-[#F5B82E] text-black'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            5-Min AI Audit
-          </button>
-          <button
-            onClick={() => { setActiveTab('validator'); if (step === 'report') setStep('idle'); }}
-            className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
-              activeTab === 'validator'
-                ? 'bg-[#F5B82E] text-black'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            Instant Diagnostic
-          </button>
-          <button
-            onClick={() => setActiveTab('googleform')}
-            className={`flex-1 min-w-[140px] py-3 px-2 text-[11px] font-mono uppercase tracking-wider font-bold transition-all cursor-pointer ${
-              activeTab === 'googleform'
-                ? 'bg-[#F5B82E] text-black'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            Google Contact Form
-          </button>
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-1.5 mb-8 max-w-xl mx-auto bg-white border border-line rounded-full p-1.5 shadow-soft">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => {
+                setActiveTab(t.id);
+                if (t.id === 'validator' && step === 'report') setStep('idle');
+              }}
+              className={`flex-1 min-w-[120px] py-2.5 px-3 text-sm font-semibold rounded-full transition-all cursor-pointer ${
+                activeTab === t.id ? 'bg-ink text-white' : 'text-zinc-600 hover:text-ink'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: Interactive Audit Form depending on Selected Tab */}
-          <div className="lg:col-span-8 bg-[#141414] border border-white/5 rounded-none p-6 sm:p-10 shadow-2xl min-h-[520px] flex flex-col justify-between relative overflow-hidden" id="audit-interactive-board">
-            
-            {/* Top red glow strip */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-gold via-[#FFD466] to-transparent" />
-
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          {/* Main panel */}
+          <div className="lg:col-span-8 rounded-[1.5rem] bg-white border border-line p-6 sm:p-8 shadow-soft min-h-[480px]">
+            {/* ---- AI AUDIT ---- */}
             {activeTab === 'aiaudit' && (
               <>
-                {/* AI AUDIT IDLE / PERSONA QUESTIONS FORM */}
                 {aiStep === 'idle' && (
-                  <form onSubmit={handleAiAuditSubmit} className="space-y-6" id="ai-input-form text-left">
-                    <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                      <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
-                        <Sparkles className="w-4 h-4 text-[#F5B82E]" />
+                  <form onSubmit={handleAiAuditSubmit} className="space-y-6">
+                    <PanelHeader
+                      icon={<Sparkles className="w-5 h-5" />}
+                      title="Most reliable AI turnaround audit"
+                      sub="5-minute real-time analysis"
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Restaurant name</label>
+                        <input type="text" required placeholder="e.g. Manchester Smokey Grill" value={aiRestaurantName} onChange={(e) => setAiRestaurantName(e.target.value)} className={inputCls} />
                       </div>
                       <div>
-                        <h3 className="font-display font-black uppercase text-white text-base tracking-tight">Most Reliable AI Turnaround Audit</h3>
-                        <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">5-MINUTE REAL-TIME ANALYSIS</p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                      {/* Restaurant & Brand Name */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Restaurant Name</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Manchester Smokey Grill"
-                          value={aiRestaurantName}
-                          onChange={(e) => setAiRestaurantName(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                        />
-                      </div>
-
-                      {/* Brand Link or Profile Link */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Website or Instagram URL</label>
+                        <label className={labelCls}>Website or Instagram URL</label>
                         <div className="relative">
-                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-                          <input
-                            type="url"
-                            required
-                            placeholder="e.g. https://instagram.com/smokeygrill"
-                            value={aiWebsiteUrl}
-                            onChange={(e) => setAiWebsiteUrl(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                          />
+                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                          <input type="url" required placeholder="https://instagram.com/smokeygrill" value={aiWebsiteUrl} onChange={(e) => setAiWebsiteUrl(e.target.value)} className={inputCls + ' pl-10'} />
                         </div>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-                      {/* Your Role */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Your Role / Position</label>
-                        <select
-                          value={aiRole}
-                          onChange={(e) => setAiRole(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
-                        >
-                          <option value="Owner / Founder">Owner / Founder</option>
-                          <option value="General Manager">General Manager</option>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                      <div>
+                        <label className={labelCls}>Your role</label>
+                        <select value={aiRole} onChange={(e) => setAiRole(e.target.value)} className={selectCls}>
+                          <option>Owner / Founder</option>
+                          <option>General Manager</option>
                           <option value="Head Chef / Kitchen Lead">Head Chef / Kitchen Lead</option>
                           <option value="Marketing Partner or Agency">Marketing Partner</option>
                         </select>
                       </div>
-
-                      {/* Primary Hurdle */}
-                      <div className="space-y-2 sm:col-span-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Primary Revenue Obstacle</label>
-                        <select
-                          value={aiChallenge}
-                          onChange={(e) => setAiChallenge(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
-                        >
-                          <option value="Losing 30%+ profit margins to heavy delivery app aggregators">Aggregators (UberEats, Deliveroo, Just Eat) eating margins</option>
-                          <option value="Losing mid-week table covers (Tuesday/Wednesday nights are silent)">Dead mid-week covers and dynamic high-street traffic</option>
-                          <option value="No time or structural format for high-retention daily posting">Social channels are silent & missing daily engaging stories/reels</option>
-                          <option value="Struggling to stand out from aggressive high-street discounts">Hyper-competition & high-street pricing wars</option>
+                      <div className="sm:col-span-2">
+                        <label className={labelCls}>Primary revenue obstacle</label>
+                        <select value={aiChallenge} onChange={(e) => setAiChallenge(e.target.value)} className={selectCls}>
+                          <option value="Losing 30%+ profit margins to heavy delivery app aggregators">Aggregators eating margins</option>
+                          <option value="Losing mid-week table covers (Tuesday/Wednesday nights are silent)">Dead mid-week covers</option>
+                          <option value="No time or structural format for high-retention daily posting">Silent social channels</option>
+                          <option value="Struggling to stand out from aggressive high-street discounts">Hyper-competition &amp; price wars</option>
                         </select>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                      {/* Posting Frequency */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Current Posting Frequency</label>
-                        <select
-                          value={aiFrequency}
-                          onChange={(e) => setAiFrequency(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
-                        >
-                          <option value="Sporadic (no structure, silent for weeks)">Sporadic (no structure, silent for weeks)</option>
-                          <option value="Occasionally (1-2 posts a week, mostly static text)">Occasionally (1-2 posts a week, mostly static text)</option>
-                          <option value="Zero active presence (dormant profiles)">Zero active presence (dormant profiles)</option>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Current posting frequency</label>
+                        <select value={aiFrequency} onChange={(e) => setAiFrequency(e.target.value)} className={selectCls}>
+                          <option>Sporadic (no structure, silent for weeks)</option>
+                          <option>Occasionally (1-2 posts a week, mostly static text)</option>
+                          <option>Zero active presence (dormant profiles)</option>
                         </select>
                       </div>
-
-                      {/* Target Location */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Borough / Target Location</label>
-                        <select
-                          value={aiLocation}
-                          onChange={(e) => setAiLocation(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F5B82E] transition-all cursor-pointer"
-                        >
-                          <option value="London & South East">London & South East</option>
-                          <option value="Manchester & North West">Manchester & North West</option>
-                          <option value="Birmingham & Midlands">Birmingham & Midlands</option>
+                      <div>
+                        <label className={labelCls}>Target location</label>
+                        <select value={aiLocation} onChange={(e) => setAiLocation(e.target.value)} className={selectCls}>
+                          <option>London &amp; South East</option>
+                          <option>Manchester &amp; North West</option>
+                          <option>Birmingham &amp; Midlands</option>
                           <option value="Scotland (Edinburgh/Glasgow)">Scotland (Edinburgh/Glasgow)</option>
-                          <option value="Wales & South West">Wales & South West</option>
+                          <option>Wales &amp; South West</option>
                         </select>
                       </div>
                     </div>
-
-                    <p className="text-[11px] text-zinc-500 italic bg-[#1E1E1E] p-3 text-left border border-white/5 font-mono">
-                      *Markadeo's AI models analyse your nearby high-street search signals. Learn how to move aggregator orders back to direct bookings at your tables.
-                    </p>
-
-                    <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                      <span className="text-[11px] text-zinc-500 flex items-center gap-1.5 font-mono">
-                        <Bot className="w-3.5 h-3.5 text-brand-gold" />
-                        GDPR compliant. No hard pitch or cold calls guaranteed.
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                      <span className="text-xs text-zinc-500 flex items-center gap-1.5">
+                        <Bot className="w-3.5 h-3.5 text-brand-gold-hover" />
+                        GDPR compliant. No cold calls.
                       </span>
-                      
-                      <button
-                        type="submit"
-                        className="inline-flex items-center justify-center gap-2 border border-brand-gold bg-brand-gold text-black hover:bg-[#E0A516] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
-                        id="btn-ai-audit-run"
-                      >
-                        Run Live AI Audit
+                      <button type="submit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-hover text-ink font-semibold px-7 py-3.5 rounded-full transition-colors cursor-pointer" id="btn-ai-audit-run">
+                        Run live AI audit
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
                   </form>
                 )}
 
-                {/* AI AUDIT LOADING / ANALYZING VIEW */}
-                {aiStep === 'analyzing' && (
-                  <div className="py-16 flex flex-col items-center justify-center text-center space-y-6" id="ai-analyzing-panel">
-                    <RefreshCw className="w-12 h-12 text-[#F5B82E] animate-spin" />
-                    <div className="space-y-2 max-w-md">
-                      <h4 className="font-display font-black uppercase text-lg text-white">Activating Real-Time AI Review...</h4>
-                      <p className="font-mono text-xs text-zinc-400 leading-relaxed min-h-12 px-4">
-                        {aiProgressMsg}
-                      </p>
-                    </div>
-                    
-                    <div className="w-full max-w-md bg-zinc-900 h-2 rounded-none border border-white/5 overflow-hidden">
-                      <div
-                        style={{ width: `${aiProgress}%` }}
-                        className="bg-brand-gold h-full rounded-none transition-all duration-300"
-                      />
-                    </div>
-                    <span className="font-mono text-xs text-zinc-500 font-bold tracking-wider">{aiProgress}% ANALYZED</span>
-                  </div>
-                )}
+                {aiStep === 'analyzing' && <Analyzing msg={aiProgressMsg} progress={aiProgress} />}
 
-                {/* AI AUDIT COMPLETE REPORT DISPLAY */}
                 {aiStep === 'report' && (
-                  <div className="space-y-6 text-left" id="ai-report-view">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-none bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                          <CheckCircle2 className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 border border-emerald-500/25 rounded-none uppercase tracking-widest font-black">AI Audit Secured</span>
-                          <h4 className="font-display font-black text-white text-lg mt-1 uppercase tracking-tight">TURNAROUND STRATEGY: {aiRestaurantName}</h4>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={resetAiCalculator}
-                        className="text-xs bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white border border-white/5 px-4 py-2 rounded-none uppercase tracking-wider font-mono transition-all font-bold cursor-pointer"
-                      >
-                        New Analysis &rarr;
-                      </button>
-                    </div>
-
-                    {/* Styled Markdown View */}
-                    <div className="p-6 bg-zinc-950 border border-white/5 text-white/90 text-sm font-sans space-y-6 leading-relaxed rounded-none shadow-inner max-h-[480px] overflow-y-auto">
-                      <div className="markdown-body prose prose-invert prose-amber max-w-none text-left space-y-4">
+                  <div className="space-y-5">
+                    <ReportHeader title={`Turnaround strategy: ${aiRestaurantName}`} onReset={resetAiCalculator} />
+                    <div className="rounded-2xl bg-canvas border border-line p-6 max-h-[460px] overflow-y-auto">
+                      <div className="markdown-body max-w-none">
                         <Markdown>{aiOutput}</Markdown>
                       </div>
                     </div>
-
-                    {/* Trust CTA & Redirect paths */}
-                    <div className="bg-[#1C1C1C] border border-[#F5B82E]/20 p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="rounded-2xl bg-brand-gold-wash border border-brand-gold/30 p-5 flex flex-col md:flex-row items-center justify-between gap-4">
                       <div>
-                        <h4 className="text-xs font-display font-black text-white uppercase tracking-wider">Execute this bespoke turnaround blueprint</h4>
-                        <p className="text-[11px] text-zinc-500 mt-1">Our expert team handles continuous daily social postings, localized maps conquest, and comment automation turnkey.</p>
+                        <h4 className="font-semibold text-ink">Execute this blueprint</h4>
+                        <p className="text-sm text-zinc-600 mt-0.5">We handle daily posting, local maps and comment automation, turnkey.</p>
                       </div>
-                      <a
-                        href="#contact-form-section"
-                        onClick={() => setActiveTab('googleform')}
-                        className="inline-flex items-center gap-1.5 bg-[#F5B82E] hover:bg-[#E0A516] text-black hover:scale-105 duration-200 transition-all font-display uppercase tracking-widest font-bold text-[10px] px-5 py-3 rounded-none whitespace-nowrap"
-                        id="btn-ai-conquest-claim"
-                      >
+                      <button onClick={() => setActiveTab('googleform')} className="inline-flex items-center gap-1.5 bg-ink text-white font-semibold text-sm px-5 py-3 rounded-full whitespace-nowrap cursor-pointer hover:bg-black transition-colors">
                         Contact Markadeo
-                        <Bot className="w-3.5 h-3.5" />
-                      </a>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 )}
               </>
             )}
 
+            {/* ---- VALIDATOR ---- */}
             {activeTab === 'validator' && (
               <>
-                {/* Stage 1: IDLE / FORM */}
                 {step === 'idle' && (
-                  <form onSubmit={handleAuditSubmit} className="space-y-6" id="audit-input-form text-left">
-                    <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                      <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
-                        <Globe className="w-4 h-4" />
+                  <form onSubmit={handleAuditSubmit} className="space-y-6">
+                    <PanelHeader icon={<Globe className="w-5 h-5" />} title="Restaurant performance assessor" sub="Localized demand metrics" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Restaurant / brand name</label>
+                        <input type="text" required placeholder="e.g. Covent Garden Bistro" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className={inputCls} />
                       </div>
                       <div>
-                        <h3 className="font-display font-black uppercase text-white text-base tracking-tight">Restaurant Performance Assessor</h3>
-                        <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">LOCALIZED DEMAND METRIC SYSTEM</p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                      {/* Company Name */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Restaurant / Brand Name</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Covent Garden Bistro"
-                          value={companyName}
-                          onChange={(e) => setCompanyName(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                        />
-                      </div>
-
-                      {/* Website URL */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Website or Digital Menu URL</label>
+                        <label className={labelCls}>Website or menu URL</label>
                         <div className="relative">
-                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-                          <input
-                            type="text"
-                            required
-                            placeholder="e.g. www.coventgardenbistro.net"
-                            value={websiteUrl}
-                            onChange={(e) => setWebsiteUrl(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                          />
+                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                          <input type="text" required placeholder="www.coventgardenbistro.net" value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} className={inputCls + ' pl-10'} />
                         </div>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                      {/* Target UK Landmark Focus */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Primary UK Geography / Borough</label>
-                        <select
-                          value={ukLocation}
-                          onChange={(e) => setUkLocation(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
-                        >
-                          <option value="London & South East">London & South East</option>
-                          <option value="Manchester & North West">Manchester & North West</option>
-                          <option value="Birmingham & Midlands">Birmingham & Midlands</option>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Primary UK geography</label>
+                        <select value={ukLocation} onChange={(e) => setUkLocation(e.target.value)} className={selectCls}>
+                          <option>London &amp; South East</option>
+                          <option>Manchester &amp; North West</option>
+                          <option>Birmingham &amp; Midlands</option>
                           <option value="Scotland (Edinburgh/Glasgow)">Scotland (Edinburgh/Glasgow)</option>
-                          <option value="Wales & South West">Wales & South West</option>
+                          <option>Wales &amp; South West</option>
                         </select>
                       </div>
-
-                      {/* Main Optimization KPI */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Main Revenue Obstacle</label>
-                        <select
-                          value={targetMetric}
-                          onChange={(e) => setTargetMetric(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
-                        >
-                          <option value="Boost Mid-Week Dinner Bookings">Boost Mid-Week Dinner Bookings</option>
-                          <option value="Bypass Aggregators for Direct Deliveries">Bypass Aggregators for Direct Deliveries</option>
-                          <option value="Fix Zero Social Engagement & Reach">Fix Zero Social Engagement & Reach</option>
-                          <option value="Overcome Severe Competition & Price Wars">Overcome Severe Competition & Price Wars</option>
+                      <div>
+                        <label className={labelCls}>Main revenue obstacle</label>
+                        <select value={targetMetric} onChange={(e) => setTargetMetric(e.target.value)} className={selectCls}>
+                          <option>Boost Mid-Week Dinner Bookings</option>
+                          <option>Bypass Aggregators for Direct Deliveries</option>
+                          <option>Fix Zero Social Engagement &amp; Reach</option>
+                          <option>Overcome Severe Competition &amp; Price Wars</option>
                         </select>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                      {/* TikTok / Instagram handle */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Social Handle (Instagram/TikTok)</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Social handle</label>
                         <div className="relative">
-                          <Instagram className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-                          <input
-                            type="text"
-                            placeholder="e.g. @coventgardenbistro"
-                            value={currentSocialHandle}
-                            onChange={(e) => setCurrentSocialHandle(e.target.value)}
-                            className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                          />
+                          <Instagram className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                          <input type="text" placeholder="@coventgardenbistro" value={currentSocialHandle} onChange={(e) => setCurrentSocialHandle(e.target.value)} className={inputCls + ' pl-10'} />
                         </div>
                       </div>
-
-                      {/* Posting Frequency */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Current Social Posting Frequency</label>
-                        <select
-                          value={postingFrequency}
-                          onChange={(e) => setPostingFrequency(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all cursor-pointer"
-                        >
-                          <option value="Sporadic / No Active Posting">Sporadic / No Active Posting</option>
-                          <option value="Once or twice a week">Once or twice a week</option>
-                          <option value="Every other day (No reels)">Every other day (No reels)</option>
-                          <option value="We do not have social media accounts">We do not have social media accounts</option>
+                      <div>
+                        <label className={labelCls}>Posting frequency</label>
+                        <select value={postingFrequency} onChange={(e) => setPostingFrequency(e.target.value)} className={selectCls}>
+                          <option>Sporadic / No Active Posting</option>
+                          <option>Once or twice a week</option>
+                          <option>Every other day (No reels)</option>
+                          <option>We do not have social media accounts</option>
                         </select>
                       </div>
                     </div>
-
-                    {/* Contact Email field */}
-                    <div className="space-y-2 text-left">
-                      <label className="text-xs font-display font-bold uppercase tracking-wide text-zinc-300 block">Owner / Manager Work Email</label>
+                    <div>
+                      <label className={labelCls}>Owner / manager email</label>
                       <div className="relative">
-                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-                        <input
-                          type="email"
-                          required
-                          placeholder="e.g. manager@coventgardenbistro.net"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-white/5 rounded-none pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold transition-all"
-                        />
+                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                        <input type="email" required placeholder="manager@coventgardenbistro.net" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls + ' pl-10'} />
                       </div>
                     </div>
-
-                    <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                      <span className="text-[11px] text-zinc-500 flex items-center gap-1.5 font-mono">
-                        <ShieldCheck className="w-3.5 h-3.5 text-brand-gold" />
-                        Strictly NDA protected. Food concepts protected.
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                      <span className="text-xs text-zinc-500 flex items-center gap-1.5">
+                        <ShieldCheck className="w-3.5 h-3.5 text-brand-gold-hover" />
+                        Strictly confidential.
                       </span>
-                      
-                      <button
-                        type="submit"
-                        className="inline-flex items-center justify-center gap-2 border border-brand-gold bg-brand-gold text-black hover:bg-[#E0A516] px-8 py-3.5 uppercase text-xs font-bold tracking-widest transition-all rounded-none font-display w-full sm:w-auto cursor-pointer"
-                        id="btn-agency-audit-submit"
-                      >
-                        Generate Restaurant Diagnostic
+                      <button type="submit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-hover text-ink font-semibold px-7 py-3.5 rounded-full transition-colors cursor-pointer" id="btn-agency-audit-submit">
+                        Generate diagnostic
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
                   </form>
                 )}
 
-                {/* Stage 2: ANALYZING LOADING BARS */}
-                {step === 'analyzing' && (
-                  <div className="py-12 flex flex-col items-center justify-center text-center space-y-6" id="audit-analyzing-panel">
-                    <RefreshCw className="w-12 h-12 text-brand-gold animate-spin" />
-                    <div className="space-y-2 max-w-sm">
-                      <h4 className="font-display font-black uppercase text-lg text-white">Analyzing Dining Signals...</h4>
-                      <p className="font-mono text-xs text-zinc-400 leading-relaxed min-h-8">
-                        {progressMsg}
-                      </p>
+                {step === 'analyzing' && <Analyzing msg={progressMsg} progress={loadingProgress} />}
+
+                {step === 'report' && activeReport && (
+                  <div className="space-y-5">
+                    <ReportHeader title={`Revenue model: ${activeReport.companyName}`} onReset={resetCalculator} resetLabel="Reset" />
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <ScoreCard label="Local map presence" sub="Maps visibility" value={activeReport.scores!.seo} />
+                      <ScoreCard label="Menu performance" sub="Speed / vitals" value={activeReport.scores!.speed} />
+                      <ScoreCard label="Social post rating" sub="Daily posting" value={activeReport.scores!.content} />
+                      <ScoreCard label="Diner conversion" sub="Reservation rate" value={activeReport.scores!.security} />
                     </div>
-                    
-                    {/* Visual loading bar track */}
-                    <div className="w-full max-w-md bg-zinc-900 h-2 rounded-none border border-white/5 overflow-hidden">
-                      <div
-                        style={{ width: `${loadingProgress}%` }}
-                        className="bg-brand-gold h-full rounded-none transition-all duration-300"
+                    <div className="rounded-2xl bg-canvas border border-line p-5 sm:p-6 space-y-4">
+                      <h5 className="font-semibold text-ink flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4 text-brand-gold-hover" />
+                        Action checklist for {activeReport.companyName}
+                      </h5>
+                      <Checklist
+                        items={[
+                          { tone: 'warn', title: 'Weak social consistency', body: 'Diner visual memory expires in ~48 hours. Daily posting must scale to sustain awareness.' },
+                          { tone: 'warn', title: 'Over-reliance on commissions', body: 'Our hyper-local framework moves aggregator orders toward direct bookings — so more margin stays with you.' },
+                          { tone: 'ok', title: 'Regional indexing', body: `Your location in ${activeReport.ukLocation} has valid density but slow maps updates. Fixable within 14 business days.` },
+                        ]}
                       />
                     </div>
-                    <span className="font-mono text-xs text-zinc-500 font-bold tracking-wider">{loadingProgress}% COMPLETE</span>
-                  </div>
-                )}
-
-                {/* Stage 3: THE COMPILATION REPORT SHIELD */}
-                {step === 'report' && activeReport && (
-                  <div className="space-y-6 text-left" id="audit-report-panel">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-none bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                          <CheckCircle2 className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 border border-emerald-500/25 rounded-none uppercase tracking-widest font-black">Analysis Completed</span>
-                          <h4 className="font-display font-black text-white text-lg mt-1 uppercase tracking-tight">REVENUE MODEL: {activeReport.companyName}</h4>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={resetCalculator}
-                        className="text-xs bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white border border-white/5 px-4 py-2 rounded-none uppercase tracking-wider font-mono transition-all font-bold cursor-pointer"
-                      >
-                        Reset System &rarr;
-                      </button>
-                    </div>
-
-                    {/* Score Indicators Grid */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                      {/* Item 1 */}
-                      <div className="bg-[#181818] border border-white/5 p-4 rounded-none flex flex-col justify-between">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase font-bold">Local Map Presence</span>
-                        <span className="text-2xl font-display font-black text-yellow-500 mt-2">{activeReport.scores!.seo}/100</span>
-                        <span className="text-[8px] text-zinc-500 mt-1 font-mono uppercase">Maps Visibility Index</span>
-                      </div>
-
-                      {/* Item 2 */}
-                      <div className="bg-[#181818] border border-white/5 p-4 rounded-none flex flex-col justify-between">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase font-bold">Menu Performance</span>
-                        <span className="text-2xl font-display font-black text-emerald-400 mt-2">{activeReport.scores!.speed}/100</span>
-                        <span className="text-[8px] text-zinc-500 mt-1 font-mono uppercase">Speed / Load Vitals</span>
-                      </div>
-
-                      {/* Item 3 */}
-                      <div className="bg-[#181818] border border-white/5 p-4 rounded-none flex flex-col justify-between">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase font-semibold">Social Post Rating</span>
-                        <span className="text-2xl font-display font-black text-brand-gold mt-2">{activeReport.scores!.content}/100</span>
-                        <span className="text-[8px] text-zinc-500 mt-1 font-mono uppercase">Daily Posting Score</span>
-                      </div>
-
-                      {/* Item 4 */}
-                      <div className="bg-[#181818] border border-white/5 p-4 rounded-none flex flex-col justify-between">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase font-bold">Diner Conversion</span>
-                        <span className="text-2xl font-display font-black text-zinc-400 mt-2">{activeReport.scores!.security}/100</span>
-                        <span className="text-[8px] text-zinc-500 mt-1 font-mono uppercase">Reservation Rate</span>
-                      </div>
-                    </div>
-
-                    {/* Practical Action Recommendations Checklist */}
-                    <div className="bg-[#181818] p-4 sm:p-6 rounded-none border border-white/5 space-y-4 text-left">
-                      <h5 className="font-display font-black text-xs text-white uppercase tracking-widest flex items-center gap-1.5">
-                        <AlertTriangle className="w-4 h-4 text-brand-gold" />
-                        Automated Action Checklist for {activeReport.companyName}
-                      </h5>
-
-                      <div className="space-y-3">
-                        <div className="flex gap-3 text-xs">
-                          <div className="w-5 h-5 rounded-none bg-brand-gold/10 border border-[#F5B82E]/30 text-brand-gold font-mono font-bold flex items-center justify-center flex-shrink-0 mt-0.5" id="alert-1">!</div>
-                          <div>
-                            <p className="font-semibold text-zinc-200">Critical: Weak Social Cover Consistency</p>
-                            <p className="text-zinc-500 mt-0.5">Your profiles lack daily postings or high-quality video stories. In the restaurant trade, diner visual memory expires in 48 hours. Daily posting must scale to sustain awareness.</p>
-                          </div>
-                        </div>
-
-                        <div className="flex gap-3 text-xs border-t border-white/5 pt-3">
-                          <div className="w-5 h-5 rounded-none bg-brand-gold/10 border border-[#F5B82E]/30 flex items-center justify-center text-brand-gold font-mono font-bold flex-shrink-0 mt-0.5" id="alert-2">!</div>
-                          <div>
-                            <p className="font-semibold text-zinc-200">Over-Reliance on Commissions</p>
-                            <p className="text-zinc-500 mt-0.5">Your setup leans on commission-heavy aggregators. Our hyper-local framework is built to move those orders toward direct bookings — so more of the margin stays with you.</p>
-                          </div>
-                        </div>
-
-                        <div className="flex gap-3 text-xs border-t border-white/5 pt-3">
-                          <div className="w-5 h-5 rounded-none bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold flex-shrink-0 mt-0.5" id="alert-3">&radic;</div>
-                          <div>
-                            <p className="font-semibold text-zinc-200">Basic Regional Postcode Indexing</p>
-                            <p className="text-zinc-500 mt-0.5">Your location in {activeReport.ukLocation} possesses valid density but has slow maps update schedules. This is fixable within 14 business days.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Call of action from agency */}
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1E1E1E] p-4 rounded-none border border-white/5 text-left">
+                    <div className="rounded-2xl bg-brand-gold-wash border border-brand-gold/30 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
                       <div>
-                        <p className="text-xs font-bold text-white uppercase tracking-wide">Ready to completely turn around your restaurant covers?</p>
-                        <p className="text-[11px] text-zinc-500 mt-0.5 font-light">Let us build a customized daily social posting and local maps conquest system for you. Speak to our desk team live.</p>
+                        <p className="font-semibold text-ink">Ready to turn around your covers?</p>
+                        <p className="text-sm text-zinc-600 mt-0.5">Let us build your daily posting + local maps system.</p>
                       </div>
-                      
-                      <a
-                        href="mailto:partnerships@markadeo.com?subject=UK Restaurant Cover Scale Blueprint"
-                        className="inline-flex items-center gap-1.5 border border-brand-gold text-black bg-brand-gold hover:bg-[#E0A516] text-[11px] font-display font-bold uppercase tracking-widest px-4 py-2.5 rounded-none transition-colors"
-                      >
-                        Book Retainer Chat
-                        <Mail className="w-3.5 h-3.5" />
+                      <a href="mailto:partnerships@markadeo.com?subject=UK Restaurant Cover Scale Blueprint" className="inline-flex items-center gap-1.5 bg-ink text-white font-semibold text-sm px-5 py-3 rounded-full whitespace-nowrap hover:bg-black transition-colors">
+                        Book a chat
+                        <Mail className="w-4 h-4" />
                       </a>
                     </div>
                   </div>
@@ -812,150 +526,67 @@ To immediately execute this elite daily engagement & local search turnaround fra
               </>
             )}
 
+            {/* ---- TALK TO US ---- */}
             {activeTab === 'googleform' && (
-              /* TAB: GOOGLE CONTACT FORM DISPLAY */
-              <div className="flex flex-col justify-between h-full space-y-6" id="google-form-panel">
-                <div className="flex items-center gap-2.5 pb-4 border-b border-white/5 text-left">
-                  <div className="w-8 h-8 rounded-none bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
-                    <Clipboard className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-black uppercase text-white text-base tracking-tight">Google Workplace Registry</h3>
-                    <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">OFFICIAL DESK RESPONSE PATHWAYS</p>
-                  </div>
+              <div className="space-y-6">
+                <PanelHeader icon={<MessageSquare className="w-5 h-5" />} title="Talk to a real person" sub="24-hour response benchmark" />
+                <p className="text-zinc-600">
+                  Prefer to skip the tools? Tell us about your restaurant and our lead partner will come back
+                  with a personal, no-obligation strategy review — usually within one business day.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <a href="mailto:partnerships@markadeo.com?subject=Restaurant growth enquiry" className="group rounded-2xl border border-line bg-canvas p-5 hover:border-brand-gold/50 hover:bg-brand-gold-wash transition-colors lift">
+                    <span className="w-10 h-10 rounded-xl bg-white border border-line flex items-center justify-center text-brand-gold-hover"><Mail className="w-5 h-5" /></span>
+                    <h4 className="mt-3 font-semibold text-ink">Email us</h4>
+                    <p className="text-sm text-zinc-600 mt-0.5">partnerships@markadeo.com</p>
+                  </a>
+                  <a href="tel:+442080000000" className="group rounded-2xl border border-line bg-canvas p-5 hover:border-brand-gold/50 hover:bg-brand-gold-wash transition-colors lift">
+                    <span className="w-10 h-10 rounded-xl bg-white border border-line flex items-center justify-center text-brand-gold-hover"><Phone className="w-5 h-5" /></span>
+                    <h4 className="mt-3 font-semibold text-ink">Call us</h4>
+                    <p className="text-sm text-zinc-600 mt-0.5">Mon–Fri, 9am–6pm</p>
+                  </a>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-left items-stretch">
-                  <div className="md:col-span-4 bg-[#1A1A1A] border border-white/5 p-5 space-y-4 flex flex-col justify-between">
-                    <div className="space-y-2">
-                      <span className="text-[9px] font-mono font-bold text-[#F5B82E] bg-brand-gold/10 border border-[#F5B82E]/30 px-2 py-0.5 rounded-none uppercase block w-max">COVENANT DATA</span>
-                      <h4 className="text-xs font-display font-black text-white uppercase tracking-wide">Direct Registration System</h4>
-                      <p className="text-[11px] text-zinc-400 font-light leading-relaxed">
-                        Skip automated scraping entirely. Submit your details through the corporate Google Contact Form pipeline. Our strategic desk prioritizes files with valid physical high-street properties.
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 pt-4 border-t border-white/5">
-                      <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500">
-                        <Users className="w-3.5 h-3.5 text-brand-gold" />
-                        <span>RESERVED FOR MANAGERS</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500">
-                        <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>24H RESPONSE BENCHMARK</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Interactive Google Form Preview / Embedded Element */}
-                  <div className="md:col-span-8 bg-zinc-950 border border-white/5 p-4 sm:p-6 flex flex-col justify-between relative">
-                    <div className="space-y-4">
-                      {/* Simulating/Structuring a beautiful Google Doc contact fields overlay */}
-                      <div className="border-l-2 border-purple-500 bg-purple-500/5 p-3.5 text-[11px] font-mono text-zinc-400 flex items-start gap-2.5">
-                        <span className="font-bold text-purple-400">[G-DOCS]</span>
-                        <span>Markadeo Client Intake (Secure SSL). Your email addresses are automatically registered when submitting corporate documents.</span>
-                      </div>
-
-                      {/* We embed high-fidelity Google Form styling blocks or a custom configurable Google Form frame fallback */}
-                      <div className="space-y-3 pt-2">
-                        <label className="text-[10px] font-mono uppercase text-zinc-500 block">Google Form Target URL</label>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            readOnly
-                            value="https://docs.google.com/forms/d/e/1FAIpQLSfR_Y-vV557S"
-                            className="bg-[#111] border border-white/5 text-[11px] font-mono text-zinc-500 rounded-none px-3 py-2 w-full focus:outline-none"
-                          />
-                          <button 
-                            onClick={() => window.open('https://docs.google.com/forms', '_blank')}
-                            className="bg-brand-gold hover:bg-[#E0A516] text-[10px] text-black font-mono uppercase px-4 rounded-none font-bold cursor-pointer"
-                          >
-                            Browse
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Google Contact Form Beautiful Dynamic Iframe Emulator */}
-                      <div className="border border-dashed border-white/10 p-6 text-center text-zinc-500 bg-[#121212] space-y-4">
-                        <p className="text-xs font-mono">
-                          PREPARING SECURE MICROSOFT & GOOGLE WORKSPACE PROTOCOLS...
-                        </p>
-                        
-                        <div className="max-w-xs mx-auto space-y-2 text-left bg-black p-3 border border-white/5 font-mono text-[9.5px]">
-                          <p className="text-zinc-400">&gt; Target Profile: Restaurant Partner</p>
-                          <p className="text-zinc-400">&gt; Core Area: Sales Turnaround</p>
-                          <p className="text-zinc-400">&gt; Actions: Daily Posting & Social Engagement</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <a
-                      href="https://docs.google.com/forms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 border border-[#8553F4] bg-[#8553F4]/10 text-white hover:bg-[#8553F4]/20 py-3.5 uppercase text-xs font-mono font-bold tracking-widest transition-all rounded-none"
-                    >
-                      Fill Official Google Workspace Form
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/5 text-[11px] text-zinc-500 font-mono">
-                  <span>SSL SECURE INCIDENT REPORTING</span>
-                  <span>CO-AUTHORED FOR GOOGLE CLOUD SECURITY</span>
-                </div>
+                <a href="https://docs.google.com/forms" target="_blank" rel="noopener noreferrer" className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white font-semibold py-3.5 rounded-full hover:bg-black transition-colors">
+                  Open the contact form
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             )}
-
           </div>
 
-          {/* Right Column: Historical Ledger submissions (Persisted in localStorage) */}
-          <div className="lg:col-span-4 space-y-6" id="audit-history-panel">
-            <div className="bg-[#141414] border border-white/5 rounded-none p-6">
-              <h4 className="font-display font-black text-xs text-white uppercase tracking-widest mb-1 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-brand-gold" />
-                Diner Audit Ledger
+          {/* Ledger */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="rounded-[1.5rem] bg-white border border-line p-6 shadow-soft">
+              <h4 className="font-semibold text-ink flex items-center gap-2">
+                <FileText className="w-4 h-4 text-brand-gold-hover" />
+                Your audit history
               </h4>
-              <p className="font-sans text-xs text-zinc-500 mb-4 font-light">
-                Retrieve historical restaurant turnaround reports compiled in this session.
-              </p>
+              <p className="text-sm text-zinc-500 mt-1 mb-4">Saved in this browser session.</p>
 
               {submissions.length === 0 ? (
-                <div className="py-8 text-center text-zinc-600 text-xs italic border border-white/5 bg-[#1E1E1E]/40 rounded-none">
-                  No audits compiled yet. Use the Dining Diagnostic tool above.
+                <div className="py-8 text-center text-sm text-zinc-400 border border-dashed border-line rounded-2xl">
+                  No audits yet. Run the diagnostic above.
                 </div>
               ) : (
-                <div className="space-y-3 max-h-80 overflow-y-auto pr-1" id="audit-history-list">
+                <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
                   {submissions.map((sub) => {
-                    const isActive = activeReport?.id === sub.id;
+                    const isActive = activeReport?.id === sub.id && activeTab === 'validator';
                     return (
                       <div
                         key={sub.id}
                         onClick={() => selectReport(sub)}
-                        className={`p-3 rounded-none border text-left cursor-pointer transition-all flex items-center justify-between group ${
-                          isActive && activeTab === 'validator'
-                            ? 'bg-brand-gold/10 border-brand-gold/50 text-white'
-                            : 'bg-[#1E1E1E] border-white/5 hover:bg-[#222] hover:border-zinc-700 text-zinc-400'
+                        className={`p-3 rounded-2xl border cursor-pointer transition-all flex items-center justify-between gap-2 group ${
+                          isActive ? 'bg-brand-gold-wash border-brand-gold/50' : 'bg-canvas border-line hover:border-zinc-300'
                         }`}
                       >
-                        <div className="space-y-1 overflow-hidden pr-2">
-                          <p className="text-xs font-bold text-zinc-200 truncate uppercase tracking-tight">{sub.companyName}</p>
-                          <p className="text-[9px] text-zinc-500 font-mono truncate">{sub.websiteUrl}</p>
-                          <p className="text-[8px] text-zinc-650 font-mono italic">{sub.timestamp}</p>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-ink truncate">{sub.companyName}</p>
+                          <p className="text-xs text-zinc-500 truncate">{sub.websiteUrl}</p>
+                          <p className="text-[11px] text-zinc-400">{sub.timestamp}</p>
                         </div>
-
                         <div className="flex items-center gap-2 flex-shrink-0">
-                          {sub.scores && (
-                            <span className="text-xs font-mono font-bold text-brand-gold">
-                              {sub.scores.seo} Maps
-                            </span>
-                          )}
-                          <button
-                            onClick={(e) => deleteSubmission(sub.id, e)}
-                            className="p-1 rounded-none hover:bg-zinc-800 text-zinc-600 hover:text-white transition-opacity md:opacity-0 group-hover:opacity-100"
-                            aria-label="Delete audit log"
-                          >
+                          {sub.scores && <span className="text-xs font-semibold text-brand-gold-hover">{sub.scores.seo}</span>}
+                          <button onClick={(e) => deleteSubmission(sub.id, e)} className="p-1.5 rounded-lg hover:bg-white text-zinc-400 hover:text-ink transition-colors" aria-label="Delete audit">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -966,35 +597,95 @@ To immediately execute this elite daily engagement & local search turnaround fra
               )}
             </div>
 
-            {/* Absolute Trust Banner */}
-            <div className="bg-[#1E1E1E] p-4 rounded-none border border-white/5 text-left">
-              <span className="text-[9px] font-mono text-zinc-500 uppercase block tracking-wider font-bold">HOW THIS AUDIT WORKS</span>
-              <p className="text-xs font-bold text-white mt-1 uppercase tracking-wide">AI-Assisted Local Search Review</p>
-              <p className="text-[11px] text-zinc-500 mt-0.5 leading-relaxed font-light">
-                Your inputs are analysed against UK local-search and social best practice to surface practical, honest recommendations — no obligation.
+            <div className="rounded-[1.5rem] bg-ink text-white p-6">
+              <span className="text-xs font-medium text-zinc-400 uppercase tracking-wider">How this audit works</span>
+              <p className="font-semibold mt-1">AI-assisted local search review</p>
+              <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
+                Your inputs are analysed against UK local-search and social best practice to surface
+                practical, honest recommendations — no obligation.
               </p>
             </div>
           </div>
-
         </div>
-
-        {/* Dynamic, transparent Google Forms Direct Link overlay callout */}
-        <div className="mt-12 bg-gradient-to-r from-brand-gold/10 via-brand-dark to-brand-dark p-6 border border-[#F5B82E]/20 text-left flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-1">
-            <h4 className="text-sm font-display font-black text-white uppercase tracking-wider">Are you a UK Restaurant losing sales?</h4>
-            <p className="text-xs text-zinc-400 font-sans font-light">
-              Submit your detailed location plans, menu items, and seating difficulties directly through our <strong>Google Contact Form</strong> to receive dedicated personal strategy reviews from our lead partner.
-            </p>
-          </div>
-          <button
-            onClick={() => setActiveTab('googleform')}
-            className="flex-shrink-0 bg-transparent hover:bg-brand-gold hover:text-black text-zinc-300 border border-white/10 hover:border-brand-gold px-6 py-3 uppercase text-xs font-mono font-bold tracking-widest transition-all rounded-none cursor-pointer"
-          >
-            Launch Google form &rarr;
-          </button>
-        </div>
-
       </div>
     </section>
+  );
+}
+
+/* ---------- small presentational helpers ---------- */
+function PanelHeader({ icon, title, sub }: { icon: React.ReactNode; title: string; sub: string }) {
+  return (
+    <div className="flex items-center gap-3 pb-5 border-b border-line">
+      <span className="w-10 h-10 rounded-xl bg-brand-gold-wash flex items-center justify-center text-brand-gold-hover flex-shrink-0">{icon}</span>
+      <div>
+        <h3 className="font-display font-bold text-ink leading-tight">{title}</h3>
+        <p className="text-xs text-zinc-500">{sub}</p>
+      </div>
+    </div>
+  );
+}
+
+function ReportHeader({ title, onReset, resetLabel = 'New analysis' }: { title: string; onReset: () => void; resetLabel?: string }) {
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-line">
+      <div className="flex items-center gap-3">
+        <span className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
+          <CheckCircle2 className="w-5 h-5" />
+        </span>
+        <div>
+          <span className="text-xs font-semibold text-emerald-600">Audit complete</span>
+          <h4 className="font-display font-bold text-ink leading-tight">{title}</h4>
+        </div>
+      </div>
+      <button onClick={onReset} className="text-sm font-semibold text-zinc-500 hover:text-ink border border-line rounded-full px-4 py-2 transition-colors cursor-pointer self-start">
+        {resetLabel} →
+      </button>
+    </div>
+  );
+}
+
+function Analyzing({ msg, progress }: { msg: string; progress: number }) {
+  return (
+    <div className="py-16 flex flex-col items-center justify-center text-center gap-5">
+      <RefreshCw className="w-10 h-10 text-brand-gold-hover animate-spin" />
+      <div className="max-w-md">
+        <h4 className="font-display font-bold text-lg text-ink">Analysing your signals…</h4>
+        <p className="text-sm text-zinc-500 mt-1 min-h-10 px-4">{msg}</p>
+      </div>
+      <div className="w-full max-w-md h-2.5 rounded-full bg-line overflow-hidden">
+        <div style={{ width: `${progress}%` }} className="h-full rounded-full bg-gradient-to-r from-brand-gold to-brand-gold-hover transition-all duration-300" />
+      </div>
+      <span className="text-sm font-semibold text-zinc-500">{progress}%</span>
+    </div>
+  );
+}
+
+function ScoreCard({ label, sub, value }: { label: string; sub: string; value: number }) {
+  return (
+    <div className="rounded-2xl bg-canvas border border-line p-4 flex flex-col">
+      <span className="text-xs font-medium text-zinc-500 leading-tight">{label}</span>
+      <span className="text-2xl font-display font-bold text-ink mt-2">{value}<span className="text-sm text-zinc-400">/100</span></span>
+      <span className="text-[11px] text-zinc-400 mt-1">{sub}</span>
+    </div>
+  );
+}
+
+function Checklist({ items }: { items: { tone: 'warn' | 'ok'; title: string; body: string }[] }) {
+  return (
+    <div className="divide-y divide-line">
+      {items.map((it, i) => (
+        <div key={i} className="flex gap-3 py-3 first:pt-0 last:pb-0">
+          <span className={`w-5 h-5 rounded-md flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
+            it.tone === 'warn' ? 'bg-brand-gold-wash text-brand-gold-hover' : 'bg-emerald-50 text-emerald-600'
+          }`}>
+            {it.tone === 'warn' ? '!' : '✓'}
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-ink">{it.title}</p>
+            <p className="text-sm text-zinc-600 mt-0.5">{it.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

@@ -1,120 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
 
-  /* Markadeo — premium black & gold palette */
+  /* Markadeo — light SaaS palette (yellow / black / white) */
   --color-brand-gold: #F5B82E;
-  --color-brand-gold-hover: #E0A516;
-  --color-brand-gold-soft: #FFD466;
-  --color-brand-ink: #0A0A0A;
-  --color-brand-dark: #0A0A0A;
-  --color-brand-charcoal: #141414;
-  --color-brand-gray: #1A1A1A;
+  --color-brand-gold-hover: #E5A412;
+  --color-brand-gold-soft: #FCEBBE;   /* tinted fills */
+  --color-brand-gold-wash: #FFF8E9;   /* faint section backing */
+
+  --color-ink: #0B0B0C;               /* near-black text / dark surfaces */
+  --color-ink-soft: #1A1A1C;
+  --color-paper: #FFFFFF;             /* cards */
+  --color-canvas: #F7F6F3;            /* page background */
+  --color-line: #ECEAE4;             /* hairline borders */
+
+  --radius-card: 1.25rem;
 }
 
 /* ============================================================
    BASE
    ============================================================ */
+* {
+  border-color: var(--color-line);
+}
+
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: #070707;
-  /* Premium layered depth: warm gold haze at top, cool charcoal void below */
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  /* Whisper-soft warm light from the top — barely there */
   background-image:
-    radial-gradient(1200px 600px at 80% -10%, rgba(245, 184, 46, 0.07), transparent 60%),
-    radial-gradient(900px 500px at 0% 10%, rgba(245, 184, 46, 0.04), transparent 55%);
+    radial-gradient(900px 460px at 88% -8%, rgba(245, 184, 46, 0.10), transparent 60%),
+    radial-gradient(700px 420px at 4% 2%, rgba(245, 184, 46, 0.05), transparent 55%);
   background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom scrollbars */
+/* Light, slim scrollbars */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0C;
+  background: var(--color-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2E2E38;
-  border-radius: 4px;
+  background: #D9D6CE;
+  border-radius: 999px;
+  border: 2px solid var(--color-canvas);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F5B82E;
+  background: var(--color-brand-gold);
+}
+
+::selection {
+  background: var(--color-brand-gold);
+  color: #000;
 }
 
 /* ============================================================
-   FILM GRAIN — fixed overlay for tactile, premium texture
+   ELEVATION — the soft-shadow language of the bento cards
    ============================================================ */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+.shadow-soft {
+  box-shadow:
+    0 1px 2px rgba(17, 17, 17, 0.04),
+    0 8px 24px -12px rgba(17, 17, 17, 0.12);
+}
+.shadow-soft-lg {
+  box-shadow:
+    0 2px 4px rgba(17, 17, 17, 0.04),
+    0 24px 48px -20px rgba(17, 17, 17, 0.18);
+}
+.shadow-gold {
+  box-shadow: 0 14px 40px -14px rgba(245, 184, 46, 0.55);
 }
 
-/* ============================================================
-   AMBIENT GLOWS
-   ============================================================ */
-.gold-ambient-glow {
-  background: radial-gradient(circle, rgba(245, 184, 46, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+/* Card lift on hover — reused across bento tiles */
+.lift {
+  transition: transform 0.35s cubic-bezier(0.21, 0.47, 0.32, 0.98),
+              box-shadow 0.35s ease, border-color 0.35s ease;
 }
-.charcoal-ambient-glow {
-  background: radial-gradient(circle, rgba(30, 30, 36, 0.4) 0%, rgba(0, 0, 0, 0) 80%);
-}
-
-/* Slow drifting animated mesh blob */
-.mesh-drift {
-  animation: mesh-drift 18s ease-in-out infinite alternate;
-}
-@keyframes mesh-drift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  50%  { transform: translate3d(4%, -3%, 0) scale(1.08); }
-  100% { transform: translate3d(-3%, 4%, 0) scale(0.96); }
+.lift:hover {
+  transform: translateY(-4px);
 }
 
 /* ============================================================
    TYPOGRAPHY ACCENTS
    ============================================================ */
-/* Animated gold-shimmer gradient text */
+.gold-gradient-text {
+  background: linear-gradient(95deg, #E5A412 0%, #F5B82E 45%, #FBCB57 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Highlighted word with a hand-drawn marker feel */
+.ink-highlight {
+  background: linear-gradient(transparent 62%, rgba(245, 184, 46, 0.55) 62%);
+  padding: 0 0.06em;
+}
+
+/* Same marker, but it "draws in" on load — used on the hero headline */
+.ink-draw {
+  background-image: linear-gradient(transparent 62%, rgba(245, 184, 46, 0.55) 62%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  padding: 0 0.06em;
+  animation: ink-draw 0.85s cubic-bezier(0.21, 0.47, 0.32, 0.98) 0.5s forwards;
+}
+@keyframes ink-draw {
+  to { background-size: 100% 100%; }
+}
+
+/* Animated gold sweep across a word — premium shimmer */
 .gold-shimmer {
-  background: linear-gradient(100deg, #F5B82E 20%, #FFD466 40%, #FFF4D6 50%, #FFD466 60%, #F5B82E 80%);
+  background: linear-gradient(100deg, #E5A412 20%, #F5B82E 40%, #FBCB57 50%, #F5B82E 60%, #E5A412 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer-sweep 6s linear infinite;
+  animation: shimmer-sweep 5s linear infinite;
 }
 @keyframes shimmer-sweep {
   to { background-position: 200% center; }
 }
 
-/* Static gold gradient text (no animation) */
-.gold-gradient-text {
-  background: linear-gradient(to right, #F5B82E, #FFD466);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+/* Slow, hairline gradient sweep used on section dividers */
+@keyframes hairline-sweep {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.animate-hairline {
+  animation: hairline-sweep 3.5s ease-in-out infinite;
+}
+
+/* Soft scroll cue bob */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(7px); opacity: 1; }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 2s ease-in-out infinite;
 }
 
 /* ============================================================
-   MARQUEE — auto-scrolling proof ribbon
+   MARQUEE — platform ribbon
    ============================================================ */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 38s linear infinite;
+  animation: marquee-scroll 40s linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;
@@ -123,122 +168,107 @@ body {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-/* Edge fade mask for marquee containers */
 .marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
 }
 
 /* ============================================================
-   ENTRANCE / FADE
+   GENTLE MOTION
    ============================================================ */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out both;
+  animation: fade-in 0.5s ease-out both;
 }
 
-/* Soft bobbing scroll cue */
-@keyframes scroll-cue {
-  0%, 100% { transform: translateY(0); opacity: 0.45; }
-  50%      { transform: translateY(7px); opacity: 1; }
-}
-.animate-scroll-cue {
-  animation: scroll-cue 2s ease-in-out infinite;
-}
-
-/* Gentle floating for accent elements */
 @keyframes float-soft {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
+  50%      { transform: translateY(-10px); }
 }
 .animate-float-soft {
-  animation: float-soft 6s ease-in-out infinite;
+  animation: float-soft 7s ease-in-out infinite;
 }
 
-/* Hairline sweep used on dividers */
-@keyframes hairline-sweep {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* Soft blob drift behind hero / CTA */
+.blob-drift {
+  animation: blob-drift 20s ease-in-out infinite alternate;
 }
-.animate-hairline {
-  animation: hairline-sweep 3.5s ease-in-out infinite;
+@keyframes blob-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(3%, -4%, 0) scale(1.08); }
 }
 
 /* ============================================================
-   UTILITIES
+   FORM CONTROLS — light range sliders for the ROI calculator
    ============================================================ */
-/* Premium gold glow ring on hover for cards/buttons */
-.glow-on-hover {
-  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+input[type="range"].slider-gold {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-line);
+  outline: none;
 }
-.glow-on-hover:hover {
-  box-shadow: 0 0 0 1px rgba(245, 184, 46, 0.25), 0 18px 50px -12px rgba(245, 184, 46, 0.22);
+input[type="range"].slider-gold::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #fff;
+  border: 5px solid var(--color-brand-gold);
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.18);
+  cursor: pointer;
+  transition: transform 0.15s ease;
 }
-
-/* Subtle inner top hairline used on premium panels */
-.top-hairline {
-  position: relative;
+input[type="range"].slider-gold::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
 }
-.top-hairline::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(245, 184, 46, 0.6), transparent);
+input[type="range"].slider-gold::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #fff;
+  border: 5px solid var(--color-brand-gold);
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.18);
+  cursor: pointer;
 }
 
 /* ============================================================
-   CUSTOM CURSOR — hide native cursor while bespoke one is active,
-   but keep the text caret inside form fields.
+   MARKDOWN (AI audit report) — readable on light cards
    ============================================================ */
-.has-custom-cursor,
-.has-custom-cursor a,
-.has-custom-cursor button,
-.has-custom-cursor [role="button"] {
-  cursor: none;
+.markdown-body h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 1.25rem 0 0.5rem;
 }
-.has-custom-cursor input,
-.has-custom-cursor textarea,
-.has-custom-cursor select {
-  cursor: auto;
-}
+.markdown-body h3:first-child { margin-top: 0; }
+.markdown-body p { color: #44443f; line-height: 1.7; margin: 0.5rem 0; }
+.markdown-body strong { color: var(--color-ink); font-weight: 700; }
+.markdown-body ul, .markdown-body ol { margin: 0.5rem 0 0.5rem 1.1rem; }
+.markdown-body li { color: #44443f; line-height: 1.7; margin: 0.3rem 0; }
+.markdown-body li::marker { color: var(--color-brand-gold-hover); }
 
 /* ============================================================
-   MOBILE PERFORMANCE — strip the paint-heavy effects that cause
-   scroll jank on phones. These layers look great on a desktop GPU
-   but repaint the whole viewport every frame on mobile.
+   MOBILE PERFORMANCE — keep scrolling buttery on phones
    ============================================================ */
 @media (max-width: 768px) {
-  /* Fixed background attachment forces a full repaint on every
-     scroll frame on mobile — the single biggest cause of jank. */
   body {
     background-attachment: scroll;
   }
-
-  /* The film grain uses mix-blend-mode on a fixed full-screen layer,
-     which is expensive to recomposite while scrolling. */
-  .grain-overlay {
-    display: none;
-  }
-
-  /* Continuously animating large blurred blobs are GPU-bound on
-     phones — keep the glow, drop the motion. */
-  .mesh-drift {
+  .blob-drift {
     animation: none !important;
   }
 }
-
-/* Momentum scrolling + no horizontal rubber-banding on touch */
 @media (pointer: coarse) {
-  html {
-    -webkit-overflow-scrolling: touch;
-  }
-  body {
-    overscroll-behavior-x: none;
-  }
+  html { -webkit-overflow-scrolling: touch; }
+  body { overscroll-behavior-x: none; }
 }
 
 /* ============================================================

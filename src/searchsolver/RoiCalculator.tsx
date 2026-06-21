@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, Flame, Heading, Landmark, Utensils, Award, ChefHat, TrendingUp } from 'lucide-react';
+import { Sparkles, Utensils, ChefHat, Flame, TrendingUp, ArrowRight } from 'lucide-react';
 
 export default function RoiCalculator() {
   const [sessions, setSessions] = useState<number>(8000);
@@ -25,14 +25,12 @@ export default function RoiCalculator() {
     }
   };
 
-  // Calculations
+  // Calculations (unchanged)
   const currentOrders = Math.round(sessions * (conversion / 100));
   const currentRevenue = currentOrders * aov;
 
-  // Markadeo Impact: Social Posting + Daily Engagement Lift
-  // Boost digital views by 200% (daily publishing) and conversion rates by 50%
   const expectedSessions = Math.round(sessions * 2.2); // 220% of original
-  const expectedConversion = parseFloat((conversion * 1.50).toFixed(3)); // 150% of original
+  const expectedConversion = parseFloat((conversion * 1.5).toFixed(3)); // 150% of original
   const expectedOrders = Math.round(expectedSessions * (expectedConversion / 100));
   const expectedRevenue = expectedOrders * aov;
 
@@ -40,211 +38,154 @@ export default function RoiCalculator() {
   const standardManagedFee = 1950; // Average monthly managed posting retainer
   const roiMultiplier = revenueGain > 0 ? parseFloat((revenueGain / standardManagedFee).toFixed(1)) : 0;
 
-  return (
-    <section id="calculator" className="py-24 bg-brand-charcoal relative border-t border-b border-zinc-900">
-      <div className="absolute inset-0 pointer-events-none gold-ambient-glow filter blur-[120px] opacity-20 top-1/4 right-0" />
+  const presets = [
+    { id: 'casual' as const, label: 'Casual / café', icon: Utensils },
+    { id: 'premium' as const, label: 'Fine dining', icon: ChefHat },
+    { id: 'delivery' as const, label: 'Takeaway / delivery', icon: Flame },
+  ];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" id="roi-calculator-container">
-        
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[11px] font-mono tracking-widest text-[#F5B82E] uppercase px-3.5 py-1.5 bg-brand-gold/10 border border-[#F5B82E]/30 rounded-none inline-block mb-3 font-bold">
-            UK DINER DEMAND MATRIX
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-black text-white mb-4 uppercase tracking-tighter">
-            CALCULATE UNTAPPED <span className="bg-gradient-to-r from-brand-gold to-brand-gold-soft bg-clip-text text-transparent">RESTAURANT REVENUE</span>
+  return (
+    <section id="calculator">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-sm font-semibold text-brand-gold-hover uppercase tracking-wider">Revenue model</p>
+          <h2 className="mt-2 font-display font-bold text-2xl sm:text-3xl tracking-tight text-ink">
+            Calculate your untapped revenue
           </h2>
-          <p className="font-sans text-sm sm:text-base text-zinc-400 font-light">
-            Slide the markers below to replicate your restaurant's current parameters. See the direct financial turnaround when transitioning to consistent daily postings, maps superiority, and targeted community social media outreach.
+          <p className="mt-3 text-zinc-600">
+            Slide the markers to match your restaurant today, and see the lift from consistent daily posting,
+            maps visibility and local outreach.
           </p>
         </div>
 
-        {/* Outer Box */}
-        <div className="bg-[#141414] border border-white/5 rounded-none p-6 sm:p-10 shadow-2xl max-w-5xl mx-auto">
-          
-          {/* Presets Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 pb-6 border-b border-white/5" id="sector-presets">
-            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mr-2">RESTAURANT ARCTYPE:</span>
-            <button
-              onClick={() => setSectorPresets('casual')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
-                sector === 'casual'
-                  ? 'bg-brand-gold text-black'
-                  : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
-              }`}
-            >
-              <Utensils className="w-3.5 h-3.5" />
-              Casual Dining / Cafe
-            </button>
-            <button
-              onClick={() => setSectorPresets('premium')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
-                sector === 'premium'
-                  ? 'bg-brand-gold text-black'
-                  : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
-              }`}
-            >
-              <ChefHat className="w-3.5 h-3.5" />
-              Fine Bistro / Steakhouse
-            </button>
-            <button
-              onClick={() => setSectorPresets('delivery')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-display font-bold uppercase tracking-widest transition-all cursor-pointer ${
-                sector === 'delivery'
-                  ? 'bg-brand-gold text-black'
-                  : 'bg-brand-gray text-zinc-400 hover:text-white border border-white/5'
-              }`}
-            >
-              <Flame className="w-3.5 h-3.5" />
-              Takeaway / Direct Delivery
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Sliders Input Column */}
-            <div className="lg:col-span-7 space-y-8" id="calculator-inputs">
-              
-              {/* Traffic Sessions Slider */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm flex-wrap gap-2">
-                  <label className="font-display font-bold uppercase tracking-wide text-xs text-zinc-200">Estimated Monthly Digital Menu Views (Traffic)</label>
-                  <span className="font-mono text-brand-gold font-bold bg-brand-gold/10 border border-brand-gold/20 px-3 py-1 rounded-none text-xs">
-                    {sessions.toLocaleString()} viewers
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="1000"
-                  max="50000"
-                  step="500"
-                  value={sessions}
-                  onChange={(e) => {
-                    setSessions(Number(e.target.value));
-                    setSector('casual'); // clear presets focus highlight
-                  }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
-                  aria-label="Estimated Monthly Digital Menu Views"
-                />
-                <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
-                  <span>1,000 views</span>
-                  <span>25,000 views</span>
-                  <span>50,000+ views</span>
-                </div>
-              </div>
-
-              {/* Conversion Rate Slider */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm flex-wrap gap-2">
-                  <label className="font-display font-bold uppercase tracking-wide text-xs text-zinc-200">Table Booking / Direct Order Rate (%)</label>
-                  <span className="font-mono text-brand-gold font-bold bg-brand-gold/10 border border-brand-gold/20 px-3 py-1 rounded-none text-xs">
-                    {conversion}%
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="0.5"
-                  max="10"
-                  step="0.1"
-                  value={conversion}
-                  onChange={(e) => {
-                    setConversion(Number(e.target.value));
-                    setSector('casual');
-                  }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
-                  aria-label="Table Booking Rate"
-                />
-                <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
-                  <span>0.5%</span>
-                  <span>5.0%</span>
-                  <span>10.0%</span>
-                </div>
-              </div>
-
-              {/* Average Guest Spend Bill */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm flex-wrap gap-2">
-                  <label className="font-display font-bold uppercase tracking-wide text-xs text-zinc-200">Average Guest Bill Size (AOV)</label>
-                  <span className="font-mono text-zinc-100 font-bold bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-none text-xs">
-                    £{aov.toLocaleString()} GBP
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="15"
-                  max="150"
-                  step="5"
-                  value={aov}
-                  onChange={(e) => {
-                    setAov(Number(e.target.value));
-                    setSector('casual');
-                  }}
-                  className="w-full h-1 bg-zinc-800 rounded-none appearance-none cursor-pointer accent-brand-gold"
-                  aria-label="Average Guest Spend"
-                />
-                <div className="flex justify-between text-[11px] text-zinc-500 font-mono">
-                  <span>£15</span>
-                  <span>£82</span>
-                  <span>£150+</span>
-                </div>
-              </div>
-
-              {/* Interactive footnote */}
-              <p className="text-[11px] text-zinc-500 italic bg-[#1E1E1E] p-3 rounded-none border border-white/5 font-mono text-left">
-                *Calculation simulates hyper-local customer mapping. Expect average table views to expand up to 2.2x via seamless daily high-retention postings and localized search signals.
-              </p>
-            </div>
-
-            {/* Calculations Result Column */}
-            <div className="lg:col-span-5 bg-brand-charcoal p-6 rounded-none border border-white/5 flex flex-col justify-between h-full" id="calculator-results">
-              <div className="space-y-6 text-left">
-                <div>
-                  <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-1">CURRENT REVENUE</span>
-                  <p className="text-2xl font-display font-black text-zinc-400 uppercase">£{currentRevenue.toLocaleString()}<span className="text-xs text-zinc-500 font-mono font-normal"> / mo</span></p>
-                  <p className="text-xs text-zinc-550 font-mono uppercase mt-0.5">Based on {currentOrders} monthly covers.</p>
-                </div>
-
-                <div className="pt-4 border-t border-white/5">
-                  <div className="inline-flex items-center gap-1.5 bg-brand-gold/10 border border-[#F5B82E]/25 px-2.5 py-0.5 rounded-none text-[9px] text-[#F5B82E] font-mono tracking-wider uppercase mb-2">
-                    <Sparkles className="w-3 h-3 animate-pulse" /> DAILY ENGAGEMENT COMMAND LIFT
-                  </div>
-                  <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block font-black">PROJECTED PARTNERSHIP REVENUE</span>
-                  <p className="text-4xl font-display font-black text-white uppercase mt-1">
-                    £{expectedRevenue.toLocaleString()}<span className="text-sm text-zinc-400 font-mono font-normal"> / mo</span>
-                  </p>
-                  <p className="text-xs text-zinc-400 font-sans mt-1 font-light">
-                    Sustaining <strong className="text-white">{expectedSessions.toLocaleString()}</strong> active diners and a <strong className="text-white">{expectedConversion}%</strong> reservation checkout rate.
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-white/5">
-                  <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-0.5 font-black">ESTIMATED REV RECOVERY</span>
-                  <p className="text-3xl font-display font-black text-brand-gold uppercase">
-                    +£{revenueGain.toLocaleString()}<span className="text-xs text-zinc-500 font-mono font-normal"> / mo</span>
-                  </p>
-                  <div className="flex items-center gap-2 mt-2 bg-brand-gold/5 border border-[#F5B82E]/10 p-2.5 rounded-none text-[11px] text-zinc-400 font-mono">
-                    <TrendingUp className="w-4 h-4 text-brand-gold" />
-                    <span>Generate <strong className="text-white">{roiMultiplier}x profit multiplier</strong> on managed social investment budgets.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <a
-                  href="#contact-form-section"
-                  className="block text-center border border-brand-gold text-brand-gold bg-transparent hover:bg-brand-gold hover:text-black py-3.5 px-4 rounded-none font-display font-bold text-xs uppercase tracking-widest transition-all"
-                  id="btn-calculator-submit"
-                >
-                  Schedule Turnaround consultation (£0)
-                </a>
-              </div>
-            </div>
-
-          </div>
-
+        {/* Presets */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          {presets.map((p) => {
+            const Icon = p.icon;
+            const active = sector === p.id;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setSectorPresets(p.id)}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all cursor-pointer ${
+                  active
+                    ? 'bg-ink text-white shadow-soft'
+                    : 'bg-white text-zinc-600 border border-line hover:border-brand-gold/50'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {p.label}
+              </button>
+            );
+          })}
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          {/* Sliders */}
+          <div className="lg:col-span-7 rounded-[1.5rem] bg-white border border-line p-6 sm:p-8 shadow-soft space-y-8">
+            <Slider
+              label="Monthly digital menu views"
+              value={`${sessions.toLocaleString()} views`}
+              min={1000} max={50000} step={500} val={sessions}
+              onChange={(v) => { setSessions(v); setSector('casual'); }}
+              marks={['1k', '25k', '50k+']}
+            />
+            <Slider
+              label="Table booking / direct order rate"
+              value={`${conversion}%`}
+              min={0.5} max={10} step={0.1} val={conversion}
+              onChange={(v) => { setConversion(v); setSector('casual'); }}
+              marks={['0.5%', '5%', '10%']}
+            />
+            <Slider
+              label="Average guest bill (AOV)"
+              value={`£${aov.toLocaleString()}`}
+              min={15} max={150} step={5} val={aov}
+              onChange={(v) => { setAov(v); setSector('casual'); }}
+              marks={['£15', '£82', '£150+']}
+            />
+
+            <p className="text-xs text-zinc-500 bg-canvas border border-line rounded-2xl p-4 leading-relaxed">
+              Estimates simulate hyper-local diner mapping — views can expand up to 2.2× through daily
+              high-retention posting and localized search signals. Illustrative, not guaranteed.
+            </p>
+          </div>
+
+          {/* Results */}
+          <div className="lg:col-span-5 rounded-[1.5rem] bg-ink text-white p-6 sm:p-8 shadow-soft-lg flex flex-col">
+            <div className="space-y-6 flex-1">
+              <div>
+                <span className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Current revenue</span>
+                <p className="mt-1 text-2xl font-display font-bold text-zinc-300">
+                  £{currentRevenue.toLocaleString()}<span className="text-sm font-medium text-zinc-500"> /mo</span>
+                </p>
+                <p className="text-xs text-zinc-500 mt-0.5">Based on {currentOrders} monthly covers.</p>
+              </div>
+
+              <div className="pt-5 border-t border-white/10">
+                <span className="inline-flex items-center gap-1.5 bg-brand-gold/15 text-brand-gold rounded-full px-2.5 py-1 text-[11px] font-semibold mb-2">
+                  <Sparkles className="w-3 h-3" /> With Markadeo
+                </span>
+                <span className="block text-xs font-medium text-zinc-400 uppercase tracking-wider">Projected revenue</span>
+                <p className="mt-1 text-4xl font-display font-bold">
+                  £{expectedRevenue.toLocaleString()}<span className="text-base font-medium text-zinc-400"> /mo</span>
+                </p>
+                <p className="text-sm text-zinc-400 mt-1">
+                  Sustaining <strong className="text-white">{expectedSessions.toLocaleString()}</strong> diners
+                  at a <strong className="text-white">{expectedConversion}%</strong> booking rate.
+                </p>
+              </div>
+
+              <div className="pt-5 border-t border-white/10">
+                <span className="block text-xs font-medium text-zinc-400 uppercase tracking-wider">Estimated recovery</span>
+                <p className="mt-1 text-3xl font-display font-bold gold-gradient-text">
+                  +£{revenueGain.toLocaleString()}<span className="text-sm font-medium text-zinc-500"> /mo</span>
+                </p>
+                <div className="mt-3 flex items-center gap-2 bg-white/5 rounded-2xl p-3 text-sm text-zinc-300">
+                  <TrendingUp className="w-4 h-4 text-brand-gold flex-shrink-0" />
+                  <span><strong className="text-white">{roiMultiplier}×</strong> return on a managed retainer.</span>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#contact-form-section"
+              className="mt-6 inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-hover text-ink font-semibold py-3.5 rounded-full transition-colors"
+              id="btn-calculator-submit"
+            >
+              Book a free consultation
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
+  );
+}
+
+function Slider({
+  label, value, min, max, step, val, onChange, marks,
+}: {
+  label: string; value: string; min: number; max: number; step: number;
+  val: number; onChange: (v: number) => void; marks: [string, string, string] | string[];
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <label className="text-sm font-semibold text-ink">{label}</label>
+        <span className="font-semibold text-sm text-brand-gold-hover bg-brand-gold-wash rounded-full px-3 py-1">{value}</span>
+      </div>
+      <input
+        type="range"
+        min={min} max={max} step={step} value={val}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="slider-gold w-full cursor-pointer"
+        aria-label={label}
+      />
+      <div className="flex justify-between text-xs text-zinc-400">
+        {marks.map((m, i) => <span key={i}>{m}</span>)}
+      </div>
+    </div>
   );
 }

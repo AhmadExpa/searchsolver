@@ -41,10 +41,10 @@ export function Reveal({
   children,
   direction = 'up',
   delay = 0,
-  duration = 0.7,
+  duration = 0.65,
   className,
   once = true,
-  amount = 0.25,
+  amount = 0.2,
   id,
 }: {
   children: ReactNode;
@@ -61,8 +61,8 @@ export function Reveal({
     <motion.div
       id={id}
       className={className}
-      initial={{ opacity: 0, x, y, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, x, y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once, amount }}
       transition={{ duration, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
     >
@@ -102,12 +102,11 @@ export function Stagger({
 }
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 26, filter: 'blur(5px)' },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
   },
 };
 
@@ -279,8 +278,29 @@ export function Magnetic({
 ------------------------------------------------------------------ */
 export function SectionDivider() {
   return (
-    <div className="relative h-px w-full overflow-hidden bg-white/5" aria-hidden>
+    <div className="relative h-px w-full overflow-hidden bg-line" aria-hidden>
       <div className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-brand-gold/70 to-transparent animate-hairline" />
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------
+   Marker — a gold highlight that "draws" behind a word as it scrolls
+   into view. Transform-only (scaleX), so it stays smooth on mobile.
+------------------------------------------------------------------ */
+export function Marker({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <span className={`relative inline-block ${className ?? ''}`}>
+      <motion.span
+        aria-hidden
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, amount: 0.7 }}
+        transition={{ duration: 0.7, delay: 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+        style={{ transformOrigin: 'left' }}
+        className="absolute left-0 right-0 bottom-[0.05em] h-[0.42em] rounded-[3px] bg-brand-gold/55"
+      />
+      <span className="relative">{children}</span>
+    </span>
   );
 }
