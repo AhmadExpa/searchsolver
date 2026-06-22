@@ -60,7 +60,7 @@ export function AestheticLogoProduct({ tone = 'dark' }: { tone?: 'dark' | 'light
           Marka<span className="gold-gradient-text">deo</span>
         </span>
         <span className={`mt-1 text-[8px] sm:text-[9px] font-medium tracking-[0.18em] ${tagColor} uppercase leading-none`}>
-          Restaurant Growth · UK
+          Creative Content House
         </span>
       </div>
     </div>

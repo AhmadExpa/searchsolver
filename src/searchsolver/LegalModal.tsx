@@ -46,7 +46,7 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
               {getIcon(doc.id)}
             </span>
             <div>
-              <span className="text-xs font-semibold text-brand-gold-hover uppercase tracking-wider">{doc.id.toUpperCase()}</span>
+              <span className="text-xs font-semibold text-brand-gold-hover uppercase tracking-wider">Legal</span>
               <h3 className="font-display font-bold text-xl text-ink tracking-tight">{doc.title}</h3>
               <p className="text-sm text-zinc-600 mt-0.5">{doc.subtitle}</p>
             </div>
@@ -72,12 +72,9 @@ export default function LegalModal({ documentId, onClose }: LegalModalProps) {
             </div>
           ))}
 
-          <div className="rounded-2xl bg-canvas border border-line p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-emerald-600 font-medium">
-              <Check className="w-4 h-4" />
-              ICO-registered &amp; compliant
-            </div>
-            <span className="text-xs text-zinc-500">ICO ref: Z2849503</span>
+          <div className="rounded-2xl bg-canvas border border-line p-4 flex items-center gap-2 text-sm text-zinc-600">
+            <Check className="w-4 h-4 text-brand-gold-hover" />
+            Questions about this policy? Message us any time.
           </div>
         </div>
 

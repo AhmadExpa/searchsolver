@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AestheticLogoProduct } from './AestheticLogo';
+import { navItems, waLink, DEFAULT_WA_MESSAGE } from './siteData';
 
-export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calculator' | 'auditor') => void }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 16);
@@ -14,12 +17,15 @@ export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calcul
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    { name: 'Services', href: '#services' },
-    { name: 'How it works', href: '#growth-engine' },
-    { name: 'Playbook', href: '#case-studies' },
-    { name: 'ROI calculator', action: () => onOpenConsole('calculator') },
-  ];
+  // Close the mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Every page opens with a dark video hero, so at the very top of any
+  // route the bar sits over dark footage — use light text until the user
+  // scrolls (when it becomes the solid white bar) or opens the mobile menu.
+  const onDarkHero = !scrolled && !mobileMenuOpen;
 
   return (
     <header
@@ -32,53 +38,51 @@ export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calcul
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="flex items-center animate-fade-in" id="nav-logo" aria-label="Markadeo home">
-            <AestheticLogoProduct tone="dark" />
-          </a>
+          <Link to="/" className="flex items-center animate-fade-in" aria-label="Markadeo home">
+            <AestheticLogoProduct tone={onDarkHero ? 'light' : 'dark'} />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1" id="nav-desktop-menu">
-            {menuItems.map((item) =>
-              item.action ? (
-                <button
-                  key={item.name}
-                  onClick={item.action}
-                  className="px-3.5 py-2 text-sm font-medium text-zinc-600 hover:text-ink hover:bg-black/[0.04] rounded-full transition-colors cursor-pointer"
-                >
-                  {item.name}
-                </button>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="px-3.5 py-2 text-sm font-medium text-zinc-600 hover:text-ink hover:bg-black/[0.04] rounded-full transition-colors"
-                >
-                  {item.name}
-                </a>
-              ),
-            )}
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `px-3.5 py-2 text-sm font-medium rounded-full transition-colors ${
+                    onDarkHero
+                      ? 'text-white/85 hover:text-white hover:bg-white/10'
+                      : 'text-zinc-600 hover:text-ink hover:bg-black/[0.04]'
+                  } ${isActive ? (onDarkHero ? 'text-white bg-white/10' : 'text-ink bg-black/[0.05]') : ''}`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
           </nav>
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <motion.button
+            <motion.a
+              href={waLink(DEFAULT_WA_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => onOpenConsole('auditor')}
               className="group inline-flex items-center gap-1.5 bg-ink text-white hover:bg-black px-5 py-2.5 rounded-full text-sm font-semibold transition-colors cursor-pointer shadow-soft"
-              id="btn-nav-audit"
             >
-              Get free audit
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </motion.button>
+              <MessageCircle className="w-4 h-4 text-brand-gold" />
+              Get in touch
+            </motion.a>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 -mr-2 text-ink rounded-full hover:bg-black/[0.05] transition-colors"
-            id="btn-mobile-menu"
+            className={`md:hidden p-2 -mr-2 rounded-full transition-colors ${
+              onDarkHero ? 'text-white hover:bg-white/10' : 'text-ink hover:bg-black/[0.05]'
+            }`}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -95,43 +99,31 @@ export default function Navbar({ onOpenConsole }: { onOpenConsole: (tab: 'calcul
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="md:hidden bg-white border-b border-line shadow-soft-lg"
-            id="mobile-menu-container"
           >
             <div className="px-4 sm:px-6 py-4 flex flex-col gap-1">
-              {menuItems.map((item) =>
-                item.action ? (
-                  <button
-                    key={item.name}
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      item.action?.();
-                    }}
-                    className="text-left px-4 py-3.5 rounded-2xl text-base font-medium text-ink hover:bg-black/[0.04] transition-colors cursor-pointer"
-                  >
-                    {item.name}
-                  </button>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3.5 rounded-2xl text-base font-medium text-ink hover:bg-black/[0.04] transition-colors"
-                  >
-                    {item.name}
-                  </a>
-                ),
-              )}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenConsole('auditor');
-                }}
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    `px-4 py-3.5 rounded-2xl text-base font-medium transition-colors ${
+                      isActive ? 'text-ink bg-black/[0.05]' : 'text-zinc-700 hover:bg-black/[0.04]'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+              <a
+                href={waLink(DEFAULT_WA_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center justify-center gap-2 bg-ink text-white px-5 py-4 rounded-2xl text-base font-semibold transition-colors cursor-pointer"
-                id="btn-mobile-nav-audit"
               >
-                Get free audit
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                <MessageCircle className="w-4 h-4 text-brand-gold" />
+                Get in touch
+              </a>
             </div>
           </motion.div>
         )}

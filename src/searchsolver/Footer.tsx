@@ -1,5 +1,7 @@
-import { ShieldCheck, Mail, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mail, MessageCircle, Instagram, ArrowUpRight } from 'lucide-react';
 import { AestheticLogoProduct } from './AestheticLogo';
+import { services, CONTACT, waLink, mailLink, DEFAULT_WA_MESSAGE } from './siteData';
 
 interface FooterProps {
   onOpenLegal: (id: string) => void;
@@ -8,17 +10,11 @@ interface FooterProps {
 export default function Footer({ onOpenLegal }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
-  const solutions = [
-    { label: 'Daily social management', href: '#services' },
-    { label: 'Local search & maps', href: '#services' },
-    { label: 'Paid social campaigns', href: '#services' },
-    { label: 'Booking conversion', href: '#services' },
-  ];
-  const resources = [
-    { label: 'How it works', href: '#growth-engine' },
-    { label: 'Growth playbook', href: '#case-studies' },
-    { label: 'ROI calculator', href: '#calculator' },
-    { label: 'Free AI audit', href: '#contact-form-section' },
+  const pages = [
+    { label: 'Services', to: '/services' },
+    { label: 'Web & App Design', to: '/web-app-design' },
+    { label: 'Our work', to: '/work' },
+    { label: 'About us', to: '/contact' },
   ];
 
   return (
@@ -29,57 +25,63 @@ export default function Footer({ onOpenLegal }: FooterProps) {
           <div className="md:col-span-4 space-y-5">
             <AestheticLogoProduct tone="light" />
             <p className="text-sm leading-relaxed text-zinc-400 max-w-xs">
-              Daily social media and local search, fully managed for independent UK restaurants and
-              high-street brands. Transparent, honest, rolling-monthly.
+              A creative content house. We get brands established on social platforms — content,
+              3D, social, branding and build — so you reach a real audience and real visits.
             </p>
-            <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-4 text-xs space-y-1">
-              <p className="text-zinc-200 font-medium">Markadeo Digital Ltd</p>
-              <p>Registered in England &amp; Wales: #13849502</p>
-              <p>UK VAT: GB924738593</p>
-            </div>
+            <a
+              href={waLink(DEFAULT_WA_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-brand-gold text-ink font-semibold px-5 py-2.5 rounded-full text-sm hover:bg-brand-gold-hover transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Start a project
+            </a>
           </div>
 
-          {/* Solutions */}
-          <div className="md:col-span-2">
-            <h4 className="text-white font-semibold text-sm mb-4">Solutions</h4>
+          {/* Services */}
+          <div className="md:col-span-3">
+            <h4 className="text-white font-semibold text-sm mb-4">What we do</h4>
             <ul className="space-y-2.5 text-sm">
-              {solutions.map((l) => (
-                <li key={l.label}><a href={l.href} className="hover:text-white transition-colors">{l.label}</a></li>
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link to="/services" className="hover:text-white transition-colors">{s.title}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Pages */}
           <div className="md:col-span-2">
-            <h4 className="text-white font-semibold text-sm mb-4">Resources</h4>
+            <h4 className="text-white font-semibold text-sm mb-4">Studio</h4>
             <ul className="space-y-2.5 text-sm">
-              {resources.map((l) => (
-                <li key={l.label}><a href={l.href} className="hover:text-white transition-colors">{l.label}</a></li>
+              {pages.map((l) => (
+                <li key={l.label}><Link to={l.to} className="hover:text-white transition-colors">{l.label}</Link></li>
               ))}
             </ul>
           </div>
 
           {/* Contact */}
-          <div className="md:col-span-4">
-            <h4 className="text-white font-semibold text-sm mb-4">Offices &amp; contact</h4>
+          <div className="md:col-span-3">
+            <h4 className="text-white font-semibold text-sm mb-4">Get in touch</h4>
             <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-zinc-200 font-medium block">London HQ</span>
-                  <span className="text-zinc-400">Pancras Square, King's Cross, London, N1C 4AG</span>
-                </div>
+              <li className="flex items-center gap-3">
+                <MessageCircle className="w-4 h-4 text-brand-gold flex-shrink-0" />
+                <a href={waLink(DEFAULT_WA_MESSAGE)} target="_blank" rel="noopener noreferrer" className="text-zinc-200 hover:text-brand-gold transition-colors">
+                  WhatsApp us
+                </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-brand-gold flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-zinc-200 font-medium block">Manchester desk</span>
-                  <span className="text-zinc-400">Hardman Square, Spinningfields, Manchester, M3 3EB</span>
-                </div>
-              </li>
-              <li className="flex items-center gap-3 pt-1">
+              <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-brand-gold flex-shrink-0" />
-                <a href="mailto:partnerships@markadeo.com" className="text-zinc-200 hover:text-brand-gold transition-colors">partnerships@markadeo.com</a>
+                <a href={mailLink('Project enquiry — Markadeo')} className="text-zinc-200 hover:text-brand-gold transition-colors">
+                  {CONTACT.EMAIL}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Instagram className="w-4 h-4 text-brand-gold flex-shrink-0" />
+                <a href={CONTACT.INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-zinc-200 hover:text-brand-gold transition-colors inline-flex items-center gap-1">
+                  Follow us <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </li>
             </ul>
           </div>
@@ -88,15 +90,11 @@ export default function Footer({ onOpenLegal }: FooterProps) {
         <div className="border-t border-white/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span>© {currentYear} Markadeo. All rights reserved.</span>
-            <button onClick={() => onOpenLegal('gdpr')} className="hover:text-zinc-300 transition-colors cursor-pointer">UK GDPR</button>
-            <button onClick={() => onOpenLegal('pecr')} className="hover:text-zinc-300 transition-colors cursor-pointer">Cookies (PECR)</button>
             <button onClick={() => onOpenLegal('privacy')} className="hover:text-zinc-300 transition-colors cursor-pointer">Privacy</button>
             <button onClick={() => onOpenLegal('terms')} className="hover:text-zinc-300 transition-colors cursor-pointer">Terms</button>
+            <button onClick={() => onOpenLegal('gdpr')} className="hover:text-zinc-300 transition-colors cursor-pointer">Cookies</button>
           </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-500" />
-            <span>ICO registry: Z2849503</span>
-          </div>
+          <span>Creative content house · Worldwide</span>
         </div>
       </div>
     </footer>
