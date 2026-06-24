@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Sparkles, Check, ArrowRight } from 'lucide-react';
+import { Sparkles, Check, ArrowRight, Megaphone } from 'lucide-react';
 import { Reveal, Marker } from './ScrollFX';
 import { pricingPlans, waLink } from './siteData';
 
@@ -20,7 +20,7 @@ export default function Pricing() {
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
             Pick the level of support that fits — from keeping your presence consistent to fully managed
-            premium growth. Prices are weekly, and you can talk to us before committing to anything.
+            premium growth. Prices are weekly, and paid advertisement campaigns can be planned separately.
           </p>
         </Reveal>
 
@@ -101,7 +101,17 @@ export default function Pricing() {
           })}
         </div>
 
-        <Reveal className="mt-8 flex items-center gap-2 text-sm text-zinc-500">
+        <Reveal className="mt-8 rounded-2xl bg-brand-gold-wash border border-brand-gold/30 p-5 flex flex-col sm:flex-row gap-4 text-sm text-zinc-700">
+          <span className="w-11 h-11 rounded-xl bg-brand-gold text-ink flex items-center justify-center flex-shrink-0">
+            <Megaphone className="w-5 h-5" />
+          </span>
+          <p className="leading-relaxed">
+            <strong className="text-ink">Paid advertisement campaigns are separate.</strong> Weekly plans cover content and management.
+            Campaign setup, ad creative, targeting support and media spend are quoted based on the campaign goal and budget.
+          </p>
+        </Reveal>
+
+        <Reveal className="mt-5 flex items-center gap-2 text-sm text-zinc-500">
           <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
           Not sure which fits? Message us and we’ll recommend the right plan — no pressure.
         </Reveal>

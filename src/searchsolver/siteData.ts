@@ -87,10 +87,10 @@ export const services: Service[] = [
     no: '01',
     title: 'Content Production & 3D',
     icon: 'Clapperboard',
-    short: 'Scroll-stopping films, photography and 3D, made in-house.',
+    short: 'AI-informed concepts, films, photography and 3D, made in-house.',
     description:
-      'From concept to final cut — we shoot, edit and render the kind of content that stops the scroll. Cinematic brand films, product photography, motion graphics and full 3D animation, all produced under one roof.',
-    features: ['Brand films & product video', 'Studio & on-location shoots', '3D animation & motion graphics', 'Photography & retouching'],
+      'From concept to final cut — we use AI-assisted research and creative planning, then shoot, edit and render the kind of content that stops the scroll. Cinematic brand films, product photography, motion graphics and full 3D animation, all produced under one roof.',
+    features: ['AI-assisted ideas & scripts', 'Brand films & product video', '3D animation & motion graphics', 'Photography & retouching'],
     image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80',
     imageAlt: 'A creative film production set with cameras and lighting.',
   },
@@ -99,10 +99,10 @@ export const services: Service[] = [
     no: '02',
     title: 'Social Media Management',
     icon: 'Instagram',
-    short: 'Always-on channels that build a real, engaged audience.',
+    short: 'AI-driven planning and always-on channels for a real audience.',
     description:
-      "We run your social presence end to end — strategy, daily posting, community management and reporting. The goal is simple: get your brand genuinely established on the platforms, so you grow a real audience and real visits instead of renting reach.",
-    features: ['Channel strategy & calendar', 'Daily posting & stories', 'Community & DM management', 'Plain-English reporting'],
+      "We run your social presence end to end — AI-assisted strategy, content calendars, daily posting, community management and reporting. The goal is simple: get your brand genuinely established on the platforms, so you grow a real audience and real visits instead of renting reach.",
+    features: ['AI-assisted strategy & calendar', 'Daily posting & stories', 'Community & DM management', 'Plain-English reporting'],
     image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1400&q=80',
     imageAlt: 'A phone showing a vibrant social media feed.',
   },
@@ -113,8 +113,8 @@ export const services: Service[] = [
     icon: 'Sparkles',
     short: 'Native short-form built to be watched, shared and searched.',
     description:
-      'Short-form is where attention lives. We create native TikTok, Reels and Shorts — hooks, trends and series designed to travel — and manage the channel so your brand becomes part of the conversation.',
-    features: ['Short-form content series', 'Trend & hook strategy', 'Creator-style editing', 'Channel growth & posting'],
+      'Short-form is where attention lives. We use AI-assisted trend research, hook testing and caption direction to create native TikTok, Reels and Shorts — series designed to travel — and manage the channel so your brand becomes part of the conversation.',
+    features: ['Short-form content series', 'AI-assisted trend research', 'Creator-style editing', 'Channel growth & posting'],
     image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1400&q=80',
     imageAlt: 'A creator filming a short-form video on a smartphone.',
   },
@@ -150,7 +150,7 @@ export const services: Service[] = [
 export const values = [
   { icon: 'Lightbulb', title: 'Creativity', body: 'We take creative risks and experiment, because forgettable content is the only real failure.' },
   { icon: 'Fingerprint', title: 'Unique', body: 'No templates, no copies. Everything we make is built to make you stand apart.' },
-  { icon: 'Rocket', title: 'Innovation', body: 'We think beyond the obvious — new formats, new platforms, new ways to get you seen.' },
+  { icon: 'Rocket', title: 'Innovation', body: 'We use AI-driven workflows, new formats and new platforms to get you seen faster and more consistently.' },
   { icon: 'Heart', title: 'Content-first', body: 'Great content is the engine. Get that right and real audience and visits follow.' },
 ] as const;
 
@@ -178,21 +178,6 @@ export const workItems: WorkItem[] = [
 ];
 
 export const workCategories = ['All', 'Content Production', '3D & Motion', 'Social Media', 'TikTok', 'Branding', 'Web & App'];
-
-/* ------------------------------------------------------------------
-   Testimonials — generic, brand-agnostic (replace with real quotes).
------------------------------------------------------------------- */
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-}
-
-export const testimonials: Testimonial[] = [
-  { quote: 'Our reels finally look as good as our desserts. Markadeo runs the content end to end and our pages actually feel alive now.', name: "Kaspa's", role: 'Dessert brand' },
-  { quote: 'They just get our brand. The content is bold, on time every week, and it has pulled in a genuinely engaged local crowd.', name: 'You Want Beef', role: 'Burger brand' },
-  { quote: 'The poster and print work was sharp, professional and delivered exactly to brief. An easy team to work with.', name: 'MCB Bank', role: 'Poster & print campaign' },
-];
 
 /* Real brands we've produced work for — shown as a "worked with" strip. */
 export const clientBrands = ["Kaspa's", 'You Want Beef', 'MCB Bank'];

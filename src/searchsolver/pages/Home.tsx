@@ -1,6 +1,20 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, MessageCircle, Play, Boxes, Wand2, Layers } from 'lucide-react';
+import {
+  ArrowRight,
+  MessageCircle,
+  Play,
+  Boxes,
+  Wand2,
+  Layers,
+  AlertTriangle,
+  CheckCircle2,
+  BrainCircuit,
+  CalendarDays,
+  Megaphone,
+  TrendingUp,
+  MessageSquare,
+} from 'lucide-react';
 import VideoHero from '../VideoHero';
 import ServiceSlider from '../ServiceSlider';
 import Pricing from '../Pricing';
@@ -12,6 +26,31 @@ import Object3D from '../Object3D';
 import { Reveal, Stagger, RevealItem, Marker, Parallax, Magnetic } from '../ScrollFX';
 import { MEDIA, values, waLink, DEFAULT_WA_MESSAGE } from '../siteData';
 import { iconMap } from '../icons';
+
+const socialProblems = [
+  {
+    icon: CalendarDays,
+    title: 'Inconsistent posting',
+    body: 'The page goes quiet, then posts in bursts. Customers see gaps instead of a living brand.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'No clear content angle',
+    body: 'Posts are made just to post, without hooks, offers, storytelling or a reason to follow.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Weak feedback loop',
+    body: 'Nobody is reading the results properly, so the account keeps repeating what is not working.',
+  },
+];
+
+const socialFixes = [
+  'Audit the current accounts, content gaps and customer journey.',
+  'Build an AI-assisted calendar with clear hooks, captions and creative direction.',
+  'Produce fresh content, publish consistently and keep the brand active daily.',
+  'Report what is working in plain English, then adjust the next batch.',
+];
 
 export default function Home() {
   return (
@@ -77,18 +116,18 @@ export default function Home() {
             </h2>
             <p className="mt-5 text-lg text-zinc-600 leading-relaxed">
               Most brands overpay marketplaces and ad platforms just to be seen for a moment. We do it
-              differently: we build your presence so the audience is genuinely <em>yours</em>. Concept,
-              production, social and build, all in-house, all consistent.
+              differently: we build your presence so the audience is genuinely <em>yours</em>. AI-driven
+              planning, content production, social and build, all in-house, all consistent.
             </p>
             <p className="mt-4 text-zinc-600 leading-relaxed">
-              No sales promises. No smoke. Just powerful, innovative, memorable content — and the
-              platforms working for you every day.
+              No sales promises. No smoke. Just powerful, innovative, memorable content with a clear
+              reason behind every post, caption, edit and campaign direction.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/services" className="inline-flex items-center gap-2 bg-ink text-white font-semibold px-6 py-3.5 rounded-full hover:bg-black transition-colors">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-start gap-3">
+              <Link to="/services" className="inline-flex items-center justify-center gap-2 bg-ink text-white font-semibold px-6 py-3.5 rounded-full hover:bg-black transition-colors">
                 Explore services <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/about" className="inline-flex items-center gap-2 bg-white border border-line text-ink font-semibold px-6 py-3.5 rounded-full hover:bg-canvas transition-colors shadow-soft">
+              <Link to="/about" className="inline-flex items-center justify-center gap-2 bg-white border border-line text-ink font-semibold px-6 py-3.5 rounded-full hover:bg-canvas transition-colors shadow-soft">
                 Our story
               </Link>
             </div>
@@ -104,7 +143,7 @@ export default function Home() {
                 alt="A creator producing content in a studio."
                 loading="lazy"
                 referrerPolicy="no-referrer"
-                className="w-full h-[420px] sm:h-[520px] object-cover"
+                className="w-full h-[340px] sm:h-[520px] object-cover"
               />
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-white/90 backdrop-blur rounded-2xl px-5 py-4 shadow-soft">
                 <div>
@@ -161,7 +200,7 @@ export default function Home() {
                   Content is <span className="gold-shimmer">king.</span>
                 </h2>
                 <p className="mt-5 text-zinc-300 leading-relaxed max-w-lg">
-                  Reach you rent disappears the moment you stop paying. Content you own keeps working.
+                  Rented reach disappears the moment you stop paying. Content you own keeps working.
                   We build a library of work that earns attention, trust and visits — long after it goes live.
                 </p>
                 <Link to="/services" className="mt-8 inline-flex items-center gap-2 bg-brand-gold text-ink font-semibold px-7 py-4 rounded-full hover:bg-brand-gold-hover transition-colors shadow-gold">
@@ -221,32 +260,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ WEB & APP TEASER ============ */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <Reveal direction="right" className="order-2 lg:order-1 relative">
-            <Tilt className="relative rounded-[2rem] overflow-hidden border border-line shadow-soft-lg">
-              <img
-                src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80"
-                alt="A sleek website and app design on screens."
-                loading="lazy"
-                referrerPolicy="no-referrer"
-                className="w-full h-[420px] object-cover"
-              />
-            </Tilt>
-          </Reveal>
-          <Reveal direction="left" className="order-1 lg:order-2">
-            <p className="text-sm font-semibold text-brand-gold-hover uppercase tracking-[0.18em]">Web & App Design</p>
+      {/* ============ SOCIAL ACCOUNT DIAGNOSIS ============ */}
+      <section id="social-diagnosis" className="py-16 sm:py-24 bg-white border-y border-line scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-14 items-stretch">
+          <Reveal direction="right">
+            <p className="text-sm font-semibold text-brand-gold-hover uppercase tracking-[0.18em]">Social media diagnosis</p>
             <h2 className="mt-3 font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-ink leading-tight">
-              From design to execution.
+              What is holding your accounts back?
             </h2>
             <p className="mt-5 text-lg text-zinc-600 leading-relaxed">
-              Your content deserves a home that loads fast and converts. We design and build websites and
-              apps end to end — user-friendly, beautiful, and ready to launch.
+              Most struggling social pages do not have one single problem. They usually lack a clear
+              content direction, a consistent rhythm and a team watching the results closely enough to
+              improve the next post.
             </p>
-            <Link to="/web-app-design" className="mt-8 inline-flex items-center gap-2 bg-ink text-white font-semibold px-6 py-3.5 rounded-full hover:bg-black transition-colors">
-              Learn more <ArrowRight className="w-4 h-4" />
-            </Link>
+
+            <div className="mt-8 grid gap-3">
+              {socialProblems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="flex gap-4 rounded-2xl bg-canvas border border-line p-5 shadow-soft">
+                    <span className="mt-0.5 w-11 h-11 rounded-xl bg-brand-gold-wash text-brand-gold-hover flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <div>
+                      <h3 className="font-display font-bold text-lg text-ink">{item.title}</h3>
+                      <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{item.body}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Reveal>
+
+          <Reveal direction="left">
+            <div className="relative h-full overflow-hidden rounded-[2rem] bg-ink text-white p-6 sm:p-8 shadow-soft-lg">
+              <div className="absolute -top-24 -right-20 w-80 h-80 rounded-full bg-brand-gold/20 blur-[100px] pointer-events-none" aria-hidden />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                  <AlertTriangle className="w-3.5 h-3.5 text-brand-gold" /> How we resolve it
+                </span>
+                <h3 className="mt-5 font-display font-bold text-2xl sm:text-3xl tracking-tight">
+                  We turn scattered posting into a managed content system.
+                </h3>
+                <ul className="mt-6 space-y-4">
+                  {socialFixes.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 mt-0.5 text-brand-gold flex-shrink-0" />
+                      <span className="text-sm sm:text-base text-zinc-200 leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 grid sm:grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+                    <BrainCircuit className="w-6 h-6 text-brand-gold" />
+                    <p className="mt-3 font-display font-bold">AI-driven content</p>
+                    <p className="mt-1 text-sm text-zinc-400">Ideas, hooks, captions and optimisations shaped before production starts.</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+                    <Megaphone className="w-6 h-6 text-brand-gold" />
+                    <p className="mt-3 font-display font-bold">Paid campaigns</p>
+                    <p className="mt-1 text-sm text-zinc-400">Advertisement campaigns and media spend are planned and quoted separately.</p>
+                  </div>
+                </div>
+
+                <Link to="/services" className="mt-8 inline-flex items-center justify-center gap-2 bg-brand-gold text-ink font-semibold px-6 py-3.5 rounded-full hover:bg-brand-gold-hover transition-colors shadow-gold">
+                  Fix my social media <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>

@@ -39,8 +39,8 @@ export default function About() {
                 The visits keep coming.
               </p>
               <p className="text-ink font-medium">
-                No sales promises. No invented numbers. No AI gimmicks. Just real creative work, done
-                consistently and reported honestly.
+                No sales promises. No invented numbers. Just real creative work, supported by AI-assisted
+                planning where it helps, produced consistently and reported honestly.
               </p>
             </div>
           </Reveal>

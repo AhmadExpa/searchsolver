@@ -219,7 +219,7 @@ export function BackToTop() {
       animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.8, pointerEvents: visible ? 'auto' : 'none' }}
       transition={{ duration: 0.3 }}
       whileHover={{ y: -3 }}
-      className="fixed bottom-6 right-6 z-[55] w-12 h-12 flex items-center justify-center bg-brand-gold text-black shadow-[0_10px_30px_rgba(245,184,46,0.35)] cursor-pointer"
+      className="hidden sm:flex fixed bottom-6 right-6 z-[55] w-12 h-12 items-center justify-center bg-brand-gold text-black shadow-[0_10px_30px_rgba(245,184,46,0.35)] cursor-pointer"
     >
       <ArrowUp className="w-5 h-5" strokeWidth={2.5} />
     </motion.button>
