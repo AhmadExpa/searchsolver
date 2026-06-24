@@ -14,6 +14,7 @@ import {
   Megaphone,
   TrendingUp,
   MessageSquare,
+  Target,
 } from 'lucide-react';
 import VideoHero from '../VideoHero';
 import ServiceSlider from '../ServiceSlider';
@@ -52,6 +53,45 @@ const socialFixes = [
   'Report what is working in plain English, then adjust the next batch.',
 ];
 
+const energyTiles = [
+  {
+    no: '01',
+    icon: MessageCircle,
+    title: 'Conversation',
+    body: 'Copy and replies that sound human, not canned.',
+  },
+  {
+    no: '02',
+    icon: TrendingUp,
+    title: 'Growth',
+    body: 'Cleaner signals, sharper feedback and more momentum.',
+  },
+  {
+    no: '03',
+    icon: Play,
+    title: 'Video',
+    body: 'Short-form edits that keep attention moving.',
+  },
+  {
+    no: '04',
+    icon: Wand2,
+    title: 'Craft',
+    body: 'Tighter visuals, motion and production polish.',
+  },
+  {
+    no: '05',
+    icon: Megaphone,
+    title: 'Broadcast',
+    body: 'Campaign-ready assets and launch pacing.',
+  },
+  {
+    no: '06',
+    icon: Target,
+    title: 'Reach',
+    body: 'Built to land in the places your audience already looks.',
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -88,6 +128,47 @@ export default function Home() {
         </div>
       </VideoHero>
 
+      {/* ============ ENERGY GRID ============ */}
+      <section className="py-16 sm:py-20 bg-brand-gold-wash/70 border-y border-brand-gold/20 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold text-brand-gold-hover uppercase tracking-[0.18em]">
+                Six directions
+              </p>
+              <h2 className="mt-3 font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-ink leading-tight">
+                A brighter way to move the feed.
+              </h2>
+            </div>
+            <p className="max-w-xl text-zinc-600 leading-relaxed">
+              Borrowing the energy from the mock: stronger contrast, cleaner blocks and a faster visual rhythm
+              so the page feels more alive on first glance.
+            </p>
+          </Reveal>
+
+          <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {energyTiles.map((tile) => {
+              const Icon = tile.icon;
+              return (
+                <RevealItem key={tile.title} className="h-full">
+                  <article className="relative h-full overflow-hidden rounded-[1.5rem] bg-white border border-brand-gold/20 p-6 shadow-soft-lg lift">
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-gold via-brand-gold-soft to-brand-gold-hover" />
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="text-xs font-semibold tracking-[0.24em] text-brand-gold-hover">{tile.no}</span>
+                      <span className="w-11 h-11 rounded-xl bg-ink text-brand-gold flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5" />
+                      </span>
+                    </div>
+                    <h3 className="mt-6 font-display font-bold text-xl text-ink">{tile.title}</h3>
+                    <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{tile.body}</p>
+                  </article>
+                </RevealItem>
+              );
+            })}
+          </Stagger>
+        </div>
+      </section>
+
       {/* ============ KINETIC STRIP ============ */}
       <div className="py-8 sm:py-10 bg-white border-y border-line overflow-hidden">
         <div className="kinetic-track gap-8">
@@ -117,11 +198,13 @@ export default function Home() {
             <p className="mt-5 text-lg text-zinc-600 leading-relaxed">
               Most brands overpay marketplaces and ad platforms just to be seen for a moment. We do it
               differently: we build your presence so the audience is genuinely <em>yours</em>. AI-driven
-              planning, content production, social and build, all in-house, all consistent.
+              content planning, AI-assisted production and always-on social management all happen in-house,
+              so the work stays fast, sharp and consistent.
             </p>
             <p className="mt-4 text-zinc-600 leading-relaxed">
               No sales promises. No smoke. Just powerful, innovative, memorable content with a clear
-              reason behind every post, caption, edit and campaign direction.
+              reason behind every post, caption, edit and campaign direction. Paid advertisement campaigns
+              are scoped and priced separately.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-start gap-3">
               <Link to="/services" className="inline-flex items-center justify-center gap-2 bg-ink text-white font-semibold px-6 py-3.5 rounded-full hover:bg-black transition-colors">
@@ -315,12 +398,12 @@ export default function Home() {
                   <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
                     <BrainCircuit className="w-6 h-6 text-brand-gold" />
                     <p className="mt-3 font-display font-bold">AI-driven content</p>
-                    <p className="mt-1 text-sm text-zinc-400">Ideas, hooks, captions and optimisations shaped before production starts.</p>
+                    <p className="mt-1 text-sm text-zinc-400">Ideas, hooks, captions and optimisations are shaped before production starts.</p>
                   </div>
                   <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
                     <Megaphone className="w-6 h-6 text-brand-gold" />
                     <p className="mt-3 font-display font-bold">Paid campaigns</p>
-                    <p className="mt-1 text-sm text-zinc-400">Advertisement campaigns and media spend are planned and quoted separately.</p>
+                    <p className="mt-1 text-sm text-zinc-400">Advertisement campaigns, ad creative, targeting and media spend are quoted separately.</p>
                   </div>
                 </div>
 

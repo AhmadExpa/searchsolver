@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { useRef } from 'react';
+import ParticleField from './ParticleField';
 
 /* ------------------------------------------------------------------
    VideoHero — full-bleed looping muted stock video with a readable
@@ -69,6 +70,7 @@ export default function VideoHero({
             <source src={videoSrc} type="video/mp4" />
           </video>
         )}
+        <ParticleField className="absolute inset-0 opacity-70" />
         <div className="absolute inset-0 video-scrim" />
       </div>
 

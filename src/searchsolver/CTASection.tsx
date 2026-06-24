@@ -8,9 +8,9 @@ import { waLink, mailLink, DEFAULT_WA_MESSAGE } from './siteData';
    server: every CTA opens WhatsApp or the user's mail client.
 ------------------------------------------------------------------ */
 export default function CTASection({
-  eyebrow = 'Let’s make something worth watching',
-  title = 'Ready to get your brand established?',
-  body = 'No sales promises, no smoke. Just real content and a real audience — for a fraction of what marketplaces charge to sell for you. Tell us about your brand.',
+  eyebrow = 'Built for momentum',
+  title = 'Ready to make the feed feel alive?',
+  body = 'Sharper AI-driven content, faster production and a cleaner rhythm across the channels that matter. Tell us what you need and we’ll shape the direction; paid ad campaigns can be scoped separately.',
   waMessage = DEFAULT_WA_MESSAGE,
   mailSubject = 'New project enquiry — Markadeo',
 }: {

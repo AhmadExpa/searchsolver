@@ -17,7 +17,7 @@ export default function About() {
         height="tall"
         eyebrow="Who we are"
         title="A young studio with a simple belief."
-        subtitle="Brands shouldn’t have to rent their audience forever. We build content and presence you actually own — so the people, and the visits, are yours."
+        subtitle="Brands shouldn’t have to rent their audience forever. We build AI-driven content and presence you actually own — so the people, and the visits, are yours."
       />
 
       {/* Thesis */}
@@ -35,11 +35,11 @@ export default function About() {
               </p>
               <p>
                 We flip that. For less than those platforms charge, we get your brand genuinely established
-                on social — with content people want to watch, follow and share. The audience becomes yours.
-                The visits keep coming.
+                on social — with AI-driven content people want to watch, follow and share. The audience
+                becomes yours. The visits keep coming.
               </p>
               <p className="text-ink font-medium">
-                No sales promises. No invented numbers. Just real creative work, supported by AI-assisted
+                No sales promises. No invented numbers. Just real creative work, powered by AI-assisted
                 planning where it helps, produced consistently and reported honestly.
               </p>
             </div>

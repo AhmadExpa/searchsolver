@@ -87,10 +87,10 @@ export const services: Service[] = [
     no: '01',
     title: 'Content Production & 3D',
     icon: 'Clapperboard',
-    short: 'AI-informed concepts, films, photography and 3D, made in-house.',
+    short: 'AI-powered concepts, films, photography and 3D, made in-house.',
     description:
-      'From concept to final cut — we use AI-assisted research and creative planning, then shoot, edit and render the kind of content that stops the scroll. Cinematic brand films, product photography, motion graphics and full 3D animation, all produced under one roof.',
-    features: ['AI-assisted ideas & scripts', 'Brand films & product video', '3D animation & motion graphics', 'Photography & retouching'],
+      'From concept to final cut — we use AI-driven research, ideation and creative planning, then shoot, edit and render the kind of content that stops the scroll. Cinematic brand films, product photography, motion graphics and full 3D animation, all produced under one roof.',
+    features: ['AI-driven ideas & scripts', 'Brand films & product video', '3D animation & motion graphics', 'Photography & retouching'],
     image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80',
     imageAlt: 'A creative film production set with cameras and lighting.',
   },
@@ -150,7 +150,7 @@ export const services: Service[] = [
 export const values = [
   { icon: 'Lightbulb', title: 'Creativity', body: 'We take creative risks and experiment, because forgettable content is the only real failure.' },
   { icon: 'Fingerprint', title: 'Unique', body: 'No templates, no copies. Everything we make is built to make you stand apart.' },
-  { icon: 'Rocket', title: 'Innovation', body: 'We use AI-driven workflows, new formats and new platforms to get you seen faster and more consistently.' },
+  { icon: 'Rocket', title: 'Innovation', body: 'We use AI-driven workflows, new formats and new platforms to move faster, test more and get you seen more consistently.' },
   { icon: 'Heart', title: 'Content-first', body: 'Great content is the engine. Get that right and real audience and visits follow.' },
 ] as const;
 

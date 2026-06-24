@@ -20,7 +20,8 @@ export default function Pricing() {
           </h2>
           <p className="mt-4 text-lg text-zinc-600">
             Pick the level of support that fits — from keeping your presence consistent to fully managed
-            premium growth. Prices are weekly, and paid advertisement campaigns can be planned separately.
+            premium growth. Prices are weekly, and paid advertisement campaigns can be planned as a separate
+            project line.
           </p>
         </Reveal>
 
@@ -106,7 +107,7 @@ export default function Pricing() {
             <Megaphone className="w-5 h-5" />
           </span>
           <p className="leading-relaxed">
-            <strong className="text-ink">Paid advertisement campaigns are separate.</strong> Weekly plans cover content and management.
+            <strong className="text-ink">Paid advertisement campaigns are separate.</strong> Weekly plans cover content, AI-driven production and management.
             Campaign setup, ad creative, targeting support and media spend are quoted based on the campaign goal and budget.
           </p>
         </Reveal>
