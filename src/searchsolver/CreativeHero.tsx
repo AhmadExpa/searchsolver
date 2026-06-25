@@ -30,17 +30,17 @@ export default function CreativeHero({
       ref={ref}
       className="relative isolate min-h-screen overflow-hidden bg-black text-white flex items-center pt-24 pb-16"
     >
-      {/* Background Astronaut Image */}
+      {/* Background Studio Camera Image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.img
-          src="/assets/astronaut_hero.png"
-          alt="Astronaut in pink clouds"
+          src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1920&q=80"
+          alt="Professional production camera in studio"
           style={motionStyle({ y: bgY, scale: bgScale })}
-          className="absolute inset-0 h-[110%] w-full object-cover opacity-85"
+          className="absolute inset-0 h-[110%] w-full object-cover opacity-35"
         />
         {/* Scrim overlay for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/40" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 md:mt-20">
