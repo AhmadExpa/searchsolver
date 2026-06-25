@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowRight,
   MessageCircle,
-  Play,
   ArrowUpRight,
 } from 'lucide-react';
 import CreativeHero from '../CreativeHero';
@@ -30,40 +29,6 @@ function CircularStamp() {
         </textPath>
       </text>
     </svg>
-  );
-}
-
-function HeroVideoPlayer() {
-  const [videoEnded, setVideoEnded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch((err) => {
-        console.log('Autoplay blocked:', err);
-      });
-    }
-  }, []);
-
-  return (
-    <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950">
-      {!videoEnded ? (
-        <video
-          ref={videoRef}
-          src="https://videos.pexels.com/video-files/8993415/8993415-uhd_2560_1440_30fps.mp4"
-          muted
-          playsInline
-          onEnded={() => setVideoEnded(true)}
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <img
-          src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80"
-          alt="Creative digital content production suite"
-          className="w-full h-full object-cover animate-fade-in"
-        />
-      )}
-    </div>
   );
 }
 
@@ -102,7 +67,6 @@ export default function Home() {
         eyebrow="Creative Content House"
         title={<>Markadeo makes brands impossible to scroll past.</>}
         subtitle="Content, 3D, social, branding, and web builds under one roof. We turn quiet channels into a living brand system with stronger visuals, clearer rhythm, and content people actually want to watch."
-        rightElement={<HeroVideoPlayer />}
       />
 
       {/* ============ NEW GENERATION SECTION ============ */}

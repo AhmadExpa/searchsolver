@@ -75,9 +75,12 @@ export default function CreativeHero({
             {rightElement ? (
               rightElement
             ) : (
-              <div className="border-l border-white/20 pl-8 py-4 max-w-md">
-                <p className="font-display font-black text-white text-base sm:text-lg md:text-xl tracking-[0.1em] leading-relaxed uppercase">
-                  WE CREATE POWERFUL, INNOVATIVE, FUN, AND MEMORABLE CONTENT.
+              <div className="border-l-2 border-brand-yellow pl-8 py-4 max-w-md">
+                <p className="font-display font-black text-white text-5xl sm:text-6xl md:text-7xl tracking-tight leading-[0.9] uppercase">
+                  Content <span className="text-brand-yellow">is King</span>
+                </p>
+                <p className="mt-5 text-sm font-semibold tracking-[0.1em] text-zinc-300 leading-relaxed uppercase">
+                  We create powerful, innovative, fun, and memorable content.
                 </p>
                 <p className="mt-4 text-xs font-semibold tracking-widest text-zinc-400 uppercase">
                   Est. 2026 · Markadeo Media House
