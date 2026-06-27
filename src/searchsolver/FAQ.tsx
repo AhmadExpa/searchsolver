@@ -86,7 +86,7 @@ export default function FAQ() {
             </Reveal>
 
             <div className="divide-y divide-zinc-200 border-t border-b border-zinc-200">
-              {faqs.map((item, idx) => {
+              {faqs.slice(0, 6).map((item, idx) => {
                 const isOpen = open === idx;
                 return (
                   <div key={item.q}>
