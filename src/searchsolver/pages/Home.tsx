@@ -7,17 +7,12 @@ import {
 } from 'lucide-react';
 import CreativeHero from '../CreativeHero';
 import Pricing from '../Pricing';
-import Testimonials from '../Testimonials';
-import MarqueeLogos from '../MarqueeLogos';
 import CTASection from '../CTASection';
 import FAQ from '../FAQ';
-import { Reveal, Stagger, RevealItem } from '../ScrollFX';
+import { Reveal } from '../ScrollFX';
 import {
-  waLink, DEFAULT_WA_MESSAGE, services, MEDIA, TAGLINE,
-  aboutCopy, whyChooseUs,
-  differentiators, processSteps, workItems,
+  waLink, DEFAULT_WA_MESSAGE, services, TAGLINE,
 } from '../siteData';
-import { iconMap } from '../icons';
 import { GSAPParallax, GSAPScrollRotate } from '../GSAPScrollFX';
 
 function CircularStamp() {
@@ -151,58 +146,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ WHY CHOOSE US / GROWTH PARTNER SECTION ============ */}
-      <section className="bg-canvas py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
-              <Reveal direction="right">
-                <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase mb-3 block">
-                  About Markadeo
-                </span>
-                <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight text-ink uppercase leading-[1.05]">
-                  {aboutCopy.heading}
-                </h2>
-                <p className="mt-6 text-base text-zinc-600 leading-relaxed font-medium">
-                  {aboutCopy.body}
-                </p>
-              </Reveal>
-            </div>
-
-            <div className="lg:col-span-7">
-              <Reveal direction="left">
-                <span className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase mb-6 block">
-                  Why Choose Us
-                </span>
-                <Stagger className="grid sm:grid-cols-2 gap-4">
-                  {whyChooseUs.map((item) => {
-                    const Icon = iconMap[item.icon];
-                    return (
-                      <RevealItem key={item.label}>
-                        <motion.div
-                          whileHover={{ y: -4 }}
-                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                          className="group flex items-center gap-4 bg-white border border-line rounded-2xl p-5 shadow-soft hover:shadow-soft-lg hover:border-brand-blue transition-colors h-full cursor-default"
-                        >
-                          <span className="w-11 h-11 rounded-xl bg-brand-blue/10 group-hover:bg-brand-blue flex items-center justify-center text-brand-blue group-hover:text-white flex-shrink-0 transition-colors duration-300 group-hover:scale-110">
-                            {Icon && <Icon className="w-5 h-5" />}
-                          </span>
-                          <span className="font-semibold text-sm sm:text-base text-ink">
-                            {item.label}
-                          </span>
-                        </motion.div>
-                      </RevealItem>
-                    );
-                  })}
-                </Stagger>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ INTERACTIVE SERVICES SECTION ============ */}
-      <section className="relative bg-brand-blue text-white clip-slanted-both py-28 sm:py-36 overflow-hidden">
+      <section className="relative bg-[#232425] text-white clip-slanted-both py-28 sm:py-36 overflow-hidden">
         {/* Subtle decorative background line */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none" />
 
@@ -387,222 +332,14 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Massive CONTENT IS KING text — video-filled letters with a
-              crisp dark outline so the words stay readable (Slide 4 style) */}
-          <div className="w-full text-center mt-20 pt-8 overflow-hidden select-none">
-            <svg viewBox="0 0 1200 300" className="w-full h-auto font-display font-black">
-              <defs>
-                <clipPath id="content-clip">
-                  <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" className="text-7xl sm:text-8xl md:text-[9.5rem] font-black uppercase tracking-tighter">
-                    CONTENT IS KING
-                  </text>
-                </clipPath>
-              </defs>
-              <foreignObject x="0" y="0" width="1200" height="300" clipPath="url(#content-clip)">
-                <video
-                  src={MEDIA.studioVideo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </foreignObject>
-              {/* Outline overlay — same glyphs, no fill, dark stroke for legibility */}
-              <text
-                x="50%"
-                y="50%"
-                textAnchor="middle"
-                dominantBaseline="central"
-                className="text-7xl sm:text-8xl md:text-[9.5rem] font-black uppercase tracking-tighter"
-                style={{ fill: 'none', stroke: '#14110F', strokeWidth: 2.5, paintOrder: 'stroke' }}
-              >
-                CONTENT IS KING
-              </text>
-            </svg>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ============ WHY MARKADEO IS DIFFERENT SECTION ============ */}
-      <section className="bg-ink text-white py-24 sm:py-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16">
-            <span className="text-xs font-bold tracking-[0.2em] text-brand-yellow uppercase mb-3 block">
-              Why Markadeo Is Different
-            </span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight uppercase leading-[1.05]">
-              More Than An Agency — A Growth Partner
-            </h2>
-          </div>
-
-          <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {differentiators.map((d, idx) => (
-              <RevealItem key={d.title}>
-                <div className="h-full p-7 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-brand-yellow/60 hover:bg-white/[0.06] transition-all">
-                  <span className="font-mono text-xs text-brand-yellow font-bold block mb-4">
-                    0{idx + 1}
-                  </span>
-                  <h3 className="font-display font-black text-xl uppercase tracking-wide mb-3">
-                    {d.title}
-                  </h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed font-medium">
-                    {d.body}
-                  </p>
-                </div>
-              </RevealItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-      {/* ============ PROCESS SECTION ============ */}
-      <section className="bg-white py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase mb-3 block">
-              How We Work
-            </span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-ink uppercase">
-              Our Proven Process
-            </h2>
-            <div className="w-12 h-1 bg-brand-blue mx-auto mt-6" />
-          </div>
-
-          <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200">
-            {processSteps.map((step) => (
-              <RevealItem key={step.no}>
-                <div className="h-full bg-white p-8 group hover:bg-canvas transition-colors">
-                  <span className="font-display font-black text-5xl text-zinc-200 group-hover:text-brand-blue transition-colors block mb-4">
-                    {step.no}
-                  </span>
-                  <h3 className="font-display font-black text-lg sm:text-xl text-ink uppercase tracking-wide">
-                    {step.title}
-                  </h3>
-                </div>
-              </RevealItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-      {/* ============ TALENTS & CREATORS SECTION ============ */}
-      <section className="relative bg-brand-yellow py-24 sm:py-32 overflow-hidden clip-slanted-up">
-        {/* Decorative elements */}
-        <div className="absolute -top-12 -left-20 w-44 h-44 rounded-full bg-brand-teal/20 blur-md pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-16 items-center">
-            
-            {/* Left side: Stylish cropped model in teal container */}
-            <div className="lg:col-span-6 flex justify-center">
-              <div className="relative w-full max-w-sm aspect-square flex items-center justify-center">
-                {/* Organic teal background shape */}
-                <div className="absolute w-[92%] h-[92%] bg-brand-teal rounded-[3.5rem] rotate-6 shadow-xl" />
-                
-                {/* Model Image */}
-                <div className="relative z-10 w-[90%] h-[90%] rounded-[3rem] overflow-hidden border-[6px] border-white shadow-2xl">
-                  <img
-                    src="/assets/creative_talent.webp"
-                    alt="Creative talent and creators representation"
-                    width={768}
-                    height={768}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Right side: Teal organic circular statement container */}
-            <div className="lg:col-span-6 flex justify-center lg:justify-start">
-              <div className="bg-brand-teal text-white rounded-[4rem] p-10 sm:p-14 text-center max-w-md shadow-2xl flex flex-col items-center select-none">
-                <h3 className="font-display font-black text-3xl sm:text-4xl tracking-[0.1em] leading-tight mb-4 uppercase">
-                  TALENTS & CREATORS
-                </h3>
-                
-                <p className="text-xs sm:text-sm tracking-widest uppercase font-bold text-zinc-200 mb-8 leading-relaxed max-w-xs">
-                  WE CONNECT BRANDS WITH THE NEW GENERATION OF CREATIVE LEADERS AND INFLUENCERS.
-                </p>
-                
-                <Link
-                  to="/contact"
-                  className="inline-block border-2 border-white hover:bg-white hover:text-brand-teal text-white font-black tracking-widest text-xs uppercase px-8 py-4 rounded-none transition-all shadow-md"
-                >
-                  CREATIVE DECK
-                </Link>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============ FEATURED PROJECTS SECTION ============ */}
-      <section className="bg-canvas py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl mb-14">
-            <span className="text-xs font-bold tracking-[0.2em] text-zinc-500 uppercase mb-3 block">
-              Portfolio
-            </span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-ink uppercase">
-              Featured Projects
-            </h2>
-            <p className="mt-6 text-base text-zinc-600 leading-relaxed font-medium">
-              Explore our latest creative, digital, eCommerce, Amazon, and software development projects that have helped businesses achieve measurable growth.
-            </p>
-          </Reveal>
-
-          <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {workItems.slice(0, 6).map((item) => (
-              <RevealItem key={item.id}>
-                <div className="group relative overflow-hidden rounded-2xl aspect-[4/3] shadow-soft">
-                  <img
-                    src={item.image}
-                    alt={item.imageAlt}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-5">
-                    <span className="text-[10px] font-bold tracking-widest text-brand-yellow uppercase">
-                      {item.category}
-                    </span>
-                    <h3 className="font-display font-black text-white text-lg uppercase tracking-wide leading-tight mt-1">
-                      {item.title}
-                    </h3>
-                  </div>
-                </div>
-              </RevealItem>
-            ))}
-          </Stagger>
-
-          <div className="mt-12 text-center">
-            <Link
-              to="/work"
-              className="inline-flex items-center gap-2 bg-black hover:bg-zinc-900 text-white font-bold tracking-widest text-xs uppercase px-8 py-4 transition-all shadow-md"
-            >
-              View Full Portfolio
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* ============ PRICING ============ */}
       <Pricing />
 
-      {/* ============ TESTIMONIALS ============ */}
-      <Testimonials />
-
       {/* ============ FAQ SECTION ============ */}
       <FAQ />
-
-      {/* ============ PARTNER LOGOS MARQUEE ============ */}
-      <MarqueeLogos />
 
       {/* ============ CALL TO ACTION SECTION ============ */}
       <CTASection

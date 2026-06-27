@@ -5,7 +5,7 @@ import VideoHero from '../VideoHero';
 import CTASection from '../CTASection';
 import Tilt from '../Tilt';
 import { Reveal, Stagger, RevealItem, Marker, CountUp } from '../ScrollFX';
-import { MEDIA, values } from '../siteData';
+import { MEDIA, values, aboutCopy, whyChooseUs } from '../siteData';
 import { iconMap } from '../icons';
 
 export default function About() {
@@ -60,6 +60,56 @@ export default function About() {
               </div>
             </Tilt>
           </Reveal>
+        </div>
+      </section>
+
+      {/* About Markadeo / Why Choose Us */}
+      <section className="bg-[#232425] py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-5">
+              <Reveal direction="right">
+                <span className="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase mb-3 block">
+                  About Markadeo
+                </span>
+                <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white uppercase leading-[1.05]">
+                  {aboutCopy.heading}
+                </h2>
+                <p className="mt-6 text-base text-zinc-300 leading-relaxed font-medium">
+                  {aboutCopy.body}
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="lg:col-span-7">
+              <Reveal direction="left">
+                <span className="text-xs font-bold tracking-[0.2em] text-brand-yellow uppercase mb-6 block">
+                  Why Choose Us
+                </span>
+                <Stagger className="grid sm:grid-cols-2 gap-4">
+                  {whyChooseUs.map((item) => {
+                    const Icon = iconMap[item.icon];
+                    return (
+                      <RevealItem key={item.label}>
+                        <motion.div
+                          whileHover={{ y: -4 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          className="group flex items-center gap-4 bg-white border border-line rounded-2xl p-5 shadow-soft hover:shadow-soft-lg hover:border-brand-blue transition-colors h-full cursor-default"
+                        >
+                          <span className="w-11 h-11 rounded-xl bg-brand-blue/10 group-hover:bg-brand-blue flex items-center justify-center text-brand-blue group-hover:text-white flex-shrink-0 transition-colors duration-300 group-hover:scale-110">
+                            {Icon && <Icon className="w-5 h-5" />}
+                          </span>
+                          <span className="font-semibold text-sm sm:text-base text-ink">
+                            {item.label}
+                          </span>
+                        </motion.div>
+                      </RevealItem>
+                    );
+                  })}
+                </Stagger>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
