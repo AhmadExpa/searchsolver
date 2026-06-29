@@ -9,6 +9,7 @@ import ErrorBoundary from './ErrorBoundary';
 import LegalModal from './LegalModal';
 import { ScrollProgress, BackToTop } from './ScrollFX';
 import WhatsAppButton from './WhatsAppButton';
+import Chatbot from './Chatbot';
 
 /* ------------------------------------------------------------------
    Layout — the persistent shell around every routed page.
@@ -35,6 +36,7 @@ export default function Layout() {
       <ScrollProgress />
       <BackToTop />
       <WhatsAppButton />
+      <Chatbot />
       <CustomCursor />
 
       <Navbar />

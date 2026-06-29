@@ -13,7 +13,7 @@ export default function About() {
     <>
       <VideoHero
         videoSrc={MEDIA.heroVideo}
-        poster={MEDIA.heroPoster}
+        poster={MEDIA.aboutHeroPoster}
         height="tall"
         eyebrow="Who we are"
         title="A young studio with a simple belief."

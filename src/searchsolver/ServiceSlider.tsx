@@ -80,6 +80,7 @@ export default function ServiceSlider() {
                   src={s.image}
                   alt={s.imageAlt}
                   loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover transition-transform duration-[1.1s] ease-out group-hover:scale-110"
                 />

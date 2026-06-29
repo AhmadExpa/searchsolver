@@ -56,7 +56,7 @@ export default function WebAppDesign() {
     <>
       <VideoHero
         videoSrc={MEDIA.webVideo}
-        poster="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80"
+        poster={MEDIA.webHeroPoster}
         height="tall"
         eyebrow="Web & App Engineering"
         title="We build digital interfaces that command attention."

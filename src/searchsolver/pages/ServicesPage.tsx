@@ -21,7 +21,7 @@ export default function ServicesPage() {
     <>
       <VideoHero
         videoSrc={MEDIA.reelVideo}
-        poster="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1600&q=80"
+        poster={MEDIA.servicesHeroPoster}
         height="tall"
         eyebrow="What we do"
         title="Everything your business needs to grow."
@@ -46,6 +46,7 @@ export default function ServicesPage() {
                       src={s.image}
                       alt={s.imageAlt}
                       loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-[340px] sm:h-[440px] object-cover"
                     />

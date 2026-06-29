@@ -1,6 +1,7 @@
 import { type ReactNode, useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown } from 'lucide-react';
+import { MEDIA } from './siteData';
 
 export default function CreativeHero({
   eyebrow,
@@ -30,17 +31,19 @@ export default function CreativeHero({
       ref={ref}
       className="relative isolate min-h-[100svh] overflow-hidden bg-black text-white flex items-center pt-20 pb-12"
     >
-      {/* Background Studio Camera Image */}
+      {/* Background portfolio image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.img
-          src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1920&q=80"
-          alt="Professional production camera in studio"
+          src={MEDIA.homeHeroPoster}
+          alt="Markadeo creative digital agency banner"
+          loading="eager"
+          decoding="async"
           style={motionStyle({ y: bgY, scale: bgScale })}
-          className="absolute inset-0 h-[110%] w-full object-cover opacity-35"
+          className="absolute inset-0 h-[110%] w-full object-cover opacity-85 brightness-110 saturate-110"
         />
         {/* Scrim overlay for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

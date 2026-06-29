@@ -14,7 +14,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="bg-white py-24 sm:py-32 overflow-hidden">
+    <section id="faq" className="bg-white py-24 sm:py-32 overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 

@@ -7,21 +7,35 @@
    designed to generate measurable results. Tagline: Design. Develop.
    Dominate.
 
-   NOTE: contact details are PLACEHOLDERS. Swap WHATSAPP_NUMBER and
-   EMAIL below for the real values. waLink()/mailLink() build the URLs.
+   Contact links are built from Vite env values where browser exposure is
+   required. WhatsApp uses VITE_WHATSAPP_NUMBER from .env.
    ================================================================== */
 
 /* Brand tagline — surfaced in the hero eyebrow and footer. */
 export const TAGLINE = 'Design. Develop. Dominate.';
 
+function digitsOnly(value: string | undefined): string {
+  return (value ?? '').replace(/\D/g, '');
+}
+
+function formatPhoneDisplay(value: string): string {
+  if (value.startsWith('44') && value.length === 12) {
+    return `+44 ${value.slice(2, 6)} ${value.slice(6)}`;
+  }
+
+  return value ? `+${value}` : '';
+}
+
+const WHATSAPP_NUMBER = digitsOnly(import.meta.env.VITE_WHATSAPP_NUMBER);
+
 export const CONTACT = {
   /* Digits only, full international format, NO +, spaces or dashes.
      e.g. UK "44 7700 900123" -> "447700900123" */
-  WHATSAPP_NUMBER: '447000000000',
+  WHATSAPP_NUMBER,
   EMAIL: 'hello@markadeo.com',
   INSTAGRAM: 'https://instagram.com/markadeo',
   TIKTOK: 'https://tiktok.com/@markadeo',
-  PHONE_DISPLAY: '+44 7000 000000',
+  PHONE_DISPLAY: formatPhoneDisplay(WHATSAPP_NUMBER),
 } as const;
 
 export function waLink(message?: string): string {
@@ -49,9 +63,11 @@ export const navItems = [
   { label: 'Contact', to: '/contact' },
 ] as const;
 
+export const portfolioAsset = (file: string): string => `/assets/portfolio/${file}`;
+
 /* ------------------------------------------------------------------
-   Stock media (hotlinked — Unsplash images + Coverr/Pexels video).
-   All royalty-free / no attribution required. Muted, looping video.
+   Stock media (hotlinked — Pexels video). Muted, looping video.
+   Portfolio imagery is served locally from optimized WebP files.
 ------------------------------------------------------------------ */
 /* Pexels CDN direct MP4s — royalty-free, no attribution required,
    hotlinkable and verified loading. All depict content creation /
@@ -59,8 +75,12 @@ export const navItems = [
 export const MEDIA = {
   // Woman setting up / fixing a camera before filming — studio/content vibe
   heroVideo: 'https://videos.pexels.com/video-files/9032611/9032611-uhd_2560_1440_25fps.mp4',
-  heroPoster:
-    'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80',
+  homeHeroPoster: portfolioAsset('banners/main-banner-1920x1080.webp'),
+  aboutHeroPoster: portfolioAsset('banners/ai-ads-and-ai-videos.webp'),
+  servicesHeroPoster: portfolioAsset('banners/digital-and-print-media.webp'),
+  workHeroPoster: portfolioAsset('banners/shopify-development.webp'),
+  webHeroPoster: portfolioAsset('banners/website-design-and-development.webp'),
+  contactHeroPoster: portfolioAsset('banners/tiktok-ads-and-video-production.webp'),
   // Creator talking to camera
   reelVideo: 'https://videos.pexels.com/video-files/9032398/9032398-uhd_2560_1440_25fps.mp4',
   // Recording / studio session
@@ -98,8 +118,8 @@ export const services: Service[] = [
     description:
       'Our design team creates impactful visual experiences that strengthen your brand identity across digital and print platforms. We ensure consistency, professionalism, and creativity in every touchpoint.',
     features: ['Logo Design', 'Brand Identity', 'Social Media Graphics', 'Marketing Materials', 'Packaging Design', 'Brochures & Flyers', 'Business Cards', 'Large Format Printing'],
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'A brand design moodboard with colour swatches and type.',
+    image: portfolioAsset('banners/digital-and-print-media.webp'),
+    imageAlt: 'Markadeo digital and print media service banner.',
   },
   {
     id: 'web',
@@ -110,8 +130,8 @@ export const services: Service[] = [
     description:
       'Your website should do more than look great — it should generate leads and sales. We design and develop modern, responsive websites that deliver exceptional user experiences and measurable business results.',
     features: ['Corporate Websites', 'Business Websites', 'Landing Pages', 'Portfolio Websites', 'Custom Web Applications', 'Website Maintenance'],
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'A laptop and phone showing a sleek website design.',
+    image: portfolioAsset('banners/website-design-and-development.webp'),
+    imageAlt: 'Markadeo website design and development service banner.',
   },
   {
     id: 'wordpress',
@@ -122,8 +142,8 @@ export const services: Service[] = [
     description:
       'We build scalable WordPress websites designed for speed, security, and conversions. Whether you need a business website or a custom solution, our developers create experiences that perform.',
     features: ['Business Websites', 'Custom Themes', 'Speed & Security', 'Plugin Integration'],
-    image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'A WordPress website being built on screen.',
+    image: portfolioAsset('banners/wordpress-development.webp'),
+    imageAlt: 'Markadeo WordPress development service banner.',
   },
   {
     id: 'ecommerce',
@@ -134,8 +154,8 @@ export const services: Service[] = [
     description:
       'We create conversion-focused Shopify and WooCommerce stores that help businesses maximize sales and improve customer experience.',
     features: ['Shopify Store Design', 'Shopify Development', 'WooCommerce Development', 'Product Uploads', 'Payment Integration', 'Conversion Optimisation'],
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'An online store displayed on a laptop.',
+    image: portfolioAsset('banners/shopify-development.webp'),
+    imageAlt: 'Markadeo Shopify and ecommerce service banner.',
   },
   {
     id: 'amazon',
@@ -146,8 +166,8 @@ export const services: Service[] = [
     description:
       'Our Amazon experts help brands stand out with professional listing optimisation and premium visual content that improves conversion rates and customer trust.',
     features: ['Amazon Listing Images', 'A+ Content', 'Amazon Storefront Design', 'Product Infographics', 'Brand Story Design', 'Product Photography Editing'],
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'Product packages prepared for online marketplace listing.',
+    image: portfolioAsset('banners/amazon-creative-services.webp'),
+    imageAlt: 'Markadeo Amazon creative services banner.',
   },
   {
     id: 'tiktok',
@@ -158,8 +178,8 @@ export const services: Service[] = [
     description:
       'Capture attention with engaging TikTok and social media videos created specifically for modern audiences. Our creatives combine storytelling with performance marketing principles to drive engagement and conversions.',
     features: ['TikTok Video Ads', 'UGC Style Ads', 'Product Demonstrations', 'Social Media Reels', 'Promotional Videos'],
-    image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'A creator filming a short-form video on a smartphone.',
+    image: portfolioAsset('banners/tiktok-ads-and-video-production.webp'),
+    imageAlt: 'Markadeo TikTok ads and video production service banner.',
   },
   {
     id: 'ai',
@@ -170,8 +190,8 @@ export const services: Service[] = [
     description:
       'Leverage artificial intelligence to produce high-quality ad creatives, promotional videos, product showcases, and branded content faster and more efficiently than traditional production methods.',
     features: ['AI Video Ads', 'AI Product Videos', 'AI Influencer Content', 'AI Voiceovers', 'AI Commercial Production'],
-    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'Abstract AI-generated visual content.',
+    image: portfolioAsset('banners/ai-ads-and-ai-videos.webp'),
+    imageAlt: 'Markadeo AI ads and AI videos service banner.',
   },
   {
     id: 'software',
@@ -182,8 +202,8 @@ export const services: Service[] = [
     description:
       'We develop tailored software solutions that improve productivity, automate workflows, and support business growth. Our solutions are designed to solve real operational challenges and create long-term value.',
     features: ['CRM Systems', 'ERP Solutions', 'SaaS Applications', 'Mobile Apps', 'Custom Portals', 'API Integrations', 'Business Automation'],
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1400&q=80',
-    imageAlt: 'A developer writing code on a laptop.',
+    image: portfolioAsset('banners/software-development.webp'),
+    imageAlt: 'Markadeo software development service banner.',
   },
 ];
 
@@ -292,17 +312,35 @@ export interface WorkItem {
 }
 
 export const workItems: WorkItem[] = [
-  { id: 'w1', title: 'Brand Film', category: 'Content Production', image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80', imageAlt: 'Cinematic brand film still.', span: 'wide' },
-  { id: 'w2', title: 'Product 3D', category: '3D & Motion', image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=900&q=80', imageAlt: 'Abstract 3D render.', span: 'tall' },
-  { id: 'w3', title: 'Social Series', category: 'Social Media', image: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=900&q=80', imageAlt: 'Social media content series.' },
-  { id: 'w4', title: 'Short-Form', category: 'TikTok', image: 'https://images.unsplash.com/photo-1622151834677-70f982c9adef?auto=format&fit=crop&w=900&q=80', imageAlt: 'Short-form video creator.' },
-  { id: 'w5', title: 'Identity System', category: 'Branding', image: 'https://images.unsplash.com/photo-1600508774634-4e11d34730e2?auto=format&fit=crop&w=900&q=80', imageAlt: 'Brand identity system.' },
-  { id: 'w6', title: 'Web Build', category: 'Web & App', image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1200&q=80', imageAlt: 'Website design on screens.', span: 'wide' },
-  { id: 'w7', title: 'Campaign Shoot', category: 'Content Production', image: 'https://images.unsplash.com/photo-1533928298208-27ff66555d8d?auto=format&fit=crop&w=900&q=80', imageAlt: 'Studio campaign photoshoot.' },
-  { id: 'w8', title: 'Motion Reel', category: '3D & Motion', image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=900&q=80', imageAlt: 'Motion and content production reel.' },
+  { id: 'brand-amrood-envelope', title: 'Amrood Labs Stationery', category: 'Branding', image: portfolioAsset('brand/amrood-labs-envelop-moc.webp'), imageAlt: 'Amrood Labs envelope mockup.', span: 'wide' },
+  { id: 'social-01', title: 'Social Media Campaign', category: 'Social Media', image: portfolioAsset('social/01.webp'), imageAlt: 'Social media campaign creative.', span: 'tall' },
+  { id: 'ebook-profile-20', title: 'Magazine Profile Spread', category: 'Ebook & Magazine', image: portfolioAsset('ebook/magazine-and-profiles-20.webp'), imageAlt: 'Magazine and profile layout design.' },
+  { id: 'logo-board-2', title: 'Logo Identity Board', category: 'Logo Design', image: portfolioAsset('logo/logos-2.webp'), imageAlt: 'Logo design presentation board.' },
+  { id: 'banner-web', title: 'Web Development Banner', category: 'Web & App', image: portfolioAsset('banners/website-design-and-development.webp'), imageAlt: 'Website design and development banner.', span: 'wide' },
+  { id: 'brand-imperial', title: 'Imperial Smart City', category: 'Branding', image: portfolioAsset('brand/imperial-smart-city-page-43-g.webp'), imageAlt: 'Imperial Smart City brand identity page.' },
+  { id: 'social-03', title: 'Food Brand Creative', category: 'Social Media', image: portfolioAsset('social/sm-03.webp'), imageAlt: 'Food brand social media post design.' },
+  { id: 'ebook-profile-15', title: 'Corporate Profile', category: 'Ebook & Magazine', image: portfolioAsset('ebook/magazine-and-profiles-15.webp'), imageAlt: 'Corporate profile page design.', span: 'wide' },
+  { id: 'brand-amrood-cup', title: 'Branded Cup Mockup', category: 'Branding', image: portfolioAsset('brand/amrood-labs-cup.webp'), imageAlt: 'Amrood Labs branded cup mockup.' },
+  { id: 'logo-board-1', title: 'Logo Exploration', category: 'Logo Design', image: portfolioAsset('logo/logos-1.webp'), imageAlt: 'Logo exploration presentation.' },
+  { id: 'banner-ai', title: 'AI Ads Creative', category: 'Digital & Print', image: portfolioAsset('banners/ai-ads-and-ai-videos.webp'), imageAlt: 'AI ads and AI videos creative banner.', span: 'wide' },
+  { id: 'social-06', title: 'Restaurant Social Post', category: 'Social Media', image: portfolioAsset('social/sm-06.webp'), imageAlt: 'Restaurant social media post creative.' },
+  { id: 'ebook-profile-18', title: 'Editorial Layout', category: 'Ebook & Magazine', image: portfolioAsset('ebook/magazine-and-profiles-18.webp'), imageAlt: 'Editorial ebook layout design.' },
+  { id: 'brand-mango-05', title: 'Mango Music Identity', category: 'Branding', image: portfolioAsset('brand/mango-music-05.webp'), imageAlt: 'Mango Music brand identity design.', span: 'tall' },
+  { id: 'social-09', title: 'Offer Campaign', category: 'Social Media', image: portfolioAsset('social/sm-09.webp'), imageAlt: 'Promotional offer social media design.' },
+  { id: 'banner-shopify', title: 'Shopify Service Creative', category: 'Web & App', image: portfolioAsset('banners/shopify-development.webp'), imageAlt: 'Shopify development banner.' },
+  { id: 'brand-bestea', title: 'Bestea Brand Page', category: 'Branding', image: portfolioAsset('brand/bestea-page-43-c.webp'), imageAlt: 'Bestea brand identity page.', span: 'wide' },
+  { id: 'ebook-04', title: 'Ebook Cover System', category: 'Ebook & Magazine', image: portfolioAsset('ebook/04.webp'), imageAlt: 'Ebook cover design system.' },
+  { id: 'logo-board-4', title: 'Logo Collection', category: 'Logo Design', image: portfolioAsset('logo/logos-4.webp'), imageAlt: 'Logo design collection board.' },
+  { id: 'social-11', title: 'Product Social Creative', category: 'Social Media', image: portfolioAsset('social/sm-11.webp'), imageAlt: 'Product social media creative.' },
+  { id: 'brand-amrood-notebook', title: 'Notebook Mockup', category: 'Branding', image: portfolioAsset('brand/amrood-labs-note-book-outside.webp'), imageAlt: 'Amrood Labs notebook mockup.' },
+  { id: 'banner-print', title: 'Digital Print Media', category: 'Digital & Print', image: portfolioAsset('banners/digital-and-print-media.webp'), imageAlt: 'Digital and print media banner.', span: 'wide' },
+  { id: 'ebook-profile-12', title: 'Profile Design Detail', category: 'Ebook & Magazine', image: portfolioAsset('ebook/magazine-and-profiles-12.webp'), imageAlt: 'Profile design page detail.' },
+  { id: 'social-10', title: 'Social Ad Creative', category: 'Social Media', image: portfolioAsset('social/sm-10.webp'), imageAlt: 'Social ad creative design.' },
+  { id: 'brand-amrood-card', title: 'Business Card Mockup', category: 'Branding', image: portfolioAsset('brand/amrood-labs-visiting-card-mock.webp'), imageAlt: 'Amrood Labs visiting card mockup.' },
+  { id: 'logo-board-3', title: 'Logo Variations', category: 'Logo Design', image: portfolioAsset('logo/logos-3.webp'), imageAlt: 'Logo variation design board.' },
 ];
 
-export const workCategories = ['All', 'Content Production', '3D & Motion', 'Social Media', 'TikTok', 'Branding', 'Web & App'];
+export const workCategories = ['All', 'Branding', 'Social Media', 'Ebook & Magazine', 'Logo Design', 'Digital & Print', 'Web & App'];
 
 /* Real brands we've produced work for — shown as a "worked with" strip. */
 export const clientBrands = ["Kaspa's", 'You Want Beef', 'MCB Bank'];

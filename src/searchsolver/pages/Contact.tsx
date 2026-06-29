@@ -17,7 +17,7 @@ export default function Contact() {
     <>
       <VideoHero
         videoSrc={MEDIA.reelVideo}
-        poster="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80"
+        poster={MEDIA.contactHeroPoster}
         height="short"
         eyebrow="Get in touch"
         title="Let’s Build Something Extraordinary"
@@ -25,7 +25,7 @@ export default function Contact() {
       />
 
       {/* Enquiry form + details */}
-      <section className="py-16 sm:py-24 bg-canvas">
+      <section id="contact-form" className="py-16 sm:py-24 bg-canvas scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-8 items-start">
             <Reveal direction="right" className="lg:col-span-7">

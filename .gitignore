@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Original high-resolution portfolio source exports.
+# Optimized web-ready assets live in public/assets/portfolio/.
+Banners./
+Brand and Identity-20260627T214553Z-3-001./
+Ebook and magazine-20260628T153953Z-3-001./
+logo design-20260627T214555Z-3-001./
+social media-20260627T214556Z-3-001./

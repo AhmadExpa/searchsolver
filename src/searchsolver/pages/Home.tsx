@@ -261,6 +261,7 @@ export default function Home() {
                       <img
                         src={displayedServices[activeServiceIdx]?.image}
                         alt={displayedServices[activeServiceIdx]?.imageAlt}
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                       

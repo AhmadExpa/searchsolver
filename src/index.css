@@ -223,6 +223,29 @@ body {
 .slider-x::-webkit-scrollbar { display: none; }
 .snap-card { scroll-snap-align: start; }
 
+/* Gapless portfolio masonry. CSS columns keep each card attached to the
+   shortest available vertical flow instead of leaving fixed grid holes. */
+.portfolio-masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+.portfolio-masonry-item {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+@media (min-width: 640px) {
+  .portfolio-masonry { column-count: 2; }
+}
+@media (min-width: 1024px) {
+  .portfolio-masonry { column-count: 3; }
+}
+@media (min-width: 1280px) {
+  .portfolio-masonry { column-count: 4; }
+}
+
 /* Real CSS 3D — a floating phone "reel" for the 3D / motion section.
    The parent gives perspective; the phone gently tilts and floats in 3D. */
 .scene-3d {

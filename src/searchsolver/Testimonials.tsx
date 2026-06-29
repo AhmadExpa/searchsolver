@@ -1,5 +1,6 @@
 import { BrainCircuit, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { Reveal } from './ScrollFX';
+import { portfolioAsset } from './siteData';
 
 const proofPoints = [
   {
@@ -63,13 +64,12 @@ export default function Testimonials() {
           </div>
         </Reveal>
 
-        <Reveal direction="left" className="relative min-h-[460px] overflow-hidden">
+        <Reveal direction="left" className="relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 shadow-soft-lg">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-            alt="A team planning creative production work."
+            src={portfolioAsset('banners/software-development.webp')}
+            alt="Software development service creative."
             loading="eager"
             decoding="async"
-            referrerPolicy="no-referrer"
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-ink/10" />
